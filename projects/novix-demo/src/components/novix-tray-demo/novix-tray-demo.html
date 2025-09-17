@@ -13,12 +13,14 @@
   </div>
 
   <!-- TRAY HANDLE -->
-  <div #trayHandleRef
-       class="novix-tray-handle"
-       [style.left]="handleLeft()"
-       (click)="toggleTray()"
-       [class.rounded-end-lg]="rounded()">
-    <span class="fw-medium">{{ handleText() ?? '⋮' }}</span>
-  </div>
+  @if (showHandle()) {
+    <div #trayHandleRef
+        class="novix-tray-handle"
+        [style.left]="handleLeft()"
+        (click)="toggleTray()"
+        [class.rounded-end-lg]="rounded()">
+      <span class="fw-medium">{{ handleText() ?? '⋮' }}</span>
+    </div>
+  }
 
 </div>
