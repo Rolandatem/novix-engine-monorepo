@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { BaseColors } from './components/base-colors/base-colors';
 import { ColorOpacity } from './components/color-opacity/color-opacity';
 import { InteractiveStateColors } from './components/interactive-state-colors/interactive-state-colors';
@@ -19,6 +19,21 @@ import { NovixTrayDemo } from 'projects/novix-demo/src/components/novix-tray-dem
 })
 
 export class ColorsDemo {
+  @ViewChild('theTray')
+  private theTray!: NovixTrayDemo;
+
+  public toggleIt(): void {
+    this.theTray.toggleTray();
+  }
+
+  public openIt(): void {
+    this.theTray.openTray();
+  }
+
+  public closeIt(): void {
+    this.theTray.closeTray();
+  }
+
   public colorTokens: string[] = [
     'primary',
     'secondary',

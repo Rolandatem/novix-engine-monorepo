@@ -1,17 +1,20 @@
 <div class="novix-tray-container">
 
   <!-- TRAY CONTENTS -->
-  <div class="novix-tray-content" [class.open]="isOpen()">
+  <div class="novix-tray-content"
+       [class.open]="isOpen()"
+       [style.width]="contentWidth()">
     <div class="novix-tray-inner">
       <ng-content></ng-content>
     </div>
   </div>
 
   <!-- TRAY HANDLE -->
-  <div class="novix-tray-handle"
-        [style.left]="handleLeft()"
-        (click)="toggleTray()"
-        [class.rounded-end-lg]="rounded()">
+  <div #trayHandleRef
+       class="novix-tray-handle"
+       [style.left]="handleLeft()"
+       (click)="toggleTray()"
+       [class.rounded-end-lg]="rounded()">
     <span class="fw-medium">{{ handleText() ?? '⋮' }}</span>
   </div>
 

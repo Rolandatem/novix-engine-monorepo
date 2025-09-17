@@ -1,3 +1,9 @@
+<div class="text-end">
+  <button (click)="toggleIt()">Toggle Tray</button>
+  <button (click)="openIt()">Open Tray</button>
+  <button (click)="closeIt()">Close Tray</button>
+</div>
+
 <!-- BASE COLORS -->
 <app-base-colors
   [colorTokens]="colorTokens" />
@@ -26,10 +32,11 @@
   [colorTokens]="colorTokens" />
 
 <!-- INTER-PAGE NAVIGATION TRAY -->
-<novix-tray-demo
+<novix-tray-demo #theTray
   [handleText]="'Navigation Links'"
   [style.top]="'20px'"
   [style.bottom]="'20px'"
-  [rounded]="true">
+  [rounded]="true"
+  [traySize]="'500px'">
   asdasdasd
 </novix-tray-demo>
