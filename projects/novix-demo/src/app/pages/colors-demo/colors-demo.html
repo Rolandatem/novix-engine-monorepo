@@ -6,6 +6,7 @@
 
 <!-- BASE COLORS -->
 <app-base-colors
+  id="base-colors"
   [colorTokens]="colorTokens" />
 
 <div class="container mt-5">
@@ -14,6 +15,7 @@
 
 <!-- COLOR OPACITY -->
 <app-color-opacity
+  id="color-opacity"
   [colorTokens]="colorTokens" />
 
 <div class="container mt-5">
@@ -21,7 +23,8 @@
 </div>
 
 <!-- INTERACTIVE STATE COLORS -->
-<app-interactive-state-colors />
+<app-interactive-state-colors
+  id="interactive-state-colors" />
 
 <div class="container mt-5">
   <hr />
@@ -29,6 +32,7 @@
 
 <!-- COLOR CONTRAST -->
 <app-color-contrast
+  id="color-contrast"
   [colorTokens]="colorTokens" />
 
 <!-- INTER-PAGE NAVIGATION TRAY -->
@@ -36,7 +40,19 @@
   [handleText]="'Navigation Links'"
   [style.top]="'20px'"
   [style.bottom]="'20px'"
-  [rounded]="true"
-  [traySize]="'500px'">
-  asdasdasd
+  [traySize]="'400px'"
+  [rounded]="true">
+
+  <tray-header class="text-center">
+    <h1>Color Demo</h1>
+  </tray-header>
+
+  <tray-content>
+    <ul>
+      <li><a [routerLink]="['/colors-demo']" fragment="base-colors">BASE Color Tokens</a></li>
+      <li><a [routerLink]="['/colors-demo']" fragment="color-opacity">Color Opacity Tokens</a></li>
+      <li><a [routerLink]="['/colors-demo']" fragment="interactive-state-colors">Interactive State Color Utilities</a></li>
+      <li><a [routerLink]="['/colors-demo']" fragment="color-contrast">Text vs. Background Contrast Checker</a></li>
+    </ul>
+  </tray-content>
 </novix-tray-demo>

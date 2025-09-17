@@ -5,7 +5,10 @@
        [class.open]="isOpen()"
        [style.width]="contentWidth()">
     <div class="novix-tray-inner">
-      <ng-content></ng-content>
+      <!-- OPTIONAL HEADER -->
+      <ng-content select="tray-header"></ng-content>
+      @if (trayHeader) { <hr /> }
+      <ng-content select="tray-content"></ng-content>
     </div>
   </div>
 

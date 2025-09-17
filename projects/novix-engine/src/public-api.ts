@@ -2,11 +2,15 @@
  * Public API Surface of novix-engine
  */
 
-// Providers
+//--Providers
 export * from './lib/providers/novix-engine-provider';
 
-// Services
+//--Directives
+export * from './lib/directives/novix-tray/tray-header-directive';
+export * from './lib/directives/novix-tray/tray-content-directive';
+
+//--Services
 export * from './lib/services/theme/novix-eng-theme-service';
 
-// Components
+//--Components
 export * from './lib/components/novix-tray/novix-tray';

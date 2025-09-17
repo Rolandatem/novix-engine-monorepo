@@ -4,6 +4,8 @@ import { ColorOpacity } from './components/color-opacity/color-opacity';
 import { InteractiveStateColors } from './components/interactive-state-colors/interactive-state-colors';
 import { ColorContrast } from './components/color-contrast/color-contrast';
 import { NovixTrayDemo } from 'projects/novix-demo/src/components/novix-tray-demo/novix-tray-demo';
+import { TrayContentDirective, TrayHeaderDirective } from 'novix-engine';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-colors-demo',
@@ -12,7 +14,10 @@ import { NovixTrayDemo } from 'projects/novix-demo/src/components/novix-tray-dem
     ColorOpacity,
     InteractiveStateColors,
     ColorContrast,
-    NovixTrayDemo
+    NovixTrayDemo,
+    TrayHeaderDirective,
+    TrayContentDirective,
+    RouterLink
   ],
   templateUrl: './colors-demo.html',
   styleUrl: './colors-demo.scss'

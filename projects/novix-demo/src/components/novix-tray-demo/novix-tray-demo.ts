@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, computed, ElementRef, input, signal, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, computed, ContentChild, ElementRef, input, signal, ViewChild } from '@angular/core';
+import { TrayContentDirective, TrayHeaderDirective } from 'novix-engine';
 
 @Component({
   selector: 'novix-tray-demo',
@@ -14,6 +15,14 @@ export class NovixTrayDemo implements AfterViewInit {
   @ViewChild('trayHandleRef')
   private _trayHandleRef!: ElementRef<HTMLElement>;
   private _trayHandleWidth = signal<string>('0px');
+
+  //===========================================================================================================================
+  // CHILD TAGS
+  //===========================================================================================================================
+  @ContentChild(TrayHeaderDirective)
+  public trayHeader?: TrayHeaderDirective;
+  @ContentChild(TrayContentDirective)
+  public trayContent!: TrayContentDirective;
 
   //===========================================================================================================================
   // INPUT PROPERTIES
