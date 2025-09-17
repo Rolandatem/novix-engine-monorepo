@@ -18,12 +18,11 @@
   left: 0;
   width: 285px;
   height: 100%;
-  background-color: var(--surface);
-  color: var(--on-surface);
   transition: transform 0.3s ease;
   transform: translateX(-100%);
   overflow: hidden;
-  border: solid 1px var(--primary);
+  border-style: solid;
+  border-width: 1px;
   border-left: none;
 
   &.open {
@@ -40,15 +39,11 @@
   top: 50%;
   transform: translateY(-50%);
   height: 100%;
-  background-color: var(--primary);
-  color: var(--on-primary);
   cursor: pointer;
   writing-mode: vertical-rl;
-  // text-orientation: mixed;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--font-size-xs);
   transition: left 0.3s ease;
   padding: 0.1rem;
 }

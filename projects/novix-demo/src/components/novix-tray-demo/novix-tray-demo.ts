@@ -27,10 +27,22 @@ export class NovixTrayDemo implements AfterViewInit {
   //===========================================================================================================================
   // INPUT PROPERTIES
   //===========================================================================================================================
+  //--Non-specific
+  public rounded = input<boolean>(false);
   public traySize = input<string>('300px');
+
+  //--Tray handle
   public showHandle = input<boolean>(true);
   public handleText = input<string>();
-  public rounded = input<boolean>(false);
+  public handleBackground = input<string>('var(--primary)');
+  public handleColor = input<string>('var(--on-primary)');
+  public handleFontFamily = input<string>('var(--font-family)');
+  public handleFontSize = input<string>('var(--font-size-xs)');
+
+  //--Tray contents
+  public contentsBackground = input<string>('var(--surface)');
+  public contentsColor = input<string>('var(--on-surface)');
+  public contentsBorderColor = input<string>('var(--primary)');
 
   //===========================================================================================================================
   // PRIVATE PROPERTIES
