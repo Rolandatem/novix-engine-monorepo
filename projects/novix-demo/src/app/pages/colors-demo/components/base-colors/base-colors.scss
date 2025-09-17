@@ -1,0 +1,15 @@
+@use 'novix-engine/styles/base/mixins' as *;
+@use "sass:map";
+
+.color-list {
+  @include novix-grid-auto(150px, 1fr);
+}
+
+.color-item {
+  border: solid 1px #333333;
+  padding: 10px;
+
+  > div:first-child {
+    height: 20px;
+  }
+}

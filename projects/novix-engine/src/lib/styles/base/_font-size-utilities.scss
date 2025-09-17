@@ -1,0 +1,35 @@
+@use "sass:map";
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// ================================================
+// Font Size Utilities (Bootstrap-style + extras)
+// ================================================
+$font-sizes: (
+  1: var(--font-size-display), // Largest
+  2: var(--font-size-xl),
+  3: var(--font-size-lg),
+  4: var(--font-size-md),
+  5: var(--font-size-sm),
+  6: var(--font-size-xs),
+  7: var(--font-size-xxs),   // Smaller than xs
+  8: var(--font-size-xxxs)   // Smallest
+);
+
+// Base font-size classes
+@each $num, $size in $font-sizes {
+  .fs-#{$num} {
+    font-size: $size !important;
+  }
+}
+
+// Responsive font-size classes (mobile-first)
+@each $num, $size in $font-sizes {
+  @each $bp, $bp-width in $breakpoints {
+    .fs-#{$bp}-#{$num} {
+      @include novix-respond($bp) {
+        font-size: $size !important;
+      }
+    }
+  }
+}

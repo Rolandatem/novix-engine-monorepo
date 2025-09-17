@@ -1,0 +1,57 @@
+@use '../base/engine' as *;
+
+$theme-id: 'novix-default-dark';
+
+$theme-map: (
+  primary: #4dabf7,          // vivid azure blue
+  on-primary: #000000,
+
+  secondary: #5dd39e,        // fresh seafoam green
+  on-secondary: #000000,
+
+  tertiary: #f6bd60,         // warm but soft golden sand
+  on-tertiary: #000000,
+
+  accent: #c77dff,           // electric violet
+  on-accent: #000000,
+
+  neutral: #9e9e9e,
+  on-neutral: #000000,
+
+  neutral-variant: #bdbdbd,
+  on-neutral-variant: #000000,
+
+  warn: #f8961e,
+  on-warn: #000000,
+
+  error: #ef476f,
+  on-error: #000000,
+
+  success: #06d6a0,
+  on-success: #000000,
+
+  info: #0b5ed7,
+  on-info: #ffffff,
+
+  background: #212529,
+  on-background: #ffffff,
+
+  surface: #1a1d20,
+  surface-variant: #2a2e32,
+  on-surface: #ffffff,
+  on-surface-variant: #ffffff,
+
+  font-family: (-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif),
+  font-size-xxxs: 0.625rem,
+  font-size-xxs: 0.75rem,
+  font-size-xs: 0.875rem,
+  font-size-sm: 1rem,
+  font-size-md: 1.25rem,
+  font-size-lg: 1.75rem,
+  font-size-xl: 2rem,
+  font-size-display: 2.5rem
+);
+
+.#{$theme-id} {
+  @include novix-inject-theme($theme-map);
+}

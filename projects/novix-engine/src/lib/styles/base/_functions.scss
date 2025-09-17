@@ -1,0 +1,8 @@
+@use "sass:map";
+
+// ================================================
+// Theme map getter
+// ================================================
+@function novix-theme-get($theme-map, $key) {
+  @return map.get($theme-map, $key);
+}

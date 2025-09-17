@@ -1,0 +1,35 @@
+<div class="container">
+  <h1 class="fs-2 fw-bold mb-4">BASE Color Tokens</h1>
+
+  <div class="mb-4 text-sm text-muted">
+    <p>
+      The tokens below represent the <strong>base theme colors</strong> available in NovixEngine.
+      Each token is exposed as a CSS variable (e.g., <code>var(--primary)</code>) and updates automatically
+      when the active theme changes (light/dark or custom themes).
+    </p>
+    <ul class="mb-0">
+      <li><code>primary</code> - Main brand/action color. Example: <code>background-color: var(--primary)</code></li>
+      <li><code>secondary</code> - Secondary brand/accent color.</li>
+      <li><code>accent</code> - Highlight or call-to-action color.</li>
+      <li><code>neutral</code> / <code>neutral-variant</code> - Grays and supporting tones for backgrounds/borders.</li>
+      <li><code>on-*</code> tokens - Text/icon colors that contrast with their paired background token.</li>
+    </ul>
+    <p class="mt-2">
+      Use these tokens in your component SCSS or inline styles with <code>var(--token-name)</code>.
+      For example:
+      <code ngNonBindable>.btn-primary &lcub; background-color: var(--primary); color: var(--on-primary); &rcub;</code>
+    </p>
+  </div>
+
+  <div class="color-list g-2">
+    @for (color of colorTokens(); track color) {
+      <div class="color-item">
+        <div
+          [class]="'border-1 border-dashed border-' + (needsBorder(color) ? 'on-accent' : color)"
+          [style]="{'background-color': 'var(--' + color + ')'}">
+        </div>
+        <div>--{{ color }}</div>
+      </div>
+    }
+  </div>
+</div>

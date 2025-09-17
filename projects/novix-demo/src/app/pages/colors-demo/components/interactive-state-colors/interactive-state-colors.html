@@ -1,0 +1,65 @@
+<div class="container">
+  <h1 class="fs-2 fw-bold mb-4">Interactive State Color Utilities</h1>
+
+  <div class="text-muted mb-3">
+    This demo shows how to apply <code>hover-*</code>, <code>focus-*</code>, and <code>active-*</code> utilities
+    to background, text, and border colors.
+    These classes are theme‑aware and can be combined with any base color utility.
+  </div>
+
+  <div class="text-muted mb-3">
+    These interactive state utilities are available for <strong>all</strong> theme color tokens, so you can use any token name in
+    place of &lbrace; token &rbrace; for background, text, or border states.
+  </div>
+
+  <!-- Background States -->
+  <h2 class="fs-4 fw-semibold mt-4 mb-2">Background States</h2>
+  <div class="d-flex flex-wrap g-2">
+    <div class="p-3 bg-surface hover-bg-primary border-1 border-neutral-variant rounded-md">
+      <div>Hover me</div>
+      <div class="text-muted fs-7">hover-bg-primary</div>
+    </div>
+    <div class="p-3 bg-surface focus-bg-secondary border-1 border-neutral-variant rounded-md" tabindex="0">
+      <div>Focus me</div>
+      <div class="text-muted fs-7">focus-bg-secondary</div>
+    </div>
+    <div class="p-3 bg-surface active-bg-accent border-1 border-neutral-variant rounded-md">
+      <div>Click me</div>
+      <div class="text-muted fs-7">active-bg-accent</div>
+    </div>
+  </div>
+
+  <!-- Text States -->
+  <h2 class="fs-4 fw-semibold mt-4 mb-2">Text States</h2>
+  <div class="d-flex flex-wrap g-2">
+    <div class="p-3 hover-text-primary border-1 border-neutral-variant rounded-md">
+      <div>Hover me</div>
+      <div class="text-muted fs-7">hover-text-primary</div>
+    </div>
+    <div class="p-3 focus-text-secondary border-1 border-neutral-variant rounded-md" tabindex="0">
+      <div>Focus me</div>
+      <div class="text-muted fs-7">focus-text-secondary</div>
+    </div>
+    <div class="p-3 active-text-accent border-1 border-neutral-variant rounded-md">
+      <div>Click me</div>
+      <div class="text-muted fs-7">active-text-accent</div>
+    </div>
+  </div>
+
+  <!-- Border States -->
+  <h2 class="fs-4 fw-semibold mt-4 mb-2">Border States</h2>
+  <div class="d-flex flex-wrap g-2">
+    <div class="p-3 border-1 border-neutral-variant hover-border-primary rounded-md">
+      <div>Hover me</div>
+      <div class="text-muted fs-7">hover-border-primary</div>
+    </div>
+    <div class="p-3 border-1 border-neutral-variant focus-border-secondary rounded-md" tabindex="0">
+      <div>Focus me</div>
+      <div class="text-muted fs-7">focus-border-secondary</div>
+    </div>
+    <div class="p-3 border-1 border-neutral-variant active-border-accent rounded-md">
+      <div>Click me</div>
+      <div class="text-muted fs-7">active-border-accent</div>
+    </div>
+  </div>
+</div>

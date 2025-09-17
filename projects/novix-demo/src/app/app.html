@@ -1,0 +1,24 @@
+<header class="bg-surface text-on-surface p-2">
+  <!-- TOP row: centered logo + theme toggle on the right -->
+   <div class="d-flex justify-between align-items-center">
+    <div class="flex-grow-1 d-flex justify-content-center">
+      <h1 class="m-0 fs-2 fw-bold">Novix Engine Demo</h1>
+    </div>
+    <div>
+      <button aria-label="Toggle theme" (click)="toggleTheme()" class="">
+        {{ isDarkMode() ? '🌙' : '☀️'  }}
+      </button>
+    </div>
+   </div>
+</header>
+
+<nav class="bg-surface-variant mt-3 p-4 pt-1">
+  <h3>Features:</h3>
+  <div>
+    <button (click)="goTo('colors-demo')">Colors</button>
+  </div>
+</nav>
+
+<main>
+  <router-outlet></router-outlet>
+</main>

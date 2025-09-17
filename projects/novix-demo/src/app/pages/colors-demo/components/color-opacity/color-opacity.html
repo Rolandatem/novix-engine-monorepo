@@ -1,0 +1,30 @@
+<div class="container">
+  <h1 class="fs-2 fw-bold mb-4">Color Opacity Tokens</h1>
+
+  <div class="text-muted" ngNonBindable>
+    This demo shows how to apply opacity to theme colors using utility classes.
+    The examples below use <code>bg-{{token}}-{{step}}</code> to set background color
+    with a given opacity. You can also use the same pattern for:
+    <ul class="m-0 ps-3">
+      <li><code>text-{{token}}-{{step}}</code> — text color with opacity</li>
+      <li><code>border-{{token}}-{{step}}</code> — border color with opacity</li>
+    </ul>
+    All of these are theme‑aware and will update automatically when the theme changes.
+  </div>
+
+  <div class="mt-3">
+    @for (token of colorTokens(); track token) {
+      <div class="token-container p-2 mb-3">
+        <div class="token-label fw-bold text-on-background">{{ token }}</div>
+        <div class="swatch-row mt-2 g-2">
+          @for (step of opacitySteps; track step) {
+            <div class="swatch bg-{{token}}-{{step}} border-1 border-neutral-variant d-flex flex-column align-items-center justify-content-center p-1 rounded-lg">
+              <div>{{ step }}%</div>
+              <div class="text-muted fs-7">bg-{{token}}-{{step}}</div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>

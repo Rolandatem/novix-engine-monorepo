@@ -1,0 +1,141 @@
+@use "sass:map";
+@use "sass:math";
+@use 'variables' as *;
+
+// ================================================
+// Theme Color Utilities (Bootstrap-style naming)
+// ================================================
+// These reference CSS variables set by the theme maps.
+// When .dark-mode is toggled, the variables update automatically.
+
+$color-tokens: (
+  primary,
+  secondary,
+  tertiary,
+  accent,
+  neutral,
+  neutral-variant,
+  warn,
+  error,
+  success,
+  info,
+  background,
+  surface,
+  surface-variant,
+  on-primary,
+  on-secondary,
+  on-tertiary,
+  on-accent,
+  on-background,
+  on-surface,
+  on-neutral,
+  on-neutral-variant,
+  on-warn,
+  on-error,
+  on-success,
+  on-info,
+  on-surface-variant
+);
+
+// ================================================
+// Base Text, Background, Border Utilities
+// ================================================
+@each $token in $color-tokens {
+  .text-#{$token} {
+    color: var(--#{$token}) !important;
+  }
+  .bg-#{$token} {
+    background-color: var(--#{$token}) !important;
+  }
+  .border-#{$token} {
+    border-color: var(--#{$token}) !important;
+  }
+}
+
+// ================================================
+// Opacity Variants (10% increments)
+// ================================================
+$opacity-steps: (0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100);
+
+@each $token in $color-tokens {
+  @each $opacity in $opacity-steps {
+    .text-#{$token}-#{$opacity} {
+      color: rgba(var(--#{$token}-rgb), #{math.div($opacity, 100)}) !important;
+    }
+    .bg-#{$token}-#{$opacity} {
+      background-color: rgba(var(--#{$token}-rgb), #{math.div($opacity, 100)}) !important;
+    }
+    .border-#{$token}-#{$opacity} {
+      border-color: rgba(var(--#{$token}-rgb), #{math.div($opacity, 100)}) !important;
+    }
+  }
+}
+
+// ================================================
+// State Variants (hover, focus, active)
+// ================================================
+// These are additive classes you can combine with any color utility.
+// Example: <button class="bg-primary hover-bg-secondary">
+
+@each $token in $color-tokens {
+  .hover-text-#{$token}:hover {
+    color: var(--#{$token}) !important;
+  }
+  .hover-bg-#{$token}:hover {
+    background-color: var(--#{$token}) !important;
+  }
+  .hover-border-#{$token}:hover {
+    border-color: var(--#{$token}) !important;
+  }
+
+  .focus-text-#{$token}:focus {
+    color: var(--#{$token}) !important;
+  }
+  .focus-bg-#{$token}:focus {
+    background-color: var(--#{$token}) !important;
+  }
+  .focus-border-#{$token}:focus {
+    border-color: var(--#{$token}) !important;
+  }
+
+  .active-text-#{$token}:active {
+    color: var(--#{$token}) !important;
+  }
+  .active-bg-#{$token}:active {
+    background-color: var(--#{$token}) !important;
+  }
+  .active-border-#{$token}:active {
+    border-color: var(--#{$token}) !important;
+  }
+}
+
+// ================================================
+// Per-side Border Color Utilities
+// ================================================
+@each $token in $color-tokens {
+  // Base per-side colors
+  .border-top-#{$token}    { border-top-color: var(--#{$token}) !important; }
+  .border-end-#{$token}    { border-inline-end-color: var(--#{$token}) !important; }
+  .border-bottom-#{$token} { border-bottom-color: var(--#{$token}) !important; }
+  .border-start-#{$token}  { border-inline-start-color: var(--#{$token}) !important; }
+}
+
+// ================================================
+// Per-side Border Color Opacity Variants
+// ================================================
+@each $token in $color-tokens {
+  @each $opacity in $opacity-steps {
+    .border-top-#{$token}-#{$opacity} {
+      border-top-color: rgba(var(--#{$token}-rgb), #{math.div($opacity, 100)}) !important;
+    }
+    .border-end-#{$token}-#{$opacity} {
+      border-inline-end-color: rgba(var(--#{$token}-rgb), #{math.div($opacity, 100)}) !important;
+    }
+    .border-bottom-#{$token}-#{$opacity} {
+      border-bottom-color: rgba(var(--#{$token}-rgb), #{math.div($opacity, 100)}) !important;
+    }
+    .border-start-#{$token}-#{$opacity} {
+      border-inline-start-color: rgba(var(--#{$token}-rgb), #{math.div($opacity, 100)}) !important;
+    }
+  }
+}

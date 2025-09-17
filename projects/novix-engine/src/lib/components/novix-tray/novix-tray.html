@@ -1,0 +1,26 @@
+<div class="novix-tray"
+     [class.open]="isOpen()"
+     [class.fixed]="fixed()"
+     [class.attach-left]="attach() === 'left'"
+     [class.attach-right]="attach() === 'right'"
+     [class.attach-top]="attach() === 'top'"
+     [class.attach-bottom]="attach() === 'bottom'"
+     [style.width]="trayWidth()"
+     [style.height]="trayHeight()">
+
+  <!-- Handle strip -->
+  <div class="novix-tray-handle" (click)="toggle()">
+    @if (handleText()) {
+      <span>{{ handleText() }}</span>
+    }
+  </div>
+
+  <!-- Tray content -->
+  <div class="novix-tray-inner">
+    <ng-content select="[novix-tray-header]"></ng-content>
+    @if (showSeparator()) {
+      <hr />
+    }
+    <ng-content></ng-content>
+  </div>
+</div>

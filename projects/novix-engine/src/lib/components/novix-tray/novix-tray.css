@@ -1,0 +1,69 @@
+:host {
+  display: block;
+  contain: layout;
+}
+
+.novix-tray {
+  position: fixed;
+  background-color: var(--surface);
+  color: var(--on-surface);
+  transition: transform 0.3s ease;
+  z-index: 1000;
+  overflow: hidden;
+
+  &.fixed {
+    position: fixed;
+  }
+
+  &.attach-left {
+    top: 0; bottom: 0; left: 0;
+    transform: translateX(-100%);
+    &.open { transform: translateX(0); }
+  }
+
+  &.attach-right {
+    top: 0; bottom: 0; right: 0;
+    transform: translateX(100%);
+    &.open { transform: translateX(0); }
+  }
+
+  &.attach-top {
+    left: 0; right: 0; top: 0;
+    transform: translateY(-100%);
+    &.open { transform: translateY(0); }
+  }
+
+  &.attach-bottom {
+    left: 0; right: 0; bottom: 0;
+    transform: translateY(100%);
+    &.open { transform: translateY(0); }
+  }
+
+  .novix-tray-handle {
+    position: absolute;
+    background-color: var(--primary);
+    color: var(--on-primary);
+    cursor: pointer;
+    padding: 0.25rem;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Positioning based on attach */
+    .attach-left & { right: -15px; top: 50%; transform: translateY(-50%); writing-mode: vertical-rl; }
+    .attach-right & { left: -15px; top: 50%; transform: translateY(-50%); writing-mode: vertical-rl; }
+    .attach-top & { bottom: -15px; left: 50%; transform: translateX(-50%); writing-mode: horizontal-tb; }
+    .attach-bottom & { top: -15px; left: 50%; transform: translateX(-50%); writing-mode: horizontal-tb; }
+  }
+
+  .novix-tray-inner {
+    padding: 1rem;
+  }
+
+  hr {
+    margin: 0.5rem 0;
+    border: none;
+    border-bottom: 1px solid var(--on-surface-variant);
+  }
+}

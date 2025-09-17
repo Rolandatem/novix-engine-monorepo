@@ -1,0 +1,9 @@
+@use 'novix-engine/styles/base/mixins' as *;
+
+.swatch-row {
+  @include novix-grid-auto(0px, 1fr);
+}
+
+.swatch {
+  height: 60px;
+}
