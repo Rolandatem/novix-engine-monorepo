@@ -1,27 +1,35 @@
 <div class="novix-tray-container">
 
   <!-- TRAY CONTENTS -->
-  <div class="novix-tray-content"
-       [class.open]="isOpen()"
-       [class.rounded-end-lg]="!showHandle() && rounded()"
-       [style.width]="contentWidth()"
-       [style.background]="contentsBackground()"
-       [style.color]="contentsColor()"
-       [style.border-color]="contentsBorderColor()">
-    <div class="novix-tray-inner">
-      <!-- OPTIONAL HEADER -->
-      <ng-content select="tray-header"></ng-content>
-      @if (trayHeader) { <hr /> }
-      <ng-content select="tray-content"></ng-content>
+  @if (templateIsRendered()) {
+    <div class="novix-tray-content"
+        [class.open]="isOpen()"
+        [class.attach-left]="attachDirection() === 'left'"
+        [class.attach-right]="attachDirection() === 'right'"
+        [class.rounded-end-lg]="!showHandle() && rounded()"
+        [style.width]="trayDimension()"
+        [style.background]="contentsBackground()"
+        [style.color]="contentsColor()"
+        [style.border-color]="contentsBorderColor()">
+      <div class="novix-tray-inner">
+        <!-- OPTIONAL HEADER -->
+        <ng-content select="tray-header"></ng-content>
+        @if (trayHeader) { <hr /> }
+        <ng-content select="tray-content"></ng-content>
+      </div>
     </div>
-  </div>
+  }
 
   <!-- TRAY HANDLE -->
   @if (showHandle()) {
     <div #trayHandleRef
         class="novix-tray-handle"
-        [class.rounded-end-lg]="rounded()"
-        [style.left]="handleLeft()"
+        [class.attach-left]="attachDirection() === 'left'"
+        [class.attach-right]="attachDirection() === 'right'"
+        [class.rounded-end-lg]="rounded() && attachDirection() === 'left'"
+        [class.rounded-start-lg]="rounded() && attachDirection() === 'right'"
+        [style.left]="attachDirection() === 'left' ? handleOffset() : null"
+        [style.right]="attachDirection() === 'right' ? handleOffset() : null"
         [style.background]="handleBackground()"
         [style.color]="handleColor()"
         [style.font-family]="handleFontFamily()"

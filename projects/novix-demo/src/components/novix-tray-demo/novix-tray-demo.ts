@@ -5,7 +5,11 @@ import { TrayContentDirective, TrayHeaderDirective } from 'novix-engine';
   selector: 'novix-tray-demo',
   imports: [],
   templateUrl: './novix-tray-demo.html',
-  styleUrl: './novix-tray-demo.scss'
+  styleUrl: './novix-tray-demo.scss',
+  host: {
+    '[class.attach-left]': 'attachDirection() === "left"',
+    '[class.attach-right]': 'attachDirection() === "right"'
+  }
 })
 
 export class NovixTrayDemo implements AfterViewInit {
@@ -28,6 +32,8 @@ export class NovixTrayDemo implements AfterViewInit {
   // INPUT PROPERTIES
   //===========================================================================================================================
   //--Non-specific
+  public attachDirection = input<'left' | 'right'>('left');
+  public startOpen = input<boolean>(false);
   public rounded = input<boolean>(false);
   public traySize = input<string>('300px');
 
@@ -53,13 +59,15 @@ export class NovixTrayDemo implements AfterViewInit {
   // PUBLIC PROPERTIES
   //===========================================================================================================================
   public isOpen = computed(() => this._isOpen());
-  public contentWidth = computed(() => {
+  public templateIsRendered = signal<boolean>(false);
+  public trayDimension = computed(() => {
     return this.showHandle()
       ? `calc(${this.traySize()} - ${this._trayHandleWidth()})`
       : this.traySize()
   });
-  public handleLeft = computed(() => {
-    return this.isOpen() ? this.contentWidth() : '0px';
+  public handleOffset = computed(() => {
+    const size = this.trayDimension();
+    return this.isOpen() ? size : '0px';
   });
 
   //===========================================================================================================================
@@ -68,6 +76,10 @@ export class NovixTrayDemo implements AfterViewInit {
   ngAfterViewInit(): void {
     const width = this._trayHandleRef?.nativeElement?.offsetWidth ?? 0;
     this._trayHandleWidth.set(`${width}px`);
+
+    this._isOpen.set(this.startOpen());
+
+    this.templateIsRendered.set(true);
   }
 
   //===========================================================================================================================
