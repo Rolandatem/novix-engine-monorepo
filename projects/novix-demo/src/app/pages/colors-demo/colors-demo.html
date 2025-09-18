@@ -41,7 +41,6 @@
   [style.top]="'20px'"
   [style.bottom]="'20px'"
   [traySize]="'400px'"
-  [attachDirection]="'right'"
   [rounded]="true">
 
   <tray-header class="text-center">
@@ -55,5 +54,17 @@
       <li><a [routerLink]="['/colors-demo']" fragment="interactive-state-colors">Interactive State Color Utilities</a></li>
       <li><a [routerLink]="['/colors-demo']" fragment="color-contrast">Text vs. Background Contrast Checker</a></li>
     </ul>
+  </tray-content>
+</novix-tray-demo>
+
+<novix-tray-demo
+  [handleText]="'Right Side'"
+  [rounded]="true"
+  [style.top]="'20px'"
+  [style.bottom]="'20px'"
+  [attachDirection]="'right'">
+
+  <tray-content>
+    Right Side Content
   </tray-content>
 </novix-tray-demo>
