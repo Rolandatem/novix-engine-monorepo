@@ -8,7 +8,9 @@ import { TrayContentDirective, TrayHeaderDirective } from 'novix-engine';
   styleUrl: './novix-tray-demo.scss',
   host: {
     '[class.attach-left]': 'attachDirection() === "left"',
-    '[class.attach-right]': 'attachDirection() === "right"'
+    '[class.attach-right]': 'attachDirection() === "right"',
+    '[class.attach-top]': 'attachDirection() === "top"',
+    '[class.attach-bottom]': 'attachDirection() === "bottom"'
   }
 })
 
@@ -18,7 +20,7 @@ export class NovixTrayDemo implements AfterViewInit {
   //===========================================================================================================================
   @ViewChild('trayHandleRef')
   private _trayHandleRef!: ElementRef<HTMLElement>;
-  private _trayHandleWidth = signal<string>('0px');
+  private _trayHandleSize = signal<string>('0px');
 
   //===========================================================================================================================
   // CHILD TAGS
@@ -32,10 +34,10 @@ export class NovixTrayDemo implements AfterViewInit {
   // INPUT PROPERTIES
   //===========================================================================================================================
   //--Non-specific
-  public attachDirection = input<'left' | 'right'>('left');
+  public attachDirection = input<'left' | 'right' | 'top' | 'bottom'>('left');
   public startOpen = input<boolean>(false);
   public rounded = input<boolean>(false);
-  public traySize = input<string>('300px');
+  public traySize = input<string>(['left','right'].includes(this.attachDirection()) ? '300px' : '500px');
 
   //--Tray handle
   public showHandle = input<boolean>(true);
@@ -60,10 +62,13 @@ export class NovixTrayDemo implements AfterViewInit {
   //===========================================================================================================================
   public isOpen = computed(() => this._isOpen());
   public templateIsRendered = signal<boolean>(false);
+  public isVertical = computed(() => ['top', 'bottom'].includes(this.attachDirection()));
   public trayDimension = computed(() => {
+    const size = this.traySize();
+    const handle = this._trayHandleSize();
     return this.showHandle()
-      ? `calc(${this.traySize()} - ${this._trayHandleWidth()})`
-      : this.traySize()
+      ? `calc(${size} - ${handle})`
+      : size
   });
   public handleOffset = computed(() => {
     const size = this.trayDimension();
@@ -74,12 +79,26 @@ export class NovixTrayDemo implements AfterViewInit {
   // LIFECYCLE HOOKS
   //===========================================================================================================================
   ngAfterViewInit(): void {
-    const width = this._trayHandleRef?.nativeElement?.offsetWidth ?? 0;
-    this._trayHandleWidth.set(`${width}px`);
+    this._trayHandleSize.set(this.isVertical()
+      ? this.calculateHandleHeight()
+      : this.calculateHandleWidth());
 
     this._isOpen.set(this.startOpen());
 
     this.templateIsRendered.set(true);
+  }
+
+  //===========================================================================================================================
+  // PRIVATE METHODS
+  //===========================================================================================================================
+  private calculateHandleWidth(): string {
+    const width = this._trayHandleRef?.nativeElement?.offsetWidth ?? 0;
+    return `${width}px`;
+  }
+
+  private calculateHandleHeight(): string {
+    const height = this._trayHandleRef?.nativeElement?.offsetHeight ?? 0;
+    return `${height}px`;
   }
 
   //===========================================================================================================================

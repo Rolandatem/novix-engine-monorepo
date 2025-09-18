@@ -1,9 +1,3 @@
-<div class="text-end">
-  <button (click)="toggleIt()">Toggle Tray</button>
-  <button (click)="openIt()">Open Tray</button>
-  <button (click)="closeIt()">Close Tray</button>
-</div>
-
 <!-- BASE COLORS -->
 <app-base-colors
   id="base-colors"
@@ -36,7 +30,7 @@
   [colorTokens]="colorTokens" />
 
 <!-- INTER-PAGE NAVIGATION TRAY -->
-<novix-tray-demo #theTray
+<novix-tray-demo #leftTray
   [handleText]="'Navigation Links'"
   [style.top]="'20px'"
   [style.bottom]="'20px'"
@@ -54,17 +48,5 @@
       <li><a [routerLink]="['/colors-demo']" fragment="interactive-state-colors">Interactive State Color Utilities</a></li>
       <li><a [routerLink]="['/colors-demo']" fragment="color-contrast">Text vs. Background Contrast Checker</a></li>
     </ul>
-  </tray-content>
-</novix-tray-demo>
-
-<novix-tray-demo
-  [handleText]="'Right Side'"
-  [rounded]="true"
-  [style.top]="'20px'"
-  [style.bottom]="'20px'"
-  [attachDirection]="'right'">
-
-  <tray-content>
-    Right Side Content
   </tray-content>
 </novix-tray-demo>

@@ -1,7 +1,5 @@
 :host {
   position: fixed;
-  top: 0;
-  bottom: 0;
 
   &.attach-left {
     left: 0;
@@ -12,38 +10,70 @@
     right: 0;
     left: auto;
   }
+
+  &.attach-top {
+    top: 0;
+    bottom: auto;
+  }
+
+  &.attach-bottom {
+    bottom: 0;
+    top: auto;
+  }
 }
 
 .novix-tray-container {
   background-color: rgba(0,255,0,.15);
-  height: 100%;
   z-index: 1000;
   container: layout;
 }
 
 .novix-tray-content {
   position: absolute;
-  top: 0;
-  height: 100%;
   transition: transform 0.3s ease;
   overflow: hidden;
   border-style: solid;
   border-width: 1px;
+  box-sizing: border-box;
 
   &.attach-left {
+    top: 0;
     left: 0;
+    height: 100%;
     transform: translateX(-100%);
     border-left: none;
   }
 
   &.attach-right {
+    top: 0;
     right: 0;
+    height: 100%;
     transform: translateX(100%);
     border-right: none;
   }
 
-  &.open {
+  &.attach-top {
+    left: 0;
+    top: 0;
+    right: 0;
+    transform: translateY(-100%);
+    border-top: none;
+  }
+
+  &.attach-bottom {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: translateY(100%);
+    border-bottom: none;
+  }
+
+  &.openLeftRight {
     transform: translateX(0);
+  }
+
+  &.openTopBottom {
+    transform: translateY(0);
   }
 }
 
@@ -53,22 +83,29 @@
 
 .novix-tray-handle {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  height: 100%;
   cursor: pointer;
-  writing-mode: vertical-rl;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: left 0.3s ease, right 0.3s ease;
+  transition: left 0.3s ease, right 0.3s ease, top 0.3s ease, bottom 0.3s ease;
   padding: 0.1rem;
+  box-sizing: border-box;
 
-  &.attach-left {
-    left: calc(100%);
+  &.attach-left,
+  &.attach-right {
+    writing-mode: vertical-rl;
+    height: 100%;
+    width: auto;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
-  &.attach-right {
-    right: calc(100%);
+  &.attach-top,
+  &.attach-bottom {
+    writing-mode: horizontal-tb;
+    width: 100%;
+    height: auto;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
