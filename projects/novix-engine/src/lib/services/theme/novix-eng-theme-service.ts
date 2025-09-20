@@ -153,10 +153,9 @@ export class NovixEngThemeService {
    * Registers a theme with the engine. WARNING: This method is only intended to be used by the provider, any use
    * outside of that context is unsupported and may lead to unexpected behavior.
    * @param id Unique identifier for the theme.
-   * @param map Optional token map for the theme.
    */
-  public registerTheme(id: string, map?: Record<string, any>): void {
-    this.themes.set(id, { id, map });
+  public registerTheme(id: string): void {
+    this.themes.set(id, { id });
   }
 
   /**
@@ -228,7 +227,7 @@ export class NovixEngThemeService {
   public initialize(options?: INovixEngThemeInitOptions): void {
     // Register provided themes, or defaults if none provided
     if (options?.registerThemes?.length) {
-      options?.registerThemes?.forEach(t => this.registerTheme(t.id, t.map));
+      options?.registerThemes?.forEach(t => this.registerTheme(t.id));
     } else {
       //--Zero-config: assume defaults are set in global styles.scss.
       this.registerTheme('novix-default-light');

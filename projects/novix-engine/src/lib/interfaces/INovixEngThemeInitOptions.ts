@@ -7,7 +7,7 @@ import { INovixEngRegisteredTheme } from "./INovixEngRegisteredTheme";
 export interface INovixEngThemeInitOptions {
   /**
    * Optional list of themes to register at initialization.
-   * Each theme is identified by an ID and a token map.
+   * Each theme is identified by an ID.
    */
   registerThemes?: INovixEngRegisteredTheme[];
 

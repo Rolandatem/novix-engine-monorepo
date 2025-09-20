@@ -27,8 +27,8 @@ import { INovixEngThemeInitOptions } from '../interfaces/INovixEngThemeInitOptio
  *   providers: [
  *     provideNovixEngine({
  *       registerThemes: [
- *         { id: 'my-light-theme', map: myLightTheme },
- *         { id: 'my-dark-theme', map: myDarkTheme }
+ *         { id: 'my-light-theme' },
+ *         { id: 'my-dark-theme' }
  *       ],
  *       initialLightTheme: 'my-light-theme',
  *       initialDarkTheme: 'my-dark-theme',
