@@ -51,6 +51,18 @@ import { NovixTrayModule } from 'novix-engine';
 
 When NovixEngine is published to npm, this section will be updated with official installation instructions.
 
+### Required Peer Dependencies
+
+NovixEngine relies on the [`cookie`](https://www.npmjs.com/package/cookie) package for SSR-safe theme persistence. This package is declared as a peer dependency, which means you must install it manually in your project.
+
+```bash
+npm install cookie
+```
+
+This enables NovixEngine to persist theme preferences using cookies, which are accessible during server-side rendering. Without this package, SSR setups may experience theme flickering or hydration mismatches.
+
+> ⚠️ If you're using SSR and want to prevent theme flicker, make sure to include the `cookie` package and follow our [SSR mitigation guide](#ssr-theme-flicker-mitigation) for best results.
+
 
 ---
 

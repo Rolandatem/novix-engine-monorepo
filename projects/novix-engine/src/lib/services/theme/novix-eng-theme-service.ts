@@ -2,6 +2,7 @@ import { Injectable, Inject, PLATFORM_ID, Renderer2, RendererFactory2, signal } 
 import { isPlatformBrowser } from '@angular/common';
 import { INovixEngThemeInitOptions } from '../../interfaces/INovixEngThemeInitOptions';
 import { INovixEngRegisteredTheme } from '../../interfaces/INovixEngRegisteredTheme';
+import * as cookie from 'cookie';
 
 const NOVIX_STORAGE_KEYS = {
   light: 'novix.theme.light',
@@ -65,6 +66,14 @@ export class NovixEngThemeService {
     if (this._isBrowser) {
       this.rootEl = this.renderer.selectRootElement('html', true);
       this.prefersDarkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+      //-- Warn if cookie library is missing
+      if (!cookie || typeof cookie.parse !== 'function' || typeof cookie.serialize !== 'function') {
+        console.warn(
+          `[NovixEngine] Missing peer dependency "cookie". Install it with \`npm install cookie\` to enable theme persistence.
+          This is required for saving user selections across sessions, including SSR support.`
+        );
+      }
     }
   }
 
@@ -109,27 +118,31 @@ export class NovixEngThemeService {
   /** Persists current theme selections to localStorage */
   private persist(): void {
     if (!this._isBrowser) return;
-    localStorage.setItem(NOVIX_STORAGE_KEYS.light, this.lightThemeId ?? '');
-    localStorage.setItem(NOVIX_STORAGE_KEYS.dark, this.darkThemeId ?? '');
+
+    const options = { path: '/', maxAge: 3153600 }; //--1 year
+    document.cookie = cookie.serialize(NOVIX_STORAGE_KEYS.light, this.lightThemeId ?? '', options);
+    document.cookie = cookie.serialize(NOVIX_STORAGE_KEYS.dark, this.darkThemeId ?? '', options);
 
     const mode = this.currentModeSig();
-    if (mode) {
-      localStorage.setItem(NOVIX_STORAGE_KEYS.mode, mode);
-    } else {
-      localStorage.removeItem(NOVIX_STORAGE_KEYS.mode);
-    }
+    document.cookie = cookie.serialize(NOVIX_STORAGE_KEYS.mode, mode ?? '', {
+      path: '/',
+      maxAge: mode ? 3153600 : 0
+    });
   }
 
   /** Restores theme selections from localStorage */
   private restore(): void {
     if (!this._isBrowser) return;
-    const light = localStorage.getItem(NOVIX_STORAGE_KEYS.light) || undefined;
-    const dark = localStorage.getItem(NOVIX_STORAGE_KEYS.dark) || undefined;
-    const mode = localStorage.getItem(NOVIX_STORAGE_KEYS.mode) as 'light' | 'dark' | null;
 
-    if (light && this.themes.has(light)) this.lightThemeId = light;
-    if (dark && this.themes.has(dark)) this.darkThemeId = dark;
-    if (mode === 'light' || mode === 'dark') this.currentModeSig.set(mode);
+    const parsed = cookie.parse(document.cookie);
+
+    const light = parsed[NOVIX_STORAGE_KEYS.light] || undefined;
+    const dark = parsed[NOVIX_STORAGE_KEYS.dark] || undefined;
+    const mode = parsed[NOVIX_STORAGE_KEYS.mode] as 'light' | 'dark' | undefined;
+
+    if (light && this.themes.has(light)) { this.lightThemeId = light; }
+    if (dark && this.themes.has(dark)) { this.darkThemeId = dark; }
+    if (mode === 'light' || mode === 'dark') { this.currentModeSig.set(mode); }
   }
 
   //===========================================================================================================================
