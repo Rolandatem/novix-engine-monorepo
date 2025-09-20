@@ -20,7 +20,7 @@ export default defineConfig(({ mode }) => {
         provider: 'v8',
         reportsDirectory: './coverage',
         reporter: ['text', 'html'],
-        all: true,
+        all: false,
         exclude: [
           '**/testing/**',
           '**/*.spec.ts'

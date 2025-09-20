@@ -3,7 +3,6 @@ import { BaseColors } from './components/base-colors/base-colors';
 import { ColorOpacity } from './components/color-opacity/color-opacity';
 import { InteractiveStateColors } from './components/interactive-state-colors/interactive-state-colors';
 import { ColorContrast } from './components/color-contrast/color-contrast';
-import { NovixTrayDemo } from 'projects/novix-demo/src/components/novix-tray-demo/novix-tray-demo';
 import { RouterLink } from '@angular/router';
 import { NovixTrayModule } from 'novix-engine';
 
@@ -14,7 +13,6 @@ import { NovixTrayModule } from 'novix-engine';
     ColorOpacity,
     InteractiveStateColors,
     ColorContrast,
-    NovixTrayDemo,
     RouterLink,
     NovixTrayModule
   ],

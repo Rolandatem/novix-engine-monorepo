@@ -5,6 +5,11 @@
   "projects": {
     "novix-engine": {
       "projectType": "library",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "root": "projects/novix-engine",
       "sourceRoot": "projects/novix-engine/src",
       "prefix": "lib",

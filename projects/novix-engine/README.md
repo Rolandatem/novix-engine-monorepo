@@ -1,63 +1,214 @@
 # NovixEngine
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.2.0.
+**NovixEngine** is a lightweight, modular front-end toolkit for Angular applications.  
+It provides a growing set of components, theming utilities, and layout tools designed for clarity, extensibility, and developer autonomy.
 
-## Code scaffolding
+Inspired by Bootstrap-style conventions and Angular's modern signal-based architecture, NovixEngine simplifies onboarding and encourages clean, maintainable code.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+> ⚠️ NovixEngine is currently in active development.  
 
-```bash
-ng generate component component-name
-```
+---
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 📚 Table of Contents
 
-```bash
-ng generate --help
-```
+_(To be filled in as sections are added)_
 
-## Building
+- [Installation](#installation)
+- [Theming Setup](#theming-setup)
+- [Component Usage: novix-tray](#component-usage-novix-tray)
+- [SCSS Utility Classes](#scss-utility-classes)
+- [Demo App](#demo-app)
+- [License](#license)
 
-To build the library, run:
+---
 
-```bash
-ng build novix-engine
-```
+## 📦 Installation
 
-This command will compile your project, and the build artifacts will be placed in the `dist/` directory.
+NovixEngine is currently in active development and **not yet published to npm**.  
+To use it in your own Angular project, you can install it directly from the monorepo using a relative or file-based path.
 
-### Publishing the Library
+### ✅ Temporary Local Installation
 
-Once the project is built, you can publish your library by following these steps:
-
-1. Navigate to the `dist` directory:
-   ```bash
-   cd dist/novix-engine
-   ```
-
-2. Run the `npm publish` command to publish your library to the npm registry:
-   ```bash
-   npm publish
-   ```
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+If you're working within the same monorepo:
 
 ```bash
-ng test
+npm install ../novix-engine
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+Or, if you've cloned NovixEngine separately and want to link it:
 
 ```bash
-ng e2e
+npm install --save file:/path/to/novix-engine
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+> ⚠️ Make sure the `novix-engine` project has been built (`ng build novix-engine`) before installing it into another project.
 
-## Additional Resources
+Once installed, you can import modules like:
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```ts
+import { NovixTrayModule } from 'novix-engine';
+```
+
+When NovixEngine is published to npm, this section will be updated with official installation instructions.
+
+
+---
+
+## 🎨 Theming Setup
+
+NovixEngine supports flicker-safe theming with light/dark mode, system preference detection, and SCSS token maps.  
+Themes are applied before the first render using Angular's `provideAppInitializer`, ensuring visual stability across SSR and hydration.
+
+---
+
+### ✅ Minimal Setup
+
+For most apps, you can initialize NovixEngine with no parameters:
+
+```ts
+import { provideNovixEngine } from 'novix-engine';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideNovixEngine()
+  ]
+};
+```
+
+This setup assumes you're using the default themes included in the engine:
+- `novix-default-light`
+- `novix-default-dark`
+
+> ⚠️ Even with default themes, you **must** import the theme SCSS files into your global `styles.scss`.
+
+---
+
+### 🛠️ Custom Setup
+
+You can register your own themes and control initial behavior:
+
+```ts
+import { provideNovixEngine } from 'novix-engine';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideNovixEngine({
+      registerThemes: [
+        { id: 'my-light-theme', map: myLightTheme },
+        { id: 'my-dark-theme', map: myDarkTheme }
+      ],
+      initialLightTheme: 'my-light-theme',
+      initialDarkTheme: 'my-dark-theme',
+      watchSystemTheme: true
+    })
+  ]
+};
+```
+
+#### Option Reference
+
+| Option             | Type       | Description |
+|--------------------|------------|-------------|
+| `registerThemes`   | `Array<{ id: string; map: Record<string, any> }>` | Registers one or more theme maps with unique IDs |
+| `initialLightTheme`| `string`   | Theme ID to use when mode is `'light'` |
+| `initialDarkTheme` | `string`   | Theme ID to use when mode is `'dark'` |
+| `watchSystemTheme` | `boolean`  | If `true`, listens for system theme changes and switches automatically |
+
+---
+
+### 🎨 SCSS Imports
+
+To enable theming, import the required SCSS files into your global `styles.scss`:
+
+```scss
+/* You can add global styles to this file, and also import other style files */
+@use 'novix-engine/styles' as *;
+@use 'novix-engine/styles/themes/novix-default-light-theme';
+@use 'novix-engine/styles/themes/novix-default-dark-theme';
+```
+
+- The first line (`@use 'novix-engine/styles' as *`) is **required** for utility mixins and shared tokens.
+- The theme imports activate the default light/dark themes.
+- You can replace these with custom themes like `novix-blue-theme` or `novix-rose-theme` as needed.
+
+> ⚠️ If a theme is activated but its SCSS is not imported, CSS variables will be missing and the app may render incorrectly.
+
+
+---
+
+## 🧭 Component Usage: `novix-tray`
+
+The `novix-tray` component provides a collapsible tray that can attach to any screen edge (`left`, `right`, `top`, or `bottom`). It supports dynamic content, optional headers, and customizable styling.
+
+### ✅ Import the module
+
+```ts
+import { NovixTrayModule } from 'novix-engine';
+
+@Component({
+  standalone: true,
+  imports: [NovixTrayModule],
+  ...
+})
+```
+
+### ✅ Basic usage
+
+```html
+<novix-tray
+  [attachDirection]="'right'"
+  [handleText]="'Menu'"
+  [rounded]="true"
+  [traySize]="'300px'">
+
+  <tray-header>
+    <h2>Navigation</h2>
+  </tray-header>
+
+  <tray-content>
+    <ul>
+      <li><a routerLink="/home">Home</a></li>
+      <li><a routerLink="/about">About</a></li>
+    </ul>
+  </tray-content>
+</novix-tray>
+```
+
+### 🛠️ Inputs
+
+| Input                  | Type      | Description |
+|-----------------------|-----------|-------------|
+| `attachDirection`     | `'left', 'right', 'top', 'bottom'` | Tray attachment side (Default: 'left') |
+| `traySize`            | `string`  | Width or height of tray (Default: 300px horizontal, 500px vertical) |
+| `startOpen`           | `boolean` | Whether tray starts open (Default: false) |
+| `rounded`             | `boolean` | Apply rounded corners (Default: false) |
+| `showHandle`          | `boolean` | Show clickable tray handle (Default: true) |
+| `handleText`          | `string`  | Text inside tray handle (Default: '...') |
+| `handleBackground`    | `string`  | Background color of handle (Default: --primary) |
+| `handleColor`         | `string`  | Text color of handle (Default: --on-primary) |
+| `handleFontFamily`    | `string`  | Font family of handle text (Default: --font-family) |
+| `handleFontSize`      | `string`  | Font size of handle text (Default: --font-size-sm) |
+| `contentsBackground`  | `string`  | Background color of tray content (Default: --surface) |
+| `contentsColor`       | `string`  | Text color of tray content (Default: --on-surface) |
+| `contentsBorderColor` | `string`  | Border color of tray content (Default: --primary) |
+
+> For full styling control, use SCSS variables or override styles via `[style]` bindings.
+
+---
+
+## 🛠️ SCSS Utility Classes
+
+_(Section placeholder — will be expanded as utilities are finalized)_
+
+NovixEngine includes a set of SCSS utility classes for layout, spacing, typography, and color.  
+These follow Bootstrap-style naming and are designed to be additive and predictable.
+
+> This section will be expanded as the demo and portfolio apps reveal missing utilities or refinements.
+
+---
+
+## 📄 License
+
+This version of NovixEngine is licensed for personal, educational, and non-commercial use only.  
+See the [LICENSE](../../LICENSE) file for full terms.  
+The copyright holder reserves the right to offer future versions under different terms, including commercial licenses.
