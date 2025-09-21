@@ -14,7 +14,7 @@ import { INovixEngThemeInitOptions } from '../interfaces/INovixEngThemeInitOptio
  * @returns An `EnvironmentProviders` object for use in `bootstrapApplication` or `importProvidersFrom`.
  *
  * @example
- * // Zero-config defaults:
+ * // Zero-config setup (uses 'novix-default-light' theme in light mode)
  * bootstrapApplication(AppComponent, {
  *   providers: [
  *     provideNovixEngine()
@@ -22,7 +22,20 @@ import { INovixEngThemeInitOptions } from '../interfaces/INovixEngThemeInitOptio
  * });
  *
  * @example
- * // Custom themes:
+ * // Single-theme setup (custom theme, no light/dark mode switching)
+ * bootstrapApplication(AppComponent, {
+ *   providers: [
+ *     provideNovixEngine({
+ *       registerThemes: [
+ *         { id: 'my-theme' }
+ *       ],
+ *       initialLightTheme: 'my-theme'
+ *     })
+ *   ]
+ * });
+ *
+ * @example
+ * // Dual-mode setup with system preference switching
  * bootstrapApplication(AppComponent, {
  *   providers: [
  *     provideNovixEngine({
@@ -32,7 +45,7 @@ import { INovixEngThemeInitOptions } from '../interfaces/INovixEngThemeInitOptio
  *       ],
  *       initialLightTheme: 'my-light-theme',
  *       initialDarkTheme: 'my-dark-theme',
- *       watchSystemTheme: true
+ *       watchSystemMode: true
  *     })
  *   ]
  * });

@@ -16,6 +16,30 @@ export const appConfig: ApplicationConfig = {
       })
     ),
     provideClientHydration(withEventReplay()),
-    provideNovixEngine()
+
+    //--Zero-Config setup. No light vs dark mode, assumes light theme/light mode.
+    //--should only include novix-light-theme.scss in styles.scss
+    //provideNovixEngine()
+
+    //--Minimal duality setup. Allows light vs dark mode, but no registered themes, so assumes
+    //-- novix-light-theme and novix-dark-theme. So, both of those need to be included in the styles.scss.
+    // provideNovixEngine({
+    //   watchSystemMode: true
+    // })
+
+    //--Single mode setup. Multiple themes registered, but should ignore light vs dark.
+    //--Requires all of the themes below to be included in the styles.scss
+    provideNovixEngine({
+      registerThemes: [
+        { id: 'novix-default-light' },
+        { id: 'novix-default-dark' },
+        { id: 'novix-blue-theme' },
+        { id: 'novix-rose-theme' },
+        { id: 'novix-mint-theme' }
+      ],
+      initialLightTheme: 'novix-default-light',
+      initialDarkTheme: 'novix-default-dark',
+      watchSystemMode: true
+    })
   ]
 };

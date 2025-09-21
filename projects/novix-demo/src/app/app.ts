@@ -15,11 +15,22 @@ export class App {
 
   public readonly isDarkMode = computed(() => this._novixEngineThemeService.mode() === 'dark');
 
-  public toggleTheme(): void {
+  public toggleLightDarkMode(): void {
     this._novixEngineThemeService.toggleMode();
   }
 
   public goTo(path: string): void {
     this.router.navigate([path]);
+  }
+
+  public registeredThemes = computed(() => {
+    return this._novixEngineThemeService.getRegisteredThemes();
+  });
+
+  public onThemeChange(event: Event): void {
+    const el = event.target as HTMLSelectElement;
+    const selectedId = el.value;
+    if (selectedId === '') { return; }
+    this._novixEngineThemeService.setCurrentModeTheme(selectedId);
   }
 }

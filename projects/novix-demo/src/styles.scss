@@ -2,3 +2,6 @@
 @use 'novix-engine/styles' as *;
 @use 'novix-engine/styles/themes/novix-default-light-theme';
 @use 'novix-engine/styles/themes/novix-default-dark-theme';
+@use './app/themes/blue-theme.scss';
+@use './app/themes/rose-theme.scss';
+@use './app/themes/mint-theme.scss';

@@ -23,35 +23,41 @@ export class NovixEngThemeService {
   private readonly _isBrowser: boolean;
 
   /** Safe DOM renderer */
-  private readonly renderer: Renderer2;
+  private readonly _renderer: Renderer2;
 
   /** Root HTML element reference */
-  private rootEl: HTMLElement | null = null;
+  private _rootEl: HTMLElement | null = null;
+
+  /** Dual mode (light vs dark theme mode) flag. Only enabled if watchSystemMode is true. */
+  private _useDualMode = false;
 
   /** Media query for system dark mode preference */
-  private prefersDarkQuery?: MediaQueryList;
+  private _prefersDarkQuery?: MediaQueryList;
 
   /** Internal registry of themes */
-  private themes = new Map<string, INovixEngRegisteredTheme>();
+  private _themes = new Map<string, INovixEngRegisteredTheme>();
 
   /** Currently selected light theme ID */
-  private lightThemeId?: string;
+  private _lightThemeId?: string;
 
   /** Currently selected dark theme ID */
-  private darkThemeId?: string;
+  private _darkThemeId?: string;
 
   /** Current mode signal ('light' or 'dark') */
-  private currentModeSig = signal<'light' | 'dark' | undefined>(undefined);
+  private _currentModeSig = signal<'light' | 'dark' | undefined>(undefined);
 
   /** Current theme ID signal for the active mode */
-  private currentThemeIdSig = signal<string>('novix-default-light');
+  private _currentThemeIdSig = signal<string>('novix-default-light');
+
+  /** Tracks the last theme class applied to <html> so it can be safely removed before applying a new one. */
+  private _lastAppliedThemeId?: string;
 
   //===========================================================================================================================
   // PUBLIC PROPERTIES
   //===========================================================================================================================
   /** Public readonly signals */
-  public readonly mode = this.currentModeSig.asReadonly();
-  public readonly currentThemeId = this.currentThemeIdSig.asReadonly();
+  public readonly mode = this._currentModeSig.asReadonly();
+  public readonly currentThemeId = this._currentThemeIdSig.asReadonly();
 
   //===========================================================================================================================
   // CONSTRUCTOR
@@ -61,11 +67,11 @@ export class NovixEngThemeService {
     rendererFactory: RendererFactory2
   ) {
     this._isBrowser = isPlatformBrowser(platformId);
-    this.renderer = rendererFactory.createRenderer(null, null);
+    this._renderer = rendererFactory.createRenderer(null, null);
 
     if (this._isBrowser) {
-      this.rootEl = this.renderer.selectRootElement('html', true);
-      this.prefersDarkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      this._rootEl = this._renderer.selectRootElement('html', true);
+      this._prefersDarkQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
       //-- Warn if cookie library is missing
       if (!cookie || typeof cookie.parse !== 'function' || typeof cookie.serialize !== 'function') {
@@ -82,17 +88,21 @@ export class NovixEngThemeService {
   //===========================================================================================================================
   /** Applies the theme class for the current mode */
   private applyCurrentMode(): void {
-    if (!this._isBrowser || !this.rootEl || !this.lightThemeId || !this.darkThemeId) return;
+    if (!this._isBrowser || !this._rootEl || !this._lightThemeId || !this._darkThemeId) return;
 
-    const targetId = this.currentModeSig() === 'dark' ? this.darkThemeId : this.lightThemeId;
+    const targetId = this._currentModeSig() === 'dark' ? this._darkThemeId : this._lightThemeId;
 
-    // Remove both, then add current
-    this.renderer.removeClass(this.rootEl, this.lightThemeId);
-    this.renderer.removeClass(this.rootEl, this.darkThemeId);
-    this.renderer.addClass(this.rootEl, targetId);
+    //--Remove previously applied theme class.
+    if (this._lastAppliedThemeId && this._lastAppliedThemeId !== targetId) {
+      this._renderer.removeClass(this._rootEl, this._lastAppliedThemeId);
+    }
+
+    //--Apply new theme class
+    this._renderer.addClass(this._rootEl, targetId);
+    this._lastAppliedThemeId = targetId;
 
     //-- Hard Fail: CSS not loaded
-    const style = getComputedStyle(this.rootEl);
+    const style = getComputedStyle(this._rootEl);
     if (!style.getPropertyValue('--primary').trim()) {
       throw new Error(
         `[NovixEngine] Theme "${targetId}" is active but no CSS variables were found.
@@ -102,17 +112,17 @@ export class NovixEngThemeService {
     }
 
     //--Graceful Fail: warn if theme not registered.
-    if (!this.themes.has(targetId)) {
+    if (!this._themes.has(targetId)) {
       console.warn(`[NovixEngine] Theme "${targetId}" is not registered. Did you forget to register it?`);
     }
 
     // Update signal
-    this.currentThemeIdSig.set(targetId);
+    this._currentThemeIdSig.set(targetId);
   }
 
   /** Returns true if the system prefers dark mode */
   private getSystemPrefersDark(): boolean {
-    return !!this.prefersDarkQuery?.matches;
+    return !!this._prefersDarkQuery?.matches;
   }
 
   /** Persists current theme selections to localStorage */
@@ -120,10 +130,10 @@ export class NovixEngThemeService {
     if (!this._isBrowser) return;
 
     const options = { path: '/', maxAge: 3153600 }; //--1 year
-    document.cookie = cookie.serialize(NOVIX_STORAGE_KEYS.light, this.lightThemeId ?? '', options);
-    document.cookie = cookie.serialize(NOVIX_STORAGE_KEYS.dark, this.darkThemeId ?? '', options);
+    document.cookie = cookie.serialize(NOVIX_STORAGE_KEYS.light, this._lightThemeId ?? '', options);
+    document.cookie = cookie.serialize(NOVIX_STORAGE_KEYS.dark, this._darkThemeId ?? '', options);
 
-    const mode = this.currentModeSig();
+    const mode = this._currentModeSig();
     document.cookie = cookie.serialize(NOVIX_STORAGE_KEYS.mode, mode ?? '', {
       path: '/',
       maxAge: mode ? 3153600 : 0
@@ -140,9 +150,9 @@ export class NovixEngThemeService {
     const dark = parsed[NOVIX_STORAGE_KEYS.dark] || undefined;
     const mode = parsed[NOVIX_STORAGE_KEYS.mode] as 'light' | 'dark' | undefined;
 
-    if (light && this.themes.has(light)) { this.lightThemeId = light; }
-    if (dark && this.themes.has(dark)) { this.darkThemeId = dark; }
-    if (mode === 'light' || mode === 'dark') { this.currentModeSig.set(mode); }
+    if (light && this._themes.has(light)) { this._lightThemeId = light; }
+    if (dark && this._themes.has(dark)) { this._darkThemeId = dark; }
+    if (mode === 'light' || mode === 'dark') { this._currentModeSig.set(mode); }
   }
 
   //===========================================================================================================================
@@ -155,21 +165,22 @@ export class NovixEngThemeService {
    * @param id Unique identifier for the theme.
    */
   public registerTheme(id: string): void {
-    this.themes.set(id, { id });
+    this._themes.set(id, { id });
   }
 
   /**
    * Returns all registered themes.
    */
   public getRegisteredThemes(): INovixEngRegisteredTheme[] {
-    return Array.from(this.themes.values());
+    return Array.from(this._themes.values());
   }
 
   /**
    * Sets the theme to use in light mode.
    */
   public setLightTheme(id: string): void {
-    this.lightThemeId = id;
+    this._lightThemeId = id;
+    this.applyCurrentMode();
     this.persist();
   }
 
@@ -177,36 +188,54 @@ export class NovixEngThemeService {
    * Sets the theme to use in dark mode.
    */
   public setDarkTheme(id: string): void {
-    this.darkThemeId = id;
+    this._darkThemeId = id;
+    this.applyCurrentMode();
     this.persist();
+  }
+
+  /**
+   * Sets the theme for the current mode ('light' or 'dark').
+   * Useful for runtime overrides in dual-mode setups.
+   */
+  public setCurrentModeTheme(id: string): void {
+    if (this._currentModeSig() === 'dark') {
+      this.setDarkTheme(id);
+    } else {
+      this.setLightTheme(id);
+    }
   }
 
   /**
    * Returns the current mode ('light' or 'dark').
    */
   public getCurrentMode(): 'light' | 'dark' {
-    return this.currentModeSig() ?? 'light';
+    return this._currentModeSig() ?? 'light';
   }
 
   /**
    * Returns the current theme ID for the active mode.
    */
   public getCurrentThemeId(): string {
-    return this.currentThemeIdSig();
+    return this._currentThemeIdSig();
   }
 
   /**
    * Returns both light and dark theme IDs.
    */
   public getActiveThemeIds(): { light: string; dark: string } {
-    return { light: this.lightThemeId!, dark: this.darkThemeId! };
+    return { light: this._lightThemeId!, dark: this._darkThemeId! };
   }
 
   /**
    * Toggles between light and dark mode.
    */
   public toggleMode(): void {
-    this.currentModeSig.update(m => m === 'dark' ? 'light' : 'dark');
+    if (!this._useDualMode) {
+      console.warn('[NovixEngine] toggleMode() ignored — dual-mode is not enabled.');
+      return;
+    }
+
+    this._currentModeSig.update(m => m === 'dark' ? 'light' : 'dark');
     this.applyCurrentMode();
     this.persist();
   }
@@ -225,6 +254,8 @@ export class NovixEngThemeService {
    * @param options Optional initialization configuration.
    */
   public initialize(options?: INovixEngThemeInitOptions): void {
+    this._useDualMode = !!options?.watchSystemMode;
+
     // Register provided themes, or defaults if none provided
     if (options?.registerThemes?.length) {
       options?.registerThemes?.forEach(t => this.registerTheme(t.id));
@@ -238,27 +269,44 @@ export class NovixEngThemeService {
     this.restore();
 
     // Apply passed-in overrides
-    if (options?.initialLightTheme) this.setLightTheme(options.initialLightTheme);
-    if (options?.initialDarkTheme) this.setDarkTheme(options.initialDarkTheme);
-
-    // Ensure defaults
-    if (!this.lightThemeId) this.lightThemeId = 'novix-default-light';
-    if (!this.darkThemeId) this.darkThemeId = 'novix-default-dark';
-
-    // Decide mode: persisted > system > light
-    if (!this.currentModeSig()) {
-      this.currentModeSig.set(
-        this._isBrowser && this.getSystemPrefersDark() ? 'dark' : 'light'
-      );
+    if (this._useDualMode && options) {
+      //--Developer provided both light and dark themes, use them as-is
+      this.setLightTheme(options.initialLightTheme!);
+      this.setDarkTheme(options.initialDarkTheme!);
+    } else if (options?.initialLightTheme) {
+      //--Only light theme provided, use it for both light and dark modes
+      this.setLightTheme(options.initialLightTheme);
+      this.setDarkTheme(options.initialLightTheme); //--Fallback
+    } else if (options?.initialDarkTheme) {
+      //--Only dark theme provided, use it for both light and dark modes
+      this.setLightTheme(options.initialDarkTheme); //--Fallback
+      this.setDarkTheme(options.initialDarkTheme);
     }
+
+    //--Ensure defaults
+    if (!this._lightThemeId) { this._lightThemeId = 'novix-default-light'; }
+    if (!this._darkThemeId) { this._darkThemeId = 'novix-default-dark'; }
+
+    // Decide mode: use system preference only if dual-mode is enabled, otherwise default to 'light'
+    if (!this._currentModeSig()) {
+      const useDualMode = !!options?.initialLightTheme && !!options?.initialDarkTheme;
+      this._currentModeSig.set(useDualMode ? (
+        this._isBrowser && this.getSystemPrefersDark() ? 'dark' : 'light'
+      ) : 'light');
+    }
+
+    //--Initialize last applied theme for SSR-safe removal
+    this._lastAppliedThemeId = this._currentModeSig() === 'dark'
+      ? this._darkThemeId
+      : this._lightThemeId;
 
     // Apply immediately
     this.applyCurrentMode();
 
     // Watch system theme if enabled
-    if (this._isBrowser && options?.watchSystemTheme && this.prefersDarkQuery) {
-      this.prefersDarkQuery.addEventListener('change', e => {
-        this.currentModeSig.set(e.matches ? 'dark' : 'light');
+    if (this._isBrowser && options?.watchSystemMode && this._prefersDarkQuery) {
+      this._prefersDarkQuery.addEventListener('change', e => {
+        this._currentModeSig.set(e.matches ? 'dark' : 'light');
         this.applyCurrentMode();
         this.persist();
       });

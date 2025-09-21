@@ -1,0 +1,60 @@
+@use 'novix-engine/styles/base/engine' as *;
+
+// ============================================================================
+// NovixEngine Theme Template
+// ID: novix-blue-theme
+// ============================================================================
+// Instructions:
+// 1. Change $theme-id to your theme's unique class name.
+// 2. Update any tokens you want to customize.
+// 3. Register this theme in NovixEngThemeService with the same id.
+// ============================================================================
+
+$theme-id: 'novix-blue-theme';
+
+$theme-map: (
+  // Colors
+  primary: #1e3a8a,
+  on-primary: #ffffff,
+  secondary: #2563eb,
+  on-secondary: #ffffff,
+  tertiary: #60a5fa,
+  on-tertiary: #ffffff,
+  accent: #3b82f6,
+  on-accent: #ffffff,
+  neutral: #64748b,
+  on-neutral: #ffffff,
+  neutral-variant: #cbd5e1,
+  on-neutral-variant: #000000,
+  warn: #f59e0b,
+  on-warn: #000000,
+  error: #dc2626,
+  on-error: #ffffff,
+  success: #059669,
+  on-success: #ffffff,
+  info: #2563eb,
+  on-info: #ffffff,
+
+  // Surfaces
+  background: #f0f4f8,
+  on-background: #0f172a,
+  surface: #e2e8f0,
+  on-surface-variant: #1e293b,
+  surface-variant: #cbd5e1,
+  on-surface: #0f172a,
+
+  // Typography
+  font-family: (-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif),
+  font-size-xxxs: 0.625rem,
+  font-size-xxs: 0.75rem,
+  font-size-xs: 0.875rem,
+  font-size-sm: 1rem,
+  font-size-md: 1.25rem,
+  font-size-lg: 1.75rem,
+  font-size-xl: 2rem,
+  font-size-display: 2.5rem
+);
+
+.#{$theme-id} {
+  @include novix-inject-theme($theme-map);
+}

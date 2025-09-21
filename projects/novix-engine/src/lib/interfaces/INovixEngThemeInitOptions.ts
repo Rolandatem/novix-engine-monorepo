@@ -3,6 +3,11 @@ import { INovixEngRegisteredTheme } from "./INovixEngRegisteredTheme";
 /**
  * Interface for NovixEngine theme initialization options.
  * Allows developers to configure themes and behavior at startup.
+ *
+ * By default, NovixEngine assumes single-theme usage in light mode.
+ * Developers can opt into light/dark mode duality by providing both
+ * `initialLightTheme` and `initialDarkTheme`, and optionally enabling
+ * `watchSystemMode` to respond to system preference changes.
  */
 export interface INovixEngThemeInitOptions {
   /**
@@ -24,8 +29,8 @@ export interface INovixEngThemeInitOptions {
   initialDarkTheme?: string;
 
   /**
-   * If true, the engine will automatically switch themes
-   * when the system's color scheme changes.
+   * If true, the engine will automatically switch between light and dark mode
+   * when the system's color scheme changes (via prefers-color-scheme).
    */
-  watchSystemTheme?: boolean;
+  watchSystemMode?: boolean;
 }

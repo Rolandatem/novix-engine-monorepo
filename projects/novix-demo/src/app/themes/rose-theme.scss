@@ -1,0 +1,50 @@
+@use 'novix-engine/styles/base/engine' as *;
+
+$theme-id: 'novix-rose-theme';
+
+$theme-map: (
+  // Colors
+  primary: #be123c,
+  on-primary: #ffffff,
+  secondary: #e11d48,
+  on-secondary: #ffffff,
+  tertiary: #f43f5e,
+  on-tertiary: #ffffff,
+  accent: #fb7185,
+  on-accent: #ffffff,
+  neutral: #9ca3af,
+  on-neutral: #ffffff,
+  neutral-variant: #f3d1d8,
+  on-neutral-variant: #000000,
+  warn: #f59e0b,
+  on-warn: #000000,
+  error: #dc2626,
+  on-error: #ffffff,
+  success: #059669,
+  on-success: #ffffff,
+  info: #e11d48,
+  on-info: #ffffff,
+
+  // Surfaces
+  background: #fff1f5,
+  on-background: #4b0d1c,
+  surface: #ffe4e9,
+  on-surface-variant: #7f1d1d,
+  surface-variant: #f3d1d8,
+  on-surface: #4b0d1c,
+
+  // Typography
+  font-family: (-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif),
+  font-size-xxxs: 0.625rem,
+  font-size-xxs: 0.75rem,
+  font-size-xs: 0.875rem,
+  font-size-sm: 1rem,
+  font-size-md: 1.25rem,
+  font-size-lg: 1.75rem,
+  font-size-xl: 2rem,
+  font-size-display: 2.5rem
+);
+
+.#{$theme-id} {
+  @include novix-inject-theme($theme-map);
+}

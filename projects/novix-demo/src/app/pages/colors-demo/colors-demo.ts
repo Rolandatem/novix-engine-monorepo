@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { BaseColors } from './components/base-colors/base-colors';
 import { ColorOpacity } from './components/color-opacity/color-opacity';
 import { InteractiveStateColors } from './components/interactive-state-colors/interactive-state-colors';
