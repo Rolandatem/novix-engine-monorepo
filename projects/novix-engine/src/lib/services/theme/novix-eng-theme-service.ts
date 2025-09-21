@@ -155,6 +155,27 @@ export class NovixEngThemeService {
     if (mode === 'light' || mode === 'dark') { this._currentModeSig.set(mode); }
   }
 
+  /** Returns true if the given CSS class exists in any loaded stylesheet. */
+  private cssClassExists(className: string): boolean {
+    if (!this._isBrowser || !className) { return false; }
+
+    for (const sheet of Array.from(document.styleSheets)) {
+      try {
+        const rules = sheet.cssRules;
+        for (const rule of Array.from(rules)) {
+          if (rule instanceof CSSStyleRule && rule.selectorText.includes(`.${className}`)) {
+            return true;
+          }
+        }
+      } catch {
+        //--Skip inaccessible stylesheets.
+        continue;
+      }
+    }
+
+    return false;
+  }
+
   //===========================================================================================================================
   // PUBLIC METHODS
   //===========================================================================================================================
@@ -256,7 +277,7 @@ export class NovixEngThemeService {
   public initialize(options?: INovixEngThemeInitOptions): void {
     this._useDualMode = !!options?.watchSystemMode;
 
-    // Register provided themes, or defaults if none provided
+    //--Register provided themes, or defaults if none provided
     if (options?.registerThemes?.length) {
       options?.registerThemes?.forEach(t => this.registerTheme(t.id));
     } else {
@@ -265,29 +286,22 @@ export class NovixEngThemeService {
       this.registerTheme('novix-default-dark');
     }
 
-    // Restore persisted selections
+    //--Step 1: Restore persisted selections
     this.restore();
 
-    // Apply passed-in overrides
-    if (this._useDualMode && options) {
-      //--Developer provided both light and dark themes, use them as-is
-      this.setLightTheme(options.initialLightTheme!);
-      this.setDarkTheme(options.initialDarkTheme!);
-    } else if (options?.initialLightTheme) {
-      //--Only light theme provided, use it for both light and dark modes
-      this.setLightTheme(options.initialLightTheme);
-      this.setDarkTheme(options.initialLightTheme); //--Fallback
-    } else if (options?.initialDarkTheme) {
-      //--Only dark theme provided, use it for both light and dark modes
-      this.setLightTheme(options.initialDarkTheme); //--Fallback
-      this.setDarkTheme(options.initialDarkTheme);
+    //--Step 2: Capture config-provided or default theme id's.
+    const initialLight = options?.initialLightTheme ?? 'novix-default-light';
+    const initialDark = options?.initialDarkTheme ?? 'novix-default-dark';
+
+    //--Step 3: Validate restored theme id's against CSS presence.
+    if (!this._lightThemeId || !this.cssClassExists(this._lightThemeId)) {
+      this._lightThemeId = initialLight;
+    }
+    if (!this._darkThemeId || !this.cssClassExists(this._darkThemeId)) {
+      this._darkThemeId = initialDark;
     }
 
-    //--Ensure defaults
-    if (!this._lightThemeId) { this._lightThemeId = 'novix-default-light'; }
-    if (!this._darkThemeId) { this._darkThemeId = 'novix-default-dark'; }
-
-    // Decide mode: use system preference only if dual-mode is enabled, otherwise default to 'light'
+    //--Step 4: Decide mode if not restored.
     if (!this._currentModeSig()) {
       const useDualMode = !!options?.initialLightTheme && !!options?.initialDarkTheme;
       this._currentModeSig.set(useDualMode ? (
@@ -295,15 +309,15 @@ export class NovixEngThemeService {
       ) : 'light');
     }
 
-    //--Initialize last applied theme for SSR-safe removal
+    //--Step 5: Initialize last applied theme for SSR-safe removal
     this._lastAppliedThemeId = this._currentModeSig() === 'dark'
       ? this._darkThemeId
       : this._lightThemeId;
 
-    // Apply immediately
+    //--Step 6: Apply immediately
     this.applyCurrentMode();
 
-    // Watch system theme if enabled
+    //--Step 7: Watch system theme if enabled
     if (this._isBrowser && options?.watchSystemMode && this._prefersDarkQuery) {
       this._prefersDarkQuery.addEventListener('change', e => {
         this._currentModeSig.set(e.matches ? 'dark' : 'light');

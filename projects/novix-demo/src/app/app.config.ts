@@ -24,7 +24,11 @@ export const appConfig: ApplicationConfig = {
     //--Minimal duality setup. Allows light vs dark mode, but no registered themes, so assumes
     //-- novix-light-theme and novix-dark-theme. So, both of those need to be included in the styles.scss.
     // provideNovixEngine({
-    //   watchSystemMode: true
+    //   watchSystemMode: true,
+    //   registerThemes: [
+    //     { id: 'novix-rose-theme' }
+    //   ],
+    //   initialDarkTheme: 'novix-rose-theme'
     // })
 
     //--Single mode setup. Multiple themes registered, but should ignore light vs dark.
