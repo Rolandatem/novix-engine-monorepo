@@ -55,8 +55,28 @@ function injectNovixThemeClassForExpress(
       const html = await response.text();
       //--Determine correct-ish theme class to use. See method details for more info.
       const themeClass = getNovixThemeClassFromCookies(req.headers.cookie, fallback);
-      //--Inject theme CSS into html object.
-      const themedHtml = html.replace('<html', `<html class=${themeClass}`);
+
+      //--Inject theme CSS into html object. We need to respect if the consumer app
+      //--already has a class attribute. Use regex to identify, if found then merge
+      //--classes, otherwise it's safe to just inject a new class with theme.
+      const themedHtml = html.replace(
+        /<html([^>]*)>/i,
+        (_: string, htmlAttrs: string): string => {
+          const classMatch = /\bclass\s*=\s*["']([^"']*)["']/i.exec(htmlAttrs);
+
+          if (classMatch) {
+            const existingClasses = classMatch[1];
+            const mergedClasses = `${existingClasses} ${themeClass}`.trim();
+
+            // Replace the original class attribute with the merged one
+            const updatedAttrs = htmlAttrs.replace(classMatch[0], `class="${mergedClasses}"`);
+            return `<html${updatedAttrs}>`;
+          } else {
+            // No class attribute present — inject theme class directly
+            return `<html${htmlAttrs} class="${themeClass}">`;
+          }
+        }
+      );
 
       //--Set SSR response headers manually to avoid Express crashing on invalid characters.
       //--Angular's SSR engine may emit headers (e.g. "append", "set-cookie") with values that contain
