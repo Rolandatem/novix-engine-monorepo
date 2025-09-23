@@ -6,6 +6,7 @@ import {
 } from '@angular/ssr/node';
 import express from 'express';
 import { join } from 'node:path';
+import { injectNovixThemeClassForExpress } from 'novix-engine';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
@@ -35,17 +36,25 @@ app.use(
   }),
 );
 
-/**
- * Handle all other requests by rendering the Angular application.
- */
-app.use((req, res, next) => {
-  angularApp
-    .handle(req)
-    .then((response) =>
-      response ? writeResponseToNodeResponse(response, res) : next(),
-    )
-    .catch(next);
-});
+// /**
+//  * Handle all other requests by rendering the Angular application.
+//  */
+// app.use((req, res, next) => {
+//   angularApp
+//     .handle(req)
+//     .then((response) =>
+//       response ? writeResponseToNodeResponse(response, res) : next(),
+//     )
+//     .catch(next);
+// });
+app.set('angularApp', angularApp);
+app.use(
+  injectNovixThemeClassForExpress({
+    light: 'novix-default-light',
+    dark: 'novix-default-dark'
+  })
+);
+
 
 /**
  * Start the server if this module is the main entry point.
