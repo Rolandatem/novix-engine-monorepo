@@ -128,6 +128,48 @@ export const appConfig: ApplicationConfig = {
 
 ---
 
+### 🧩 SSR Theme Flicker Mitigation
+
+NovixEngine supports server-side theme injection to reduce flickering during hydration. This is especially useful when using light/dark mode switching with persistent cookies.
+
+On initial visits, a slight flicker may still occur if the user has no theme cookies set yet (initial visit to site). However, once the theme is persisted, subsequent visists will render the most correct theme to use when possible to eliminate flicker. Depending on the consumers Novix setup the tool will pick the theme in this order: Check for cookies for the theme, if not found will use the consumer apps defined fallback theme, if no fallback theme is specified, then will catch-all with the default novix light and dark themes (still requires themes to be included in the apps styles, and registered through the novix provider).
+
+> ⚠️ Currently, only Express is supported. We plan to offer adapters for other popular Node.js servers (e.g. NestJS, Fastify, Koa) in future releases.
+
+#### 🛠️ Express Setup
+
+To enable this for Express use the `injectNovixThemeClassForExpress` middleware.
+
+In your `server.ts` file or equivalent, look for something like this:
+
+```ts
+app.use((req, res, next) => {
+  angularApp
+    .handle(req)
+    .then((response) =>
+      response ? writeResponseToNodeResponse(response, res) : next(),
+    )
+    .catch(next);
+});
+```
+
+and replace with this:
+
+```ts
+app.set('angularApp', angularApp);
+app.use(
+  injectNovixThemeClassForExpress({
+    light: 'novix-default-light',
+    dark: 'novix-default-dark'
+  })
+);
+```
+
+`light` - Optional Fallback theme id to use for light mode.
+`dark` - Optional Fallback theme id to use for dark mode (if configured).
+
+---
+
 ### 🎨 SCSS Imports
 
 To enable theming, import the required SCSS files into your global `styles.scss`:
