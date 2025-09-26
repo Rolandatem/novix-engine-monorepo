@@ -6,7 +6,7 @@ import { MockInstance, vi } from 'vitest';
  * This is useful in jsdom-based test environments where 'matchMedia' is not implemented by default.
  * It allows you to simulate the browser's 'prefers-color-scheme' media query result.
  *
- * @param usDarkMode
+ * @param prefersDarkMode
  * If `true`, the mock will simulate that the system prefers dark mode (`matches: true`).
  * If `false`, it will simulate t hat the system prefers light mode (`matches: false`).
  *
@@ -23,9 +23,9 @@ import { MockInstance, vi } from 'vitest';
  * const mock = createMockMatchMedia(true);
  * expect(mock).toHaveBeenCalledWith('(prefers-color-scheme: dark)');
  */
-export function createMockMatchMedia(useDarkMode: boolean): MockInstance {
+export function mockMatchMedia(prefersDarkMode: boolean = false): void {
   const mockFn = vi.fn().mockImplementation((query: string) => ({
-    matches: useDarkMode,
+    matches: prefersDarkMode,
     media: query,
     onchange: null,
     addEventListener: vi.fn(),
@@ -34,9 +34,8 @@ export function createMockMatchMedia(useDarkMode: boolean): MockInstance {
   }));
 
   Object.defineProperty(window, 'matchMedia', {
+    configurable: true,
     writable: true,
     value: mockFn
   });
-
-  return mockFn;
 }

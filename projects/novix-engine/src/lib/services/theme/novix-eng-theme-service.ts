@@ -2,7 +2,7 @@ import { Injectable, Inject, PLATFORM_ID, Renderer2, RendererFactory2, signal } 
 import { isPlatformBrowser } from '@angular/common';
 import { INovixEngThemeInitOptions } from '../../interfaces/INovixEngThemeInitOptions';
 import { INovixEngRegisteredTheme } from '../../interfaces/INovixEngRegisteredTheme';
-import * as cookie from 'cookie';
+import Cookies from 'js-cookie';
 
 const NOVIX_STORAGE_KEYS = {
   light: 'novix.theme.light',
@@ -74,9 +74,9 @@ export class NovixEngThemeService {
       this._prefersDarkQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
       //-- Warn if cookie library is missing
-      if (!cookie || typeof cookie.parse !== 'function' || typeof cookie.serialize !== 'function') {
+      if (!Cookies || typeof Cookies.get !== 'function' || typeof Cookies.set !== 'function') {
         console.warn(
-          `[NovixEngine] Missing peer dependency "cookie". Install it with \`npm install cookie\` to enable theme persistence.
+          `[NovixEngine] Missing peer dependency "js-cookie". Install it with \`npm install js-cookie\` to enable theme persistence.
           This is required for saving user selections across sessions, including SSR support.`
         );
       }
@@ -88,9 +88,10 @@ export class NovixEngThemeService {
   //===========================================================================================================================
   /** Applies the theme class for the current mode */
   private applyCurrentMode(): void {
-    if (!this._isBrowser || !this._rootEl || !this._lightThemeId || !this._darkThemeId) return;
+    if (!this._isBrowser || !this._rootEl) { return; }
 
     const targetId = this._currentModeSig() === 'dark' ? this._darkThemeId : this._lightThemeId;
+    if (!targetId) { return; }
 
     //--Remove previously applied theme class.
     if (this._lastAppliedThemeId && this._lastAppliedThemeId !== targetId) {
@@ -129,14 +130,14 @@ export class NovixEngThemeService {
   private persist(): void {
     if (!this._isBrowser) return;
 
-    const options = { path: '/', maxAge: 3153600 }; //--1 year
-    document.cookie = cookie.serialize(NOVIX_STORAGE_KEYS.light, this._lightThemeId ?? '', options);
-    document.cookie = cookie.serialize(NOVIX_STORAGE_KEYS.dark, this._darkThemeId ?? '', options);
+    const options = { path: '/', expires: 365 }; //--1 year
+    Cookies.set(NOVIX_STORAGE_KEYS.light, this._lightThemeId ?? '', options);
+    Cookies.set(NOVIX_STORAGE_KEYS.dark, this._darkThemeId ?? '', options);
 
     const mode = this._currentModeSig();
-    document.cookie = cookie.serialize(NOVIX_STORAGE_KEYS.mode, mode ?? '', {
+    Cookies.set(NOVIX_STORAGE_KEYS.mode, mode ?? '', {
       path: '/',
-      maxAge: mode ? 3153600 : 0
+      expires: mode ? 365 : 0
     });
   }
 
@@ -144,11 +145,9 @@ export class NovixEngThemeService {
   private restore(): void {
     if (!this._isBrowser) return;
 
-    const parsed = cookie.parse(document.cookie);
-
-    const light = parsed[NOVIX_STORAGE_KEYS.light] || undefined;
-    const dark = parsed[NOVIX_STORAGE_KEYS.dark] || undefined;
-    const mode = parsed[NOVIX_STORAGE_KEYS.mode] as 'light' | 'dark' | undefined;
+    const light = Cookies.get(NOVIX_STORAGE_KEYS.light);
+    const dark = Cookies.get(NOVIX_STORAGE_KEYS.dark);
+    const mode = Cookies.get(NOVIX_STORAGE_KEYS.mode) as 'light' | 'dark' | undefined;
 
     if (light && this._themes.has(light)) { this._lightThemeId = light; }
     if (dark && this._themes.has(dark)) { this._darkThemeId = dark; }
@@ -262,6 +261,20 @@ export class NovixEngThemeService {
   }
 
   /**
+   * Forcefully sets the current light/dark mode.
+   */
+  public setMode(mode: 'light' | 'dark'): void {
+    if (!this._useDualMode) {
+      console.warn('[NovixEngine] - setMode() ignored - dual-mode is not enabled.');
+      return;
+    }
+
+    this._currentModeSig.set(mode);
+    this.applyCurrentMode();
+    this.persist();
+  }
+
+  /**
    * Initializes the theme engine.
    * - Registers provided themes.
    * - Restores persisted themes if available.
@@ -279,7 +292,7 @@ export class NovixEngThemeService {
 
     //--Register provided themes, or defaults if none provided
     if (options?.registerThemes?.length) {
-      options?.registerThemes?.forEach(t => this.registerTheme(t.id));
+      options.registerThemes.forEach(t => this.registerTheme(t.id));
     } else {
       //--Zero-config: assume defaults are set in global styles.scss.
       this.registerTheme('novix-default-light');
@@ -303,7 +316,10 @@ export class NovixEngThemeService {
 
     //--Step 4: Decide mode if not restored.
     if (!this._currentModeSig()) {
-      const useDualMode = !!options?.initialLightTheme && !!options?.initialDarkTheme;
+      //--Separated code into individual pieces for testable code in code coverage.
+      const hasLight = !!options?.initialLightTheme;
+      const hasDark = !!options?.initialDarkTheme;
+      const useDualMode = hasLight && hasDark;
       this._currentModeSig.set(useDualMode ? (
         this._isBrowser && this.getSystemPrefersDark() ? 'dark' : 'light'
       ) : 'light');

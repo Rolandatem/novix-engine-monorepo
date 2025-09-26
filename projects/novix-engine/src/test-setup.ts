@@ -7,9 +7,9 @@ import {
   platformBrowserTesting,
 } from '@angular/platform-browser/testing';
 import { getTestBed } from '@angular/core/testing';
+import { vi } from 'vitest';
 
 getTestBed().initTestEnvironment(
   BrowserTestingModule,
   platformBrowserTesting()
 );
-
