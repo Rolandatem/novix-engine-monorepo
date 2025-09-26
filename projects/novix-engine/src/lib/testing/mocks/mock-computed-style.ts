@@ -14,7 +14,7 @@ export function mockComputedStyle(
     getPropertyValue: (prop: string) => {
       if (noThemesIncluded) { return ''; }
 
-      if (prop === '--primary') { return 'fake-color'; }
+      if (prop === '--novix-primary') { return 'fake-color'; }
       return '';
     }
   }))

@@ -104,7 +104,7 @@ export class NovixEngThemeService {
 
     //-- Hard Fail: CSS not loaded
     const style = getComputedStyle(this._rootEl);
-    if (!style.getPropertyValue('--primary').trim()) {
+    if (!style.getPropertyValue('--novix-primary').trim()) {
       throw new Error(
         `[NovixEngine] Theme "${targetId}" is active but no CSS variables were found.
         This usually means its SCSS file was not imported into your global styles.scss.

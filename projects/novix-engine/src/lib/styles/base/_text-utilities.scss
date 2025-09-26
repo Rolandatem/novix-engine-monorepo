@@ -40,7 +40,7 @@ $text-alignments: (start, center, end, justify);
 
 @each $align in $text-alignments {
   .text-#{$align} { text-align: $align !important; }
-  @each $bp, $bp-width in $breakpoints {
+  @each $bp, $bp-width in $novix-breakpoints {
     .text-#{$bp}-#{$align} {
       @include novix-respond($bp) {
         text-align: $align !important;

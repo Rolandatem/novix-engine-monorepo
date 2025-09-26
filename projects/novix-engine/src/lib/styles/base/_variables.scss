@@ -1,7 +1,7 @@
 // ================================================
 // Breakpoints (Bootstrap-style naming)
 // ================================================
-$breakpoints: (
+$novix-breakpoints: (
   sm: 576px,
   md: 768px,
   lg: 992px,
@@ -11,7 +11,7 @@ $breakpoints: (
 // ================================================
 // Spacing scale (Bootstrap-like)
 // ================================================
-$spacing-scale: (
+$novix-spacing-scale: (
   0: 0,
   1: 0.25rem,
   2: 0.5rem,
@@ -23,7 +23,7 @@ $spacing-scale: (
 // ================================================
 // Border radius scale
 // ================================================
-$radius-scale: (
+$novix-radius-scale: (
   none: 0,
   sm: 2px,
   md: 4px,
@@ -34,7 +34,7 @@ $radius-scale: (
 // ================================================
 // Elevation (shadow) scale
 // ================================================
-$elevation-scale: (
+$novix-elevation-scale: (
   0: none,
   1: 0 1px 2px rgba(0,0,0,0.1),
   2: 0 2px 4px rgba(0,0,0,0.1),

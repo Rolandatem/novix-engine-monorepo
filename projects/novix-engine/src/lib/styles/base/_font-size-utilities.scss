@@ -5,30 +5,30 @@
 // ================================================
 // Font Size Utilities (Bootstrap-style + extras)
 // ================================================
-$font-sizes: (
-  1: var(--font-size-display), // Largest
-  2: var(--font-size-xl),
-  3: var(--font-size-lg),
-  4: var(--font-size-md),
-  5: var(--font-size-sm),
-  6: var(--font-size-xs),
-  7: var(--font-size-xxs),   // Smaller than xs
-  8: var(--font-size-xxxs)   // Smallest
+$novix-font-sizes: (
+  1: var(--novix-font-size-display), // Largest
+  2: var(--novix-font-size-xl),
+  3: var(--novix-font-size-lg),
+  4: var(--novix-font-size-md),
+  5: var(--novix-font-size-sm),
+  6: var(--novix-font-size-xs),
+  7: var(--novix-font-size-xxs),   // Smaller than xs
+  8: var(--novix-font-size-xxxs)   // Smallest
 );
 
 // Base font-size classes
-@each $num, $size in $font-sizes {
-  .fs-#{$num} {
-    font-size: $size !important;
+@each $novix-num, $novix-size in $novix-font-sizes {
+  .fs-#{$novix-num} {
+    font-size: $novix-size !important;
   }
 }
 
 // Responsive font-size classes (mobile-first)
-@each $num, $size in $font-sizes {
-  @each $bp, $bp-width in $breakpoints {
-    .fs-#{$bp}-#{$num} {
-      @include novix-respond($bp) {
-        font-size: $size !important;
+@each $novix-num, $novix-size in $novix-font-sizes {
+  @each $novix-bp, $novix-bp-width in $novix-breakpoints {
+    .fs-#{$novix-bp}-#{$novix-num} {
+      @include novix-respond($novix-bp) {
+        font-size: $novix-size !important;
       }
     }
   }

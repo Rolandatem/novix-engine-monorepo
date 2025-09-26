@@ -55,21 +55,21 @@ export class NovixTray implements AfterViewInit, OnInit {
   /** Optional text to display inside the tray handle. */
   public handleText = input<string>();
   /** Background color for the tray handle. */
-  public handleBackground = input<string>('var(--primary)');
+  public handleBackground = input<string>('var(--novix-primary)');
   /** Text color for the tray handle. */
-  public handleColor = input<string>('var(--on-primary)');
+  public handleColor = input<string>('var(--novix-on-primary)');
   /** Font family for the tray handle text. */
-  public handleFontFamily = input<string>('var(--font-family)');
+  public handleFontFamily = input<string>('var(--novix-font-family)');
   /** Font size for the tray handle text. */
-  public handleFontSize = input<string>('var(--font-size-xs)');
+  public handleFontSize = input<string>('var(--novix-font-size-xs)');
 
   //--Tray contents------------------------------------------------------------------------------------------------------------
   /** Background color for the tray content area. */
-  public contentsBackground = input<string>('var(--surface)');
+  public contentsBackground = input<string>('var(--novix-surface)');
   /** Text color for the tray content area. */
-  public contentsColor = input<string>('var(--on-surface)');
+  public contentsColor = input<string>('var(--novix-on-surface)');
   /** Border color for the tray content area. */
-  public contentsBorderColor = input<string>('var(--primary)');
+  public contentsBorderColor = input<string>('var(--novix-primary)');
 
   //===========================================================================================================================
   // PRIVATE PROPERTIES

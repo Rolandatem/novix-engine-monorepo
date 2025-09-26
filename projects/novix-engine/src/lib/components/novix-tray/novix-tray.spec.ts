@@ -35,13 +35,13 @@ describe('NovixTray - Structure', () => {
     { input: 'rounded', expected: false },
     { input: 'showHandle', expected: true },
     { input: 'handleText', expected: undefined },
-    { input: 'handleBackground', expected: 'var(--primary)' },
-    { input: 'handleColor', expected: 'var(--on-primary)' },
-    { input: 'handleFontFamily', expected: 'var(--font-family)' },
-    { input: 'handleFontSize', expected: 'var(--font-size-xs)' },
-    { input: 'contentsBackground', expected: 'var(--surface)' },
-    { input: 'contentsColor', expected: 'var(--on-surface)' },
-    { input: 'contentsBorderColor', expected: 'var(--primary)' }
+    { input: 'handleBackground', expected: 'var(--novix-primary)' },
+    { input: 'handleColor', expected: 'var(--novix-on-primary)' },
+    { input: 'handleFontFamily', expected: 'var(--novix-font-family)' },
+    { input: 'handleFontSize', expected: 'var(--novix-font-size-xs)' },
+    { input: 'contentsBackground', expected: 'var(--novix-surface)' },
+    { input: 'contentsColor', expected: 'var(--novix-on-surface)' },
+    { input: 'contentsBorderColor', expected: 'var(--novix-primary)' }
   ])('should have default values appropriately set', (test) => {
     fixture.detectChanges();
     //--Cast to keyof NovixTray to safely access signal inputs dynamically without

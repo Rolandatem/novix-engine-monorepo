@@ -5,7 +5,7 @@
 // Responsive breakpoint mixin
 // ================================================
 @mixin novix-respond($size) {
-  @media (min-width: map.get($breakpoints, $size)) {
+  @media (min-width: map.get($novix-breakpoints, $size)) {
     @content;
   }
 }
@@ -14,7 +14,7 @@
 // Elevation (shadow) mixin
 // ================================================
 @mixin novix-elevation($level) {
-  box-shadow: map.get($elevation-scale, $level);
+  box-shadow: map.get($novix-elevation-scale, $level);
 }
 
 // ================================================

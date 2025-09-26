@@ -27,7 +27,7 @@ export class ColorContrast {
 
   private getCssVarHex(token: string): string {
     return getComputedStyle(document.documentElement)
-      .getPropertyValue(`--${token}`)
+      .getPropertyValue(`--novix-${token}`)
       .trim();
   }
 

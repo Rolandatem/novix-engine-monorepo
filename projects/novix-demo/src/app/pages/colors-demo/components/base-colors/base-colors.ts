@@ -1,4 +1,5 @@
-import { Component, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
+import { NovixEngThemeService } from 'novix-engine';
 
 @Component({
   selector: 'app-base-colors',
@@ -8,18 +9,47 @@ import { Component, input } from '@angular/core';
 })
 
 export class BaseColors {
+  private _ThemeService = inject(NovixEngThemeService);
+
   public colorTokens = input<string[]>([]);
 
-  public colorsNeedingBorders: string[] = [
+  public lightThemeColorsNeedingBorders: string[] = [
     'background',
     'surface',
     'surface-variant',
     'on-primary',
     'on-secondary',
-    'on-tertiary'
+    'on-tertiary',
+    'on-warn',
+    'on-error',
+    'on-success',
+    'on-info'
+  ];
+  public darkThemeColorsNeedingBorders: string[] = [
+    'background',
+    'surface',
+    'surface-variant'
+  ];
+  public blueThemeColorsNeedingBorders: string[] = [
+    'background',
+    'surface',
+    'on-primary',
+    'on-secondary',
+    'on-tertiary',
+    'on-accent',
+    'on-neutral',
+    'on-error',
+    'on-success',
+    'on-info'
   ]
 
   public needsBorder(token: string): boolean {
-    return this.colorsNeedingBorders.includes(token);
+    const refList =
+      this._ThemeService.currentThemeId() === 'novix-default-light' ? this.lightThemeColorsNeedingBorders :
+      this._ThemeService.currentThemeId() === 'novix-default-dark' ? this.darkThemeColorsNeedingBorders :
+      this._ThemeService.currentThemeId() === 'novix-blue-theme' ? this.blueThemeColorsNeedingBorders :
+      ['background'];
+
+    return refList.includes(token);
   }
 }

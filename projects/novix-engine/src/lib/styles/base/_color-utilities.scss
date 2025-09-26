@@ -42,13 +42,13 @@ $color-tokens: (
 // ================================================
 @each $token in $color-tokens {
   .text-#{$token} {
-    color: var(--#{$token}) !important;
+    color: var(--novix-#{$token}) !important;
   }
   .bg-#{$token} {
-    background-color: var(--#{$token}) !important;
+    background-color: var(--novix-#{$token}) !important;
   }
   .border-#{$token} {
-    border-color: var(--#{$token}) !important;
+    border-color: var(--novix-#{$token}) !important;
   }
 }
 
@@ -60,13 +60,13 @@ $opacity-steps: (0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100);
 @each $token in $color-tokens {
   @each $opacity in $opacity-steps {
     .text-#{$token}-#{$opacity} {
-      color: rgba(var(--#{$token}-rgb), #{math.div($opacity, 100)}) !important;
+      color: rgba(var(--novix-#{$token}-rgb), #{math.div($opacity, 100)}) !important;
     }
     .bg-#{$token}-#{$opacity} {
-      background-color: rgba(var(--#{$token}-rgb), #{math.div($opacity, 100)}) !important;
+      background-color: rgba(var(--novix-#{$token}-rgb), #{math.div($opacity, 100)}) !important;
     }
     .border-#{$token}-#{$opacity} {
-      border-color: rgba(var(--#{$token}-rgb), #{math.div($opacity, 100)}) !important;
+      border-color: rgba(var(--novix-#{$token}-rgb), #{math.div($opacity, 100)}) !important;
     }
   }
 }
@@ -79,33 +79,33 @@ $opacity-steps: (0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100);
 
 @each $token in $color-tokens {
   .hover-text-#{$token}:hover {
-    color: var(--#{$token}) !important;
+    color: var(--novix-#{$token}) !important;
   }
   .hover-bg-#{$token}:hover {
-    background-color: var(--#{$token}) !important;
+    background-color: var(--novix-#{$token}) !important;
   }
   .hover-border-#{$token}:hover {
-    border-color: var(--#{$token}) !important;
+    border-color: var(--novix-#{$token}) !important;
   }
 
   .focus-text-#{$token}:focus {
-    color: var(--#{$token}) !important;
+    color: var(--novix-#{$token}) !important;
   }
   .focus-bg-#{$token}:focus {
-    background-color: var(--#{$token}) !important;
+    background-color: var(--novix-#{$token}) !important;
   }
   .focus-border-#{$token}:focus {
-    border-color: var(--#{$token}) !important;
+    border-color: var(--novix-#{$token}) !important;
   }
 
   .active-text-#{$token}:active {
-    color: var(--#{$token}) !important;
+    color: var(--novix-#{$token}) !important;
   }
   .active-bg-#{$token}:active {
-    background-color: var(--#{$token}) !important;
+    background-color: var(--novix-#{$token}) !important;
   }
   .active-border-#{$token}:active {
-    border-color: var(--#{$token}) !important;
+    border-color: var(--novix-#{$token}) !important;
   }
 }
 
@@ -114,10 +114,10 @@ $opacity-steps: (0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100);
 // ================================================
 @each $token in $color-tokens {
   // Base per-side colors
-  .border-top-#{$token}    { border-top-color: var(--#{$token}) !important; }
-  .border-end-#{$token}    { border-inline-end-color: var(--#{$token}) !important; }
-  .border-bottom-#{$token} { border-bottom-color: var(--#{$token}) !important; }
-  .border-start-#{$token}  { border-inline-start-color: var(--#{$token}) !important; }
+  .border-top-#{$token}    { border-top-color: var(--novix-#{$token}) !important; }
+  .border-end-#{$token}    { border-inline-end-color: var(--novix-#{$token}) !important; }
+  .border-bottom-#{$token} { border-bottom-color: var(--novix-#{$token}) !important; }
+  .border-start-#{$token}  { border-inline-start-color: var(--novix-#{$token}) !important; }
 }
 
 // ================================================
@@ -126,16 +126,56 @@ $opacity-steps: (0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100);
 @each $token in $color-tokens {
   @each $opacity in $opacity-steps {
     .border-top-#{$token}-#{$opacity} {
-      border-top-color: rgba(var(--#{$token}-rgb), #{math.div($opacity, 100)}) !important;
+      border-top-color: rgba(var(--novix-#{$token}-rgb), #{math.div($opacity, 100)}) !important;
     }
     .border-end-#{$token}-#{$opacity} {
-      border-inline-end-color: rgba(var(--#{$token}-rgb), #{math.div($opacity, 100)}) !important;
+      border-inline-end-color: rgba(var(--novix-#{$token}-rgb), #{math.div($opacity, 100)}) !important;
     }
     .border-bottom-#{$token}-#{$opacity} {
-      border-bottom-color: rgba(var(--#{$token}-rgb), #{math.div($opacity, 100)}) !important;
+      border-bottom-color: rgba(var(--novix-#{$token}-rgb), #{math.div($opacity, 100)}) !important;
     }
     .border-start-#{$token}-#{$opacity} {
-      border-inline-start-color: rgba(var(--#{$token}-rgb), #{math.div($opacity, 100)}) !important;
+      border-inline-start-color: rgba(var(--novix-#{$token}-rgb), #{math.div($opacity, 100)}) !important;
+    }
+  }
+}
+
+// ================================================
+// Form State Utilities
+// ================================================
+@each $token in $color-tokens {
+  .placeholder-text-#{$token} {
+    &::placeholder {
+      color: var(--novix-#{$token});
+    }
+  }
+
+  .disabled-bg-#{$token} {
+    &:disabled {
+      background-color: var(--novix-#{$token});
+    }
+  }
+
+  .disabled-text-#{$token} {
+    &:disabled {
+      color: var(--novix-#{$token});
+    }
+  }
+}
+
+// ================================================
+// Group Interaction Utilities
+// ================================================
+@each $token in $color-tokens {
+  .group-hover-bg-#{$token} {
+    .group:hover & {
+      background-color: var(--novix-#{$token});
+    }
+  }
+
+  .group-focus-text-#{$token} {
+    .group:focus & {
+      color: var(--novix-#{$token});
     }
   }
 }

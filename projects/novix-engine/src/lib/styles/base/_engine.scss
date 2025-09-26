@@ -4,54 +4,54 @@
 
 // ================================================
 // Injects a theme map into CSS variables
-// Also generates --token-rgb for opacity utilities
+// Also generates --novix-token-rgb for opacity utilities
 // ================================================
-@mixin novix-inject-theme($theme-map) {
-  @each $key, $value in $theme-map {
+@mixin novix-inject-theme($novix-theme-map) {
+  @each $novix-key, $novix-value in $novix-theme-map {
     // Always output the base CSS variable
-    --#{$key}: #{$value};
+    --novix-#{$novix-key}: #{$novix-value};
 
     // If the value is a color, also output an RGB variant
-    @if meta.type-of($value) == 'color' {
-      $r: color.channel($value, "red", $space: rgb);
-      $g: color.channel($value, "green", $space: rgb);
-      $b: color.channel($value, "blue", $space: rgb);
-      --#{$key}-rgb: #{$r}, #{$g}, #{$b};
+    @if meta.type-of($novix-value) == 'color' {
+      $novix-r: color.channel($novix-value, "red", $space: rgb);
+      $novix-g: color.channel($novix-value, "green", $space: rgb);
+      $novix-b: color.channel($novix-value, "blue", $space: rgb);
+      --novix-#{$novix-key}-rgb: #{$novix-r}, #{$novix-g}, #{$novix-b};
     }
   }
 
   //--Base page styling
-  background-color: var(--background);
-  color: var(--on-background);
-  font-family: var(--font-family);
-  font-size: var(--font-size-sm);
+  background-color: var(--novix-background);
+  color: var(--novix-on-background);
+  font-family: var(--novix-font-family);
+  font-size: var(--novix-font-size-sm);
   line-height: 1.5;
 
   //--Links
   a {
-    color: var(--primary);
+    color: var(--novix-primary);
     text-decoration: none;
 
     &:hover {
-      color: var(--secondary);
+      color: var(--novix-secondary);
       text-decoration: underline;
     }
 
     &:focus {
-      outline: 2px solid var(--secondary);
+      outline: 2px solid var(--novix-secondary);
       outline-offset: 2px;
     }
   }
 
   //--Selection highlight
   ::selection {
-    background-color: var(--primary);
-    color: var(--on-primary);
+    background-color: var(--novix-primary);
+    color: var(--novix-on-primary);
   }
 
   //--Scrollbar styling (WebKit/Blink)
   f {
-    scrollbar-color: var(--primary) var(--surface);
+    scrollbar-color: var(--novix-primary) var(--novix-surface);
     scrollbar-width: thin;
   }
   f::-webkit-scrollbar {
@@ -59,14 +59,14 @@
     height: 8px;
   }
   f::-webkit-scrollbar-track {
-    background: var(--surface);
+    background: var(--novix-surface);
   }
   f::-webkit-scrollbar-thumb {
-    background-color: var(--primary);
+    background-color: var(--novix-primary);
     border-radius: 4px;
   }
   f::-webkit-scrollbar-thumb:hover {
-    background-color: var(--secondary);
+    background-color: var(--novix-secondary);
   }
 
   //--Base surface elements
@@ -77,7 +77,7 @@
 
   //--Headings inherit font-family but use on-background color
   h1, h2, h3, h4, h5, h6 {
-    color: var(--on-background);
+    color: var(--novix-on-background);
     font-weight: 600;
     line-height: 1.2;
   }
