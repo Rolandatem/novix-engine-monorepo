@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, computed, ContentChild, ElementRef, input, OnInit, signal, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, computed, ContentChild, ElementRef, inject, input, OnDestroy, OnInit, PLATFORM_ID, signal, ViewChild } from '@angular/core';
 import { TrayHeaderDirective } from './directives/tray-header-directive';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'novix-tray',
@@ -14,10 +15,13 @@ import { TrayHeaderDirective } from './directives/tray-header-directive';
   }
 })
 
-export class NovixTray implements AfterViewInit, OnInit {
+export class NovixTray implements AfterViewInit, OnInit, OnDestroy {
   //===========================================================================================================================
   // MEMBER VARIABLES
   //===========================================================================================================================
+  @ViewChild('trayContainerRef')
+  private _trayContainerRef!: ElementRef<HTMLElement>;
+
   @ViewChild('trayHandleRef')
   private _trayHandleRef!: ElementRef<HTMLElement>;
   private _trayHandleSize = signal<string>('0px');
@@ -49,6 +53,9 @@ export class NovixTray implements AfterViewInit, OnInit {
    */
   public traySize = input<string>('');
 
+  /** Whether the tray should auto-close when clicking outside of the tray. */
+  public autoCloseOnOutsideClick = input<boolean>(false);
+
   //--Tray handle--------------------------------------------------------------------------------------------------------------
   /** Whether to show the tray handle. */
   public showHandle = input<boolean>(true);
@@ -76,6 +83,7 @@ export class NovixTray implements AfterViewInit, OnInit {
   //===========================================================================================================================
   private _isOpen = signal<boolean>(false);
   private _traySizeInternal = signal<string>('');
+  private _isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   //===========================================================================================================================
   // PUBLIC PROPERTIES
@@ -120,6 +128,17 @@ export class NovixTray implements AfterViewInit, OnInit {
 
     //--Signal that template is safe to render.
     this.templateIsRendered.set(true);
+
+    //--Add auto-close event listener if flagged.
+    if (this._isBrowser && this.autoCloseOnOutsideClick()) {
+      document.addEventListener('click', this.handleOutsideClick.bind(this), true);
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this._isBrowser) {
+      document.removeEventListener('click', this.handleOutsideClick.bind(this), true);
+    }
   }
 
   //===========================================================================================================================
@@ -133,6 +152,15 @@ export class NovixTray implements AfterViewInit, OnInit {
   private calculateHandleHeight(): string {
     const height = this._trayHandleRef?.nativeElement?.offsetHeight ?? 0;
     return `${height}px`;
+  }
+
+  private handleOutsideClick(event: MouseEvent) {
+    const trayEl = this._trayContainerRef.nativeElement;
+    if (!trayEl || !this._isOpen()) { return; }
+
+    if (!trayEl.contains(event.target as Node)) {
+      this.closeTray();
+    }
   }
 
   //===========================================================================================================================

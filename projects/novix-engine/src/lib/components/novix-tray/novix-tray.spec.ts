@@ -41,7 +41,8 @@ describe('NovixTray - Structure', () => {
     { input: 'handleFontSize', expected: 'var(--novix-font-size-xs)' },
     { input: 'contentsBackground', expected: 'var(--novix-surface)' },
     { input: 'contentsColor', expected: 'var(--novix-on-surface)' },
-    { input: 'contentsBorderColor', expected: 'var(--novix-primary)' }
+    { input: 'contentsBorderColor', expected: 'var(--novix-primary)' },
+    { input: 'autoCloseOnOutsideClick', expected: false }
   ])('should have default values appropriately set', (test) => {
     fixture.detectChanges();
     //--Cast to keyof NovixTray to safely access signal inputs dynamically without
@@ -299,5 +300,33 @@ describe('NovixTray - UI Testing', () => {
 
     const trayContent = fixture.nativeElement.querySelector('.novix-tray-content');
     expect(trayContent.classList.contains('openLeftRight')).toBe(false);
+  });
+
+  //===========================================================================================================================
+  it('should auto-close tray when autoCloseOnOutsideClick is true and the use clicks on anything outside of the tray', async() => {
+    fixture.componentRef.setInput('autoCloseOnOutsideClick', true);
+    fixture.componentRef.setInput('startOpen', true);
+    fixture.detectChanges();
+
+    expect(component.isOpen()).toBe(true);
+
+    await userEvent.click(document.body);
+    fixture.detectChanges();
+
+    expect(component.isOpen()).toBe(false);
+  });
+
+  //===========================================================================================================================
+  it('should not close tray when autoCloseOnOutsideClick is false and the user clicks on anything outside of the tray', async() => {
+    fixture.componentRef.setInput('autoCloseOnOutsideCLick', false);
+    fixture.componentRef.setInput('startOpen', true);
+    fixture.detectChanges();
+
+    expect(component.isOpen()).toBe(true);
+
+    await userEvent.click(document.body);
+    fixture.detectChanges();
+
+    expect(component.isOpen()).toBe(true);
   });
 });

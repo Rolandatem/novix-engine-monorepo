@@ -238,13 +238,14 @@ import { NovixTrayModule } from 'novix-engine';
 | `rounded`             | `boolean` | Apply rounded corners (Default: false) |
 | `showHandle`          | `boolean` | Show clickable tray handle (Default: true) |
 | `handleText`          | `string`  | Text inside tray handle (Default: '...') |
-| `handleBackground`    | `string`  | Background color of handle (Default: --primary) |
-| `handleColor`         | `string`  | Text color of handle (Default: --on-primary) |
-| `handleFontFamily`    | `string`  | Font family of handle text (Default: --font-family) |
-| `handleFontSize`      | `string`  | Font size of handle text (Default: --font-size-sm) |
+| `handleBackground`    | `string`  | Background color of handle (Default: --novix-primary) |
+| `handleColor`         | `string`  | Text color of handle (Default: --novix-on-primary) |
+| `handleFontFamily`    | `string`  | Font family of handle text (Default: --novix-font-family) |
+| `handleFontSize`      | `string`  | Font size of handle text (Default: --novix-font-size-sm) |
 | `contentsBackground`  | `string`  | Background color of tray content (Default: --surface) |
-| `contentsColor`       | `string`  | Text color of tray content (Default: --on-surface) |
-| `contentsBorderColor` | `string`  | Border color of tray content (Default: --primary) |
+| `contentsColor`       | `string`  | Text color of tray content (Default: --novix-on-surface) |
+| `contentsBorderColor` | `string`  | Border color of tray content (Default: --novix-primary) |
+| `autoCloseOnOutsideClick` | `boolean` | Automatically closes tray when clicking outside of it. (Default: false) |
 
 > For full styling control, use SCSS variables or override styles via `[style]` bindings.
 
