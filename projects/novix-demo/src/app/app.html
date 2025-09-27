@@ -16,6 +16,7 @@
   <h3>Features:</h3>
   <div>
     <button (click)="goTo('colors-demo')">Colors</button>
+    <button (click)="goTo('utilities-demo')">Utilities</button>
     <select (change)="onThemeChange($event)">
       <option selected value="">Select</option>
       @for (theme of registeredThemes(); track theme.id) {
