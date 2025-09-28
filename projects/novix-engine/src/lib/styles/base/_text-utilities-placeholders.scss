@@ -1,0 +1,72 @@
+@use 'variables' as *;
+
+// ================================================
+// Font Weight Utilities
+// ================================================
+%fw-bold      { font-weight: 700 !important; }
+%fw-semibold  { font-weight: 600 !important; }
+%fw-medium    { font-weight: 500 !important; }
+%fw-normal    { font-weight: 400 !important; }
+%fw-light     { font-weight: 300 !important; }
+
+// ================================================
+// Font Style Utilities
+// ================================================
+%fst-italic { font-style: italic !important; }
+%fst-normal { font-style: normal !important; }
+
+// ================================================
+// Text Decoration Utilities
+// ================================================
+%text-decoration-underline    { text-decoration: underline !important; }
+%text-decoration-none         { text-decoration: none !important; }
+%text-decoration-line-through { text-decoration: line-through !important; }
+%text-decoration-overline     { text-decoration: overline !important; }
+
+// ================================================
+// Text Transform Utilities
+// ================================================
+%text-uppercase   { text-transform: uppercase !important; }
+%text-lowercase   { text-transform: lowercase !important; }
+%text-capitalize  { text-transform: capitalize !important; }
+%text-normal-case { text-transform: none !important; }
+
+// ================================================
+// Text Alignment Utilities (with responsive variants)
+// ================================================
+@each $align in $novix-text-alignments {
+  %text-#{$align} { text-align: $align !important; }
+}
+
+// ================================================
+// White Space & Wrapping Utilities
+// ================================================
+%text-wrap     { white-space: normal !important; }
+%text-nowrap   { white-space: nowrap !important; }
+%text-pre      { white-space: pre !important; }
+%text-pre-line { white-space: pre-line !important; }
+%text-pre-wrap { white-space: pre-wrap !important; }
+
+// ================================================
+// Text Overflow Utilities
+// ================================================
+%text-truncate {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+// ================================================
+// Line Height Utilities
+// ================================================
+@each $name, $lh in $novix-line-heights {
+  %lh-#{$name} { line-height: $lh !important; }
+}
+
+// ================================================
+// Text Muted Utility
+// ================================================
+%text-muted {
+  color: var(--novix-on-background);
+  opacity: 0.65;
+}

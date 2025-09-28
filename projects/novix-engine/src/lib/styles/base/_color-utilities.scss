@@ -1,181 +1,80 @@
 @use "sass:map";
 @use "sass:math";
 @use 'variables' as *;
-
-// ================================================
-// Theme Color Utilities (Bootstrap-style naming)
-// ================================================
-// These reference CSS variables set by the theme maps.
-// When .dark-mode is toggled, the variables update automatically.
-
-$color-tokens: (
-  primary,
-  secondary,
-  tertiary,
-  accent,
-  neutral,
-  neutral-variant,
-  warn,
-  error,
-  success,
-  info,
-  background,
-  surface,
-  surface-variant,
-  on-primary,
-  on-secondary,
-  on-tertiary,
-  on-accent,
-  on-background,
-  on-surface,
-  on-neutral,
-  on-neutral-variant,
-  on-warn,
-  on-error,
-  on-success,
-  on-info,
-  on-surface-variant
-);
+@use 'color-utilities-placeholders' as *;
 
 // ================================================
 // Base Text, Background, Border Utilities
 // ================================================
-@each $token in $color-tokens {
-  .text-#{$token} {
-    color: var(--novix-#{$token}) !important;
-  }
-  .bg-#{$token} {
-    background-color: var(--novix-#{$token}) !important;
-  }
-  .border-#{$token} {
-    border-color: var(--novix-#{$token}) !important;
-  }
+@each $token in $novix-color-tokens {
+  .text-#{$token}   { @extend %text-#{$token}; }
+  .bg-#{$token}     { @extend %bg-#{$token}; }
+  .border-#{$token} { @extend %border-#{$token}; }
 }
 
 // ================================================
 // Opacity Variants (10% increments)
 // ================================================
-$opacity-steps: (0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100);
-
-@each $token in $color-tokens {
-  @each $opacity in $opacity-steps {
-    .text-#{$token}-#{$opacity} {
-      color: rgba(var(--novix-#{$token}-rgb), #{math.div($opacity, 100)}) !important;
-    }
-    .bg-#{$token}-#{$opacity} {
-      background-color: rgba(var(--novix-#{$token}-rgb), #{math.div($opacity, 100)}) !important;
-    }
-    .border-#{$token}-#{$opacity} {
-      border-color: rgba(var(--novix-#{$token}-rgb), #{math.div($opacity, 100)}) !important;
-    }
+@each $token in $novix-color-tokens {
+  @each $opacity in $novix-opacity-steps {
+    .text-#{$token}-#{$opacity}   { @extend %text-#{$token}-#{$opacity}; }
+    .bg-#{$token}-#{$opacity}     { @extend %bg-#{$token}-#{$opacity}; }
+    .border-#{$token}-#{$opacity} { @extend %border-#{$token}-#{$opacity}; }
   }
 }
 
 // ================================================
 // State Variants (hover, focus, active)
 // ================================================
-// These are additive classes you can combine with any color utility.
-// Example: <button class="bg-primary hover-bg-secondary">
+@each $token in $novix-color-tokens {
+  .hover-text-#{$token}:hover   { @extend %hover-text-#{$token}; }
+  .hover-bg-#{$token}:hover     { @extend %hover-bg-#{$token}; }
+  .hover-border-#{$token}:hover { @extend %hover-border-#{$token}; }
 
-@each $token in $color-tokens {
-  .hover-text-#{$token}:hover {
-    color: var(--novix-#{$token}) !important;
-  }
-  .hover-bg-#{$token}:hover {
-    background-color: var(--novix-#{$token}) !important;
-  }
-  .hover-border-#{$token}:hover {
-    border-color: var(--novix-#{$token}) !important;
-  }
+  .focus-text-#{$token}:focus   { @extend %focus-text-#{$token}; }
+  .focus-bg-#{$token}:focus     { @extend %focus-bg-#{$token}; }
+  .focus-border-#{$token}:focus { @extend %focus-border-#{$token}; }
 
-  .focus-text-#{$token}:focus {
-    color: var(--novix-#{$token}) !important;
-  }
-  .focus-bg-#{$token}:focus {
-    background-color: var(--novix-#{$token}) !important;
-  }
-  .focus-border-#{$token}:focus {
-    border-color: var(--novix-#{$token}) !important;
-  }
-
-  .active-text-#{$token}:active {
-    color: var(--novix-#{$token}) !important;
-  }
-  .active-bg-#{$token}:active {
-    background-color: var(--novix-#{$token}) !important;
-  }
-  .active-border-#{$token}:active {
-    border-color: var(--novix-#{$token}) !important;
-  }
+  .active-text-#{$token}:active   { @extend %active-text-#{$token}; }
+  .active-bg-#{$token}:active     { @extend %active-bg-#{$token}; }
+  .active-border-#{$token}:active { @extend %active-border-#{$token}; }
 }
 
 // ================================================
 // Per-side Border Color Utilities
 // ================================================
-@each $token in $color-tokens {
-  // Base per-side colors
-  .border-top-#{$token}    { border-top-color: var(--novix-#{$token}) !important; }
-  .border-end-#{$token}    { border-inline-end-color: var(--novix-#{$token}) !important; }
-  .border-bottom-#{$token} { border-bottom-color: var(--novix-#{$token}) !important; }
-  .border-start-#{$token}  { border-inline-start-color: var(--novix-#{$token}) !important; }
+@each $token in $novix-color-tokens {
+  .border-top-#{$token}    { @extend %border-top-#{$token}; }
+  .border-end-#{$token}    { @extend %border-end-#{$token}; }
+  .border-bottom-#{$token} { @extend %border-bottom-#{$token}; }
+  .border-start-#{$token}  { @extend %border-start-#{$token}; }
 }
 
 // ================================================
 // Per-side Border Color Opacity Variants
 // ================================================
-@each $token in $color-tokens {
-  @each $opacity in $opacity-steps {
-    .border-top-#{$token}-#{$opacity} {
-      border-top-color: rgba(var(--novix-#{$token}-rgb), #{math.div($opacity, 100)}) !important;
-    }
-    .border-end-#{$token}-#{$opacity} {
-      border-inline-end-color: rgba(var(--novix-#{$token}-rgb), #{math.div($opacity, 100)}) !important;
-    }
-    .border-bottom-#{$token}-#{$opacity} {
-      border-bottom-color: rgba(var(--novix-#{$token}-rgb), #{math.div($opacity, 100)}) !important;
-    }
-    .border-start-#{$token}-#{$opacity} {
-      border-inline-start-color: rgba(var(--novix-#{$token}-rgb), #{math.div($opacity, 100)}) !important;
-    }
+@each $token in $novix-color-tokens {
+  @each $opacity in $novix-opacity-steps {
+    .border-top-#{$token}-#{$opacity}    { @extend %border-top-#{$token}-#{$opacity}; }
+    .border-end-#{$token}-#{$opacity}    { @extend %border-end-#{$token}-#{$opacity}; }
+    .border-bottom-#{$token}-#{$opacity} { @extend %border-bottom-#{$token}-#{$opacity}; }
+    .border-start-#{$token}-#{$opacity}  { @extend %border-start-#{$token}-#{$opacity}; }
   }
 }
 
 // ================================================
 // Form State Utilities
 // ================================================
-@each $token in $color-tokens {
-  .placeholder-text-#{$token} {
-    &::placeholder {
-      color: var(--novix-#{$token});
-    }
-  }
-
-  .disabled-bg-#{$token} {
-    &:disabled {
-      background-color: var(--novix-#{$token});
-    }
-  }
-
-  .disabled-text-#{$token} {
-    &:disabled {
-      color: var(--novix-#{$token});
-    }
-  }
+@each $token in $novix-color-tokens {
+  .placeholder-text-#{$token} { @extend %placeholder-text-#{$token}; }
+  .disabled-bg-#{$token}      { @extend %disabled-bg-#{$token}; }
+  .disabled-text-#{$token}    { @extend %disabled-text-#{$token}; }
 }
 
 // ================================================
 // Group Interaction Utilities
 // ================================================
-@each $token in $color-tokens {
-  .group-hover-bg-#{$token} {
-    .group:hover & {
-      background-color: var(--novix-#{$token});
-    }
-  }
-
-  .group-focus-text-#{$token} {
-    .group:focus & {
-      color: var(--novix-#{$token});
-    }
-  }
+@each $token in $novix-color-tokens {
+  .group-hover-bg-#{$token}   { @extend %group-hover-bg-#{$token}; }
+  .group-focus-text-#{$token} { @extend %group-focus-text-#{$token}; }
 }

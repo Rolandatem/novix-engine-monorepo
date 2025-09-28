@@ -1,25 +1,12 @@
 @use "sass:map";
 @use 'variables' as *;
 @use 'mixins' as *;
+@use 'font-size-utilities-placeholders' as *;
 
-// ================================================
-// Font Size Utilities (Bootstrap-style + extras)
-// ================================================
-$novix-font-sizes: (
-  1: var(--novix-font-size-display), // Largest
-  2: var(--novix-font-size-xl),
-  3: var(--novix-font-size-lg),
-  4: var(--novix-font-size-md),
-  5: var(--novix-font-size-sm),
-  6: var(--novix-font-size-xs),
-  7: var(--novix-font-size-xxs),   // Smaller than xs
-  8: var(--novix-font-size-xxxs)   // Smallest
-);
-
-// Base font-size classes
+// Base font-size classes + placeholders
 @each $novix-num, $novix-size in $novix-font-sizes {
   .fs-#{$novix-num} {
-    font-size: $novix-size !important;
+    @extend %fs-#{$novix-num};
   }
 }
 

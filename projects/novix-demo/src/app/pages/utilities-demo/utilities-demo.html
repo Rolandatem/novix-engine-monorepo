@@ -1,202 +1,289 @@
-<div class="container mt-5">
-  <div>
-    <h1 class="fs-2 fw-bold">Novix Engine CSS Utilities</h1>
-    <p>
-      NovixEngine provides a suite of Bootstrap-style utility classes for layout, spacing, display, and more.
-      These utilities are responsive, theme-aware, and designed for developer familiarity.
-    </p>
+<section id="introduction" class="mt-5">
+  <h1 class="fs-1 fw-bold">Novix Engine CSS Utilities</h1>
+  <p>
+    NovixEngine provides a suite of Bootstrap-style utility classes for layout, spacing, display, and more.
+    These utilities are responsive, theme-aware, and designed for developer familiarity.
+  </p>
+</section>
+
+<hr />
+
+<section id="container-utilities" class="container-fluid" style="max-width: initial;">
+  <div class="sectionHeader container">📦 Container Utilities</div>
+
+  <div class="container bg-surface mt-3 p-3">
+    .container
+  </div>
+  <div class="container-fluid bg-surface mt-3 p-3">
+    .container-fluid
   </div>
 
-  <hr/>
+  <table class="mt-3 container">
+    <thead>
+      <tr><th>Class</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>.container</td>
+        <td>
+          <div>Responsive container with max-widths of:</div>
+          <div><span class="text-muted">sm:</span> 540px</div>
+          <div><span class="text-muted">md:</span> 720px</div>
+          <div><span class="text-muted">lg:</span> 960px</div>
+          <div><span class="text-muted">xl:</span> 1140px</div>
+        </td>
+      </tr>
+      <tr><td>.container-fluid</td><td>Uses the max-width of the screen.</td></tr>
+    </tbody>
+  </table>
+</section>
 
-  <div class="mt-4">
-    <!-- 📐 Spacing Utilities -->
-    <section id="spacing-utilities">
-      <div class="fs-2 fw-bold">📐 Spacing Utilities</div>
-      <p>Use <code>.m-*</code> and <code>.p-*</code> classes to control margin and padding. Responsive variants like <code>.m-sm-4</code> adapt across breakpoints.</p>
-      <div class="bg-surface p-4 rounded-md">
-        <div class="bg-primary text-on-primary p-3 m-2">.p-3 .m-2</div>
-        <div class="bg-secondary text-on-secondary p-sm-4 m-md-5">.p-sm-4 .m-md-5</div>
-      </div>
-      <table class="table mt-3">
-        <thead><tr><th>Class</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr><td>.m-1</td><td>Margin: 1 unit</td></tr>
-          <tr><td>.p-2</td><td>Padding: 2 units</td></tr>
-          <tr><td>.mx-3</td><td>Horizontal margin</td></tr>
-          <tr><td>.py-4</td><td>Vertical padding</td></tr>
-          <tr><td>.m-sm-2</td><td>Responsive margin at sm breakpoint</td></tr>
-        </tbody>
-      </table>
-    </section>
+<hr />
+
+<section id="spacing-utilities">
+  <div class="sectionHeader">📐 Spacing Utilities</div>
+  <p>Use <code>.m-*</code> and <code>.p-*</code> classes to control margin and padding. Responsive variants like <code>.m-sm-4</code> adapt across breakpoints.</p>
+  <div class="bg-surface p-4 rounded-md">
+    <div class="bg-primary text-on-primary p-3 m-2">.p-3 .m-2</div>
+    <div class="bg-secondary text-on-secondary p-sm-4 m-md-5">.p-sm-4 .m-md-5</div>
   </div>
+  <table class="table mt-3">
+    <thead><tr><th>Class</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>.m-1</td><td>Margin: 1 unit (0-4)</td></tr>
+      <tr><td>.p-2</td><td>Padding: 2 units (0-4)</td></tr>
+      <tr><td>.mx-3, .pt-1</td><td>Directional: (t: top, b: bottom, s: start, e: end, x: start+end, y: top+bottom)</td></tr>
+      <tr class="special-info"><td colspan="2">
+        <div>Responsive options available (sm: small, md: medium, lg: large, xl: extra large)</div>
+        <div class="text-muted">Examples: .m-sm-2 | .p-sm-1</div>
+      </td></tr>
+    </tbody>
+  </table>
+</section>
 
+<hr />
 
+<section id="display-utilities">
+  <div class="sectionHeader">🧱 Display Utilities</div>
+  <p>Control element visibility and layout with <code>.d-*</code>. Responsive variants like <code>.d-md-flex</code> adapt layout across breakpoints.</p>
+  <div class="bg-surface p-4 rounded-md d-flex gap-3">
+    <div class="d-block bg-primary text-on-primary p-2">.d-block</div>
+    <div class="d-none d-md-block bg-secondary text-on-secondary p-2">.d-none .d-md-block</div>
+  </div>
+  <table class="table mt-3">
+    <thead><tr><th>Class</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>.d-none</td><td>Hide element</td></tr>
+      <tr><td>.d-inline</td><td>Display inline</td></tr>
+      <tr><td>.d-inline-block</td><td>Display inline-block</td></tr>
+      <tr><td>.d-block</td><td>Display block</td></tr>
+      <tr><td>.d-flex</td><td>Display flex</td></tr>
+      <tr><td>.d-grid</td><td>Display grid</td></tr>
+      <tr class="special-info"><td colspan="2">
+        <div>Responsive options available (sm: small, md: medium, lg: large, xl: extra large)</div>
+        <div class="text-muted">Examples: .d-md-none | .d-sm-block | .d-lg-grid</div>
+      </td></tr>
+    </tbody>
+  </table>
+</section>
 
-  <!-- 🧱 Display Utilities -->
-  <section id="display-utilities" class="mt-5">
-    <h2 class="fs-2 fw-bold">🧱 Display Utilities</h2>
-    <p>Control element visibility and layout with <code>.d-*</code>. Responsive variants like <code>.d-md-flex</code> adapt layout across breakpoints.</p>
-    <div class="bg-surface p-4 rounded-md d-flex gap-3">
-      <div class="d-block bg-primary text-on-primary p-2">.d-block</div>
-      <div class="d-none d-md-block bg-secondary text-on-secondary p-2">.d-none .d-md-block</div>
-    </div>
-    <table class="table mt-3">
-      <thead><tr><th>Class</th><th>Description</th></tr></thead>
-      <tbody>
-        <tr><td>.d-none</td><td>Hide element</td></tr>
-        <tr><td>.d-block</td><td>Display block</td></tr>
-        <tr><td>.d-flex</td><td>Display flex</td></tr>
-        <tr><td>.d-md-grid</td><td>Display grid at md breakpoint</td></tr>
-      </tbody>
-    </table>
-  </section>
+<hr />
 
-  <!-- 🔀 Flex Utilities -->
-  <section id="flex-utilities" class="mt-5">
-    <h2 class="fs-2 fw-bold">🔀 Flex Utilities</h2>
-    <p>Use flexbox utilities to control wrapping, direction, grow/shrink behavior. Responsive variants available.</p>
-    <div class="d-flex flex-wrap gap-2 bg-surface p-3 rounded-md">
-      <div class="flex-grow-1 bg-primary text-on-primary p-2">.flex-grow-1</div>
-      <div class="flex-shrink-0 bg-secondary text-on-secondary p-2">.flex-shrink-0</div>
-    </div>
-    <table class="table mt-3">
-      <thead><tr><th>Class</th><th>Description</th></tr></thead>
-      <tbody>
-        <tr><td>.flex-wrap</td><td>Enable wrapping</td></tr>
-        <tr><td>.flex-row</td><td>Horizontal layout</td></tr>
-        <tr><td>.flex-column</td><td>Vertical layout</td></tr>
-        <tr><td>.flex-grow-1</td><td>Allow growth</td></tr>
-        <tr><td>.flex-shrink-0</td><td>Prevent shrinking</td></tr>
-      </tbody>
-    </table>
-  </section>
+<section id="flex-utilities">
+  <div class="sectionHeader">🔀 Flex Utilities</div>
+  <p>Use flexbox utilities to control wrapping, direction, grow/shrink behavior. Responsive variants available.</p>
+  <div class="d-flex flex-wrap gap-2 bg-surface p-3 rounded-md">
+    <div class="flex-grow-1 bg-primary text-on-primary p-2">.flex-grow-1</div>
+    <div class="flex-shrink-0 bg-secondary text-on-secondary p-2">.flex-shrink-0</div>
+  </div>
+  <table class="table mt-3">
+    <thead><tr><th>Class</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>.flex-wrap</td><td>Enable wrapping</td></tr>
+      <tr><td>.flex-nowrap</td><td>Disable wrapping</td></tr>
+      <tr><td>.flex-wrap-reverse</td><td>Enables wrapping in reverse</td></tr>
+      <tr><td>.flex-grow-1</td><td>Allow growth (0-3) <span class="text-muted">.flex-grow-0 prevents growing</span></td></tr>
+      <tr><td>.flex-shrink-1</td><td>Rate of shrink (0-3) <span class="text-muted">.flex-shrink-0 prevents shrinking</span></td></tr>
+      <tr><td>.flex-row</td><td>Horizontal layout</td></tr>
+      <tr><td>.flex-row-reverse</td><td>Reverse horizontal layout</td></tr>
+      <tr><td>.flex-column</td><td>Vertical layout</td></tr>
+      <tr><td>.flex-column-reverse</td><td>Reverse vertical layout</td></tr>
+      <tr class="special-info"><td colspan="2">
+        <div>Responsive options available (sm: small, md: medium, lg: large, xl: extra large)</div>
+        <div class="text-muted">Examples: .flex-sm-row | .flex-lg-nowrap | .flex-grow-md-2</div>
+      </td></tr>
+    </tbody>
+  </table>
+</section>
 
-  <!-- 📏 Gap Utilities -->
-  <section id="gap-utilities" class="mt-5">
-    <h2 class="fs-2 fw-bold">📏 Gap Utilities</h2>
-    <p>Control spacing between flex/grid items using <code>.g-*</code>, <code>.gx-*</code>, <code>.gy-*</code>.</p>
-    <div class="d-flex flex-wrap g-3 bg-surface p-3 rounded-md">
-      <div class="bg-primary text-on-primary p-2">Item 1</div>
-      <div class="bg-secondary text-on-secondary p-2">Item 2</div>
-    </div>
-    <table class="table mt-3">
-      <thead><tr><th>Class</th><th>Description</th></tr></thead>
-      <tbody>
-        <tr><td>.g-2</td><td>Gap between items</td></tr>
-        <tr><td>.gx-3</td><td>Horizontal gap</td></tr>
-        <tr><td>.gy-4</td><td>Vertical gap</td></tr>
-      </tbody>
-    </table>
-  </section>
+<hr />
 
-  <!-- 🔢 Order Utilities -->
-  <section id="order-utilities" class="mt-5">
-    <h2 class="fs-2 fw-bold">🔢 Order Utilities</h2>
-    <p>Control flex item order with <code>.order-*</code>. Use <code>.order-first</code> or <code>.order-last</code> for extremes.</p>
-    <div class="d-flex gap-2 bg-surface p-3 rounded-md">
-      <div class="order-2 bg-primary text-on-primary p-2">Second</div>
-      <div class="order-1 bg-secondary text-on-secondary p-2">First</div>
-    </div>
-    <table class="table mt-3">
-      <thead><tr><th>Class</th><th>Description</th></tr></thead>
-      <tbody>
-        <tr><td>.order-0 to .order-5</td><td>Set item order</td></tr>
-        <tr><td>.order-first</td><td>Force first position</td></tr>
-        <tr><td>.order-last</td><td>Force last position</td></tr>
-      </tbody>
-    </table>
-  </section>
+<section id="gap-utilities">
+  <div class="sectionHeader">📏 Gap Utilities</div>
+  <p>Control spacing between flex/grid items using <code>.g-*</code>, <code>.gx-*</code>, <code>.gy-*</code>.</p>
+  <div class="d-flex flex-wrap g-3 bg-surface p-3 rounded-md">
+    <div class="bg-primary text-on-primary p-2">Item 1</div>
+    <div class="bg-secondary text-on-secondary p-2">Item 2</div>
+  </div>
+  <table class="table mt-3">
+    <thead><tr><th>Class</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>.g-2</td><td>Gap between items (0-5)</td></tr>
+      <tr><td>.gx-3</td><td>Horizontal gap (0-5)</td></tr>
+      <tr><td>.gy-4</td><td>Vertical gap (0-5)</td></tr>
+      <tr class="special-info"><td colspan="2">
+        <div>Responsive options available (sm: small, md: medium, lg: large, xl: extra large)</div>
+        <div class="text-muted">Examples: .g-sm-1 | .gx-md-2 | .gy-lg-3</div>
+      </td></tr>
+    </tbody>
+  </table>
+</section>
 
-  <!-- 📎 Justify Content -->
-  <section id="justify-content" class="mt-5">
-    <h2 class="fs-2 fw-bold">📎 Justify Content</h2>
-    <p>Align items horizontally in flex containers. Use <code>.justify-content-*</code> classes.</p>
-    <div class="d-flex justify-content-between bg-surface p-3 rounded-md">
-      <div class="bg-primary text-on-primary p-2">Left</div>
-      <div class="bg-secondary text-on-secondary p-2">Right</div>
-    </div>
-    <table class="table mt-3">
-      <thead><tr><th>Class</th><th>Description</th></tr></thead>
-      <tbody>
-        <tr><td>.justify-content-start</td><td>Align left</td></tr>
-        <tr><td>.justify-content-center</td><td>Center items</td></tr>
-        <tr><td>.justify-content-between</td><td>Space between</td></tr>
-      </tbody>
-    </table>
-  </section>
+<hr />
 
-  <!-- 📐 Align Items -->
-  <section id="align-items" class="mt-5">
-    <h2 class="fs-2 fw-bold">📐 Align Items</h2>
-    <p>Align items vertically in flex containers. Use <code>.align-items-*</code> classes.</p>
-    <div class="d-flex align-items-center bg-surface p-3 rounded-md" style="height: 100px;">
-      <div class="bg-primary text-on-primary p-2">Centered</div>
-    </div>
-    <table class="table mt-3">
-      <thead><tr><th>Class</th><th>Description</th></tr></thead>
-      <tbody>
-        <tr><td>.align-items-start</td><td>Align top</td></tr>
-        <tr><td>.align-items-center</td><td>Align center</td></tr>
-        <tr><td>.align-items-end</td><td>Align bottom</td></tr>
-      </tbody>
-    </table>
-  </section>
+<section id="order-utilities">
+  <div class="sectionHeader">🔢 Order Utilities</div>
+  <p>Control flex item order with <code>.order-*</code>. Use <code>.order-first</code> or <code>.order-last</code> for extremes.</p>
+  <div class="d-flex gap-2 bg-surface p-3 rounded-md">
+    <div class="order-2 bg-primary text-on-primary p-2">Second</div>
+    <div class="order-1 bg-secondary text-on-secondary p-2">First</div>
+  </div>
+  <table class="table mt-3">
+    <thead><tr><th>Class</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>.order-0</td><td>Set item order (0-5)</td></tr>
+      <tr><td>.order-first</td><td>Force first position (order position: -1)</td></tr>
+      <tr><td>.order-last</td><td>Force last position (order position: 999)</td></tr>
+      <tr class="special-info"><td colspan="2">
+        <div>Responsive options available (sm: small, md: medium, lg: large, xl: extra large)</div>
+        <div class="text-muted">Examples: .order-sm-1 | .order-md-first | .order-lg-last</div>
+      </td></tr>
+    </tbody>
+  </table>
+</section>
 
-  <!-- 🧱 Border Width -->
-  <section id="border-width" class="mt-5">
-    <h2 class="fs-2 fw-bold">🧱 Border Width</h2>
-    <p>Control border thickness with <code>.border-*</code> and directional variants.</p>
-    <div class="border-3 border-solid bg-surface p-3 rounded-md">.border-3</div>
-    <table class="table mt-3">
-      <thead><tr><th>Class</th><th>Description</th></tr></thead>
-      <tbody>
-        <tr><td>.border-1 to .border-5</td><td>Set border width</td></tr>
-        <tr><td>.border-top-2</td><td>Top border only</td></tr>
-        <tr><td>.border-start-3</td><td>Start border only</td></tr>
-      </tbody>
-    </table>
-  </section>
+<hr />
 
-  <!-- ✏️ Border Style -->
-  <section id="border-style" class="mt-5">
-    <h2 class="fs-2 fw-bold">✏️ Border Style</h2>
-    <p>Set border style using <code>.border-solid</code>, <code>.border-dashed</code>, etc.</p>
-    <div class="border-3 border-dashed bg-surface p-3 rounded-md">.border-dashed</div>
-    <table class="table mt-3">
-      <thead><tr><th>Class</th><th>Description</th></tr></thead>
-      <tbody>
-        <tr><td>.border-solid</td><td>Solid border</td></tr>
-        <tr><td>.border-dotted</td><td>Dotted border</td></tr>
-        <tr><td>.border-double</td><td>Double border</td></tr>
-      </tbody>
-    </table>
-  </section>
+<section id="justify-content">
+  <div class="sectionHeader">📎Justify Content</div>
+  <p>Align items horizontally in flex containers. Use <code>.justify-content-*</code> classes.</p>
+  <div class="d-flex justify-content-between bg-surface p-3 rounded-md">
+    <div class="bg-primary text-on-primary p-2">Left</div>
+    <div class="bg-secondary text-on-secondary p-2">Right</div>
+  </div>
+  <table class="table mt-3">
+    <thead><tr><th>Class</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>.justify-content-start</td><td>Align left</td></tr>
+      <tr><td>.justify-content-end</td><td>Align right</td></tr>
+      <tr><td>.justify-content-center</td><td>Center items</td></tr>
+      <tr><td>.justify-content-between</td><td>Space between</td></tr>
+      <tr><td>.justify-content-around</td><td>Space around</td></tr>
+      <tr><td>.justify-content-evenly</td><td>Space evenly</td></tr>
+      <tr class="special-info"><td colspan="2">
+        <div>Responsive options available (sm: small, md: medium, lg: large, xl: extra large)</div>
+        <div class="text-muted">Examples: .justify-content-sm-start | .justify-content-lg-center</div>
+      </td></tr>
+    </tbody>
+  </table>
+</section>
 
-  <!-- 🌀 Border Radius -->
-  <section id="border-radius" class="mt-5 mb-5">
-    <h2 class="fs-2 fw-bold">🌀 Border Radius</h2>
-    <p>Round corners with <code>.rounded-*</code>. Use directional variants for specific corners.</p>
-    <div class="bg-primary text-on-primary p-3 rounded-pill">.rounded-pill</div>
-    <table class="table mt-3">
-      <thead><tr><th>Class</th><th>Description</th></tr></thead>
-      <tbody>
-        <tr><td>.rounded-sm</td><td>Small radius</td></tr>
-        <tr><td>.rounded-md</td><td>Medium radius</td></tr>
-        <tr><td>.rounded-lg</td><td>Large radius</td></tr>
-        <tr><td>.rounded-pill</td><td>Full pill shape</td></tr>
-      </tbody>
-    </table>
-  </section>
-</div>
+<hr />
 
+<section id="align-items">
+  <div class="sectionHeader">📐 Align Items</div>
+  <p>Align items vertically in flex containers. Use <code>.align-items-*</code> classes.</p>
+  <div class="d-flex align-items-center bg-surface p-3 rounded-md" style="height: 100px;">
+    <div class="bg-primary text-on-primary p-2">Centered</div>
+  </div>
+  <table class="table mt-3">
+    <thead><tr><th>Class</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>.align-items-start</td><td>Align top</td></tr>
+      <tr><td>.align-items-end</td><td>Align bottom</td></tr>
+      <tr><td>.align-items-center</td><td>Align center</td></tr>
+      <tr><td>.align-items-baseline</td><td>Align baseline</td></tr>
+      <tr><td>.align-items-stretch</td><td>Align stretch</td></tr>
+      <tr class="special-info"><td colspan="2">
+        <div>Responsive options available (sm: small, md: medium, lg: large, xl: extra large)</div>
+        <div class="text-muted">Examples: .align-items-sm-start | .align-items-md-end</div>
+      </td></tr>
+    </tbody>
+  </table>
+</section>
+
+<hr />
+
+<section id="border-width">
+  <div class="sectionHeader">🧱 Border Width</div>
+  <p>Control border thickness with <code>.border-*</code> and directional variants.</p>
+  <div class="border-3 border-solid bg-surface p-3 rounded-md">.border-3</div>
+  <table class="table mt-3">
+    <thead><tr><th>Class</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>.border-1</td><td>Set border width (1-5)</td></tr>
+      <tr><td>.border-0</td><td>Removes border</td></tr>
+      <tr class="special-info"><td colspan="2">
+        <div>Directional versions available (top, bottom, start, end)</div>
+        <div class="text-muted">Examples: .border-top-1 | .border-end-2 | .border-start-0</div>
+      </td></tr>
+    </tbody>
+  </table>
+</section>
+
+<hr />
+
+<section id="border-style">
+  <div class="sectionHeader">✏️ Border Style</div>
+  <p>Set border style using <code>.border-solid</code>, <code>.border-dashed</code>, etc.</p>
+  <div class="border-3 border-dashed bg-surface p-3 rounded-md">.border-dashed</div>
+  <table class="table mt-3">
+    <thead><tr><th>Class</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>.border-solid</td><td>Solid border</td></tr>
+      <tr><td>.border-dashed</td><td>Dashed border</td></tr>
+      <tr><td>.border-dotted</td><td>Dotted border</td></tr>
+      <tr><td>.border-double</td><td>Double border</td></tr>
+      <tr><td>.border-groove</td><td>Grooved border</td></tr>
+      <tr><td>.border-ridge</td><td>Ridged border</td></tr>
+      <tr><td>.border-inset</td><td>Inset border</td></tr>
+      <tr><td>.border-outset</td><td>Outset border</td></tr>
+      <tr><td>.border-none</td><td>No border</td></tr>
+      <tr class="special-info"><td colspan="2">
+        <div>Directional versions available (top, bottom, start, end)</div>
+        <div class="text-muted">Examples: .border-top-solid | .border-end-dashed</div>
+      </td></tr>
+    </tbody>
+  </table>
+</section>
+
+<hr />
+
+<section id="border-radius">
+  <div class="sectionHeader">🌀 Border Radius</div>
+  <p>Round corners with <code>.rounded-*</code>. Use directional variants for specific corners.</p>
+  <div class="bg-primary text-on-primary p-3 rounded-pill">.rounded-pill</div>
+  <table class="table mt-3">
+    <thead><tr><th>Class</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>.rounded-sm</td><td>Small radius</td></tr>
+      <tr><td>.rounded-md</td><td>Medium radius</td></tr>
+      <tr><td>.rounded-lg</td><td>Large radius</td></tr>
+      <tr><td>.rounded-pill</td><td>Full pill shape</td></tr>
+      <tr><td>.rounded-none</td><td>Removes radius</td></tr>
+      <tr class="special-info"><td colspan="2">
+        <div>Directional versions available (top, bottom, start, end)</div>
+        <div class="text-muted">Examples: .rounded-top-sm | .rounded-bottom-md | .rounded-start-none</div>
+      </td></tr>
+    </tbody>
+  </table>
+</section>
 
 <novix-tray
   [style.top]="'20px'"
   [style.bottom]="'20px'"
   [rounded]="true"
   [handleText]="'Navigation Links'"
-  [startOpen]="true"
   [autoCloseOnOutsideClick]="true">
 
   <tray-header>
@@ -206,7 +293,17 @@
   <tray-content>
     <ul>
       <li><a [routerLink]="['/utilities-demo']" fragment="introduction">Introduction</a></li>
+      <li><a [routerLink]="['/utilities-demo']" fragment="container-utilities">Container Utilities</a></li>
       <li><a [routerLink]="['/utilities-demo']" fragment="spacing-utilities">Spacing Utilities</a></li>
+      <li><a [routerLink]="['/utilities-demo']" fragment="display-utilities">Display Utilities</a></li>
+      <li><a [routerLink]="['/utilities-demo']" fragment="flex-utilities">Flex Utilities</a></li>
+      <li><a [routerLink]="['/utilities-demo']" fragment="gap-utilities">Gap Utilities</a></li>
+      <li><a [routerLink]="['/utilities-demo']" fragment="order-utilities">Order Utilities</a></li>
+      <li><a [routerLink]="['/utilities-demo']" fragment="justify-content">Justify Content Utilities</a></li>
+      <li><a [routerLink]="['/utilities-demo']" fragment="align-items">Align Items Utilities</a></li>
+      <li><a [routerLink]="['/utilities-demo']" fragment="border-width">Border Width Utilities</a></li>
+      <li><a [routerLink]="['/utilities-demo']" fragment="border-style">Border Style Utilities</a></li>
+      <li><a [routerLink]="['/utilities-demo']" fragment="border-radius">Border Radius Utilities</a></li>
     </ul>
   </tray-content>
 </novix-tray>
