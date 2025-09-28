@@ -1,42 +1,21 @@
 @use "sass:map";
 @use 'variables' as *;
 @use 'mixins' as *;
+@use 'utilities-placeholders';
 
 // ================================================
-// Spacing Utilities (Bootstrap-style naming)
+// Spacing Utilities
 // ================================================
-$novix-spacing-directions: (
-  "": (margin),
-  "t": (margin-top),
-  "b": (margin-bottom),
-  "s": (margin-inline-start),
-  "e": (margin-inline-end),
-  "x": (margin-left, margin-right),
-  "y": (margin-top, margin-bottom)
-);
-
-$novix-padding-directions: (
-  "": (padding),
-  "t": (padding-top),
-  "b": (padding-bottom),
-  "s": (padding-inline-start),
-  "e": (padding-inline-end),
-  "x": (padding-left, padding-right),
-  "y": (padding-top, padding-bottom)
-);
-
-@each $novix-abbr, $novix-properties in $novix-spacing-directions {
-  @each $novix-size, $novix-value in $novix-spacing-scale {
-    .m#{$novix-abbr}-#{$novix-size} {
-      @each $novix-prop in $novix-properties {
-        #{$novix-prop}: $novix-value !important;
-      }
+@each $abbr, $props in $novix-spacing-directions {
+  @each $size, $value in $novix-spacing-scale {
+    .m#{$abbr}-#{$size} {
+      @extend %m#{$abbr}-#{$size};
     }
-    @each $novix-bp, $novix-bp-width in $novix-breakpoints {
-      .m#{$novix-abbr}-#{$novix-bp}-#{$novix-size} {
-        @include novix-respond($novix-bp) {
-          @each $novix-prop in $novix-properties {
-            #{$novix-prop}: $novix-value !important;
+    @each $bp, $bp-width in $novix-breakpoints {
+      .m#{$abbr}-#{$bp}-#{$size} {
+        @include novix-respond($bp) {
+          @each $prop in $props {
+            #{$prop}: $value !important;
           }
         }
       }
@@ -44,18 +23,16 @@ $novix-padding-directions: (
   }
 }
 
-@each $novix-abbr, $novix-properties in $novix-padding-directions {
-  @each $novix-size, $novix-value in $novix-spacing-scale {
-    .p#{$novix-abbr}-#{$novix-size} {
-      @each $novix-prop in $novix-properties {
-        #{$novix-prop}: $novix-value !important;
-      }
+@each $abbr, $props in $novix-padding-directions {
+  @each $size, $value in $novix-spacing-scale {
+    .p#{$abbr}-#{$size} {
+      @extend %p#{$abbr}-#{$size};
     }
-    @each $novix-bp, $novix-bp-width in $novix-breakpoints {
-      .p#{$novix-abbr}-#{$novix-bp}-#{$novix-size} {
-        @include novix-respond($novix-bp) {
-          @each $novix-prop in $novix-properties {
-            #{$novix-prop}: $novix-value !important;
+    @each $bp, $bp-width in $novix-breakpoints {
+      .p#{$abbr}-#{$bp}-#{$size} {
+        @include novix-respond($bp) {
+          @each $prop in $props {
+            #{$prop}: $value !important;
           }
         }
       }
@@ -66,23 +43,14 @@ $novix-padding-directions: (
 // ================================================
 // Display Utilities
 // ================================================
-$novix-display-values: (
-  none,
-  inline,
-  inline-block,
-  block,
-  flex,
-  grid
-);
-
-@each $novix-display in $novix-display-values {
-  .d-#{$novix-display} {
-    display: $novix-display !important;
+@each $display in $novix-display-values {
+  .d-#{$display} {
+    @extend %d-#{$display};
   }
-  @each $novix-bp, $novix-bp-width in $novix-breakpoints {
-    .d-#{$novix-bp}-#{$novix-display} {
-      @include novix-respond($novix-bp) {
-        display: $novix-display !important;
+  @each $bp, $bp-width in $novix-breakpoints {
+    .d-#{$bp}-#{$display} {
+      @include novix-respond($bp) {
+        display: $display !important;
       }
     }
   }
@@ -91,18 +59,14 @@ $novix-display-values: (
 // ================================================
 // Flex Wrap Utilities
 // ================================================
-$novix-flex-wrap-values: (
-  wrap: wrap,
-  nowrap: nowrap,
-  wrap-reverse: wrap-reverse
-);
-
-@each $novix-name, $novix-val in $novix-flex-wrap-values {
-  .flex-#{$novix-name} { flex-wrap: $novix-val !important; }
-  @each $novix-bp, $novix-bp-width in $novix-breakpoints {
-    .flex-#{$novix-bp}-#{$novix-name} {
-      @include novix-respond($novix-bp) {
-        flex-wrap: $novix-val !important;
+@each $wrap in $novix-flex-wrap-values {
+  .flex-#{$wrap} {
+    @extend %flex-#{$wrap};
+  }
+  @each $bp, $bp-width in $novix-breakpoints {
+    .flex-#{$bp}-#{$wrap} {
+      @include novix-respond($bp) {
+        flex-wrap: $wrap !important;
       }
     }
   }
@@ -111,158 +75,112 @@ $novix-flex-wrap-values: (
 // ================================================
 // Flex Direction Utilities
 // ================================================
-$novix-flex-directions: (row, row-reverse, column, column-reverse);
-@each $novix-dir in $novix-flex-directions {
-  .flex-#{$novix-dir} { flex-direction: $novix-dir !important; }
-  @each $novix-bp, $novix-bp-width in $novix-breakpoints {
-    .flex-#{$novix-bp}-#{$novix-dir} {
-      @include novix-respond($novix-bp) {
-        flex-direction: $novix-dir !important;
+@each $dir in $novix-flex-directions {
+  .flex-#{$dir} {
+    @extend %flex-#{$dir};
+  }
+  @each $bp, $bp-width in $novix-breakpoints {
+    .flex-#{$bp}-#{$dir} {
+      @include novix-respond($bp) {
+        flex-direction: $dir !important;
       }
     }
   }
 }
 
 // ================================================
-// Flex Grow Utilities
+// Flex Grow/Shrink Utilities
 // ================================================
-$novix-flex-grow-values: (0, 1);
+@each $val in (0, 1, 2, 3) {
+  .flex-grow-#{$val} {
+    @extend %flex-grow-#{$val};
+  }
 
-@each $novix-val in $novix-flex-grow-values {
-  .flex-grow-#{$novix-val} { flex-grow: $novix-val !important; }
-  @each $novix-bp, $novix-bp-width in $novix-breakpoints {
-    .flex-grow-#{$novix-bp}-#{$novix-val} {
-      @include novix-respond($novix-bp) {
-        flex-grow: $novix-val !important;
+  .flex-shrink-#{$val} {
+    @extend %flex-shrink-#{$val};
+  }
+
+  @each $bp, $bp-width in $novix-breakpoints {
+    .flex-grow-#{$bp}-#{$val} {
+      @include novix-respond($bp) {
+        flex-grow: $val !important;
+      }
+    }
+    .flex-shrink-#{$bp}-#{$val} {
+      @include novix-respond($bp) {
+        flex-shrink: $val !important;
       }
     }
   }
 }
 
 // ================================================
-// Flex Shrink Utilities
+// Gap Utilities
 // ================================================
-$novix-flex-shrink-values: (0, 1);
+@each $key, $size in $novix-spacing-scale {
+  .g-#{$key}   { @extend %g-#{$key}; }
+  .gx-#{$key}  { @extend %gx-#{$key}; }
+  .gy-#{$key}  { @extend %gy-#{$key}; }
 
-@each $novix-val in $novix-flex-shrink-values {
-  .flex-shrink-#{$novix-val} { flex-shrink: $novix-val !important; }
-  @each $novix-bp, $novix-bp-width in $novix-breakpoints {
-    .flex-shrink-#{$novix-bp}-#{$novix-val} {
-      @include novix-respond($novix-bp) {
-        flex-shrink: $novix-val !important;
+  @each $bp, $bp-width in $novix-breakpoints {
+    .g-#{$bp}-#{$key}   { @include novix-respond($bp) { gap: $size !important; } }
+    .gx-#{$bp}-#{$key}  { @include novix-respond($bp) { column-gap: $size !important; } }
+    .gy-#{$bp}-#{$key}  { @include novix-respond($bp) { row-gap: $size !important; } }
+  }
+}
+
+// ================================================
+// Order Utilities
+// ================================================
+@each $val in (0, 1, 2, 3, 4, 5) {
+  .order-#{$val} { @extend %order-#{$val}; }
+
+  @each $bp, $bp-width in $novix-breakpoints {
+    .order-#{$bp}-#{$val} {
+      @include novix-respond($bp) {
+        order: $val !important;
+      }
+    }
+  }
+}
+
+@each $keyword, $val in (first: -1, last: 999) {
+  .order-#{$keyword} { @extend %order-#{$keyword}; }
+
+  @each $bp, $bp-width in $novix-breakpoints {
+    .order-#{$bp}-#{$keyword} {
+      @include novix-respond($bp) {
+        order: $val !important;
       }
     }
   }
 }
 
 // ================================================
-// GAP UTILITIES
+// Justify Content
 // ================================================
-$novix-gap-scale: $novix-spacing-scale !default;
+@each $key, $val in $novix-justify-values {
+  .justify-content-#{$key} { @extend %justify-content-#{$key}; }
 
-//--Base gap utilities and responsive variants
-@each $novix-name, $novix-size in $novix-gap-scale {
-  //--Base
-  .g-#{$novix-name}   { gap: $novix-size !important; }
-  .gx-#{$novix-name}  { column-gap: $novix-size !important; }
-  .gy-#{$novix-name}  { row-gap: $novix-size !important; }
-
-  //--Responsive
-  @each $novix-bp, $novix-bp-width in $novix-breakpoints {
-    .g-#{$novix-bp}-#{$novix-name} {
-      @include novix-respond($novix-bp) { gap: $novix-size !important; }
-    }
-    .gx-#{$novix-bp}-#{$novix-name} {
-      @include novix-respond($novix-bp) { column-gap: $novix-size !important; }
-    }
-    .gy-#{$novix-bp}-#{$novix-name} {
-      @include novix-respond($novix-bp) { row-gap: $novix-size !important; }
-    }
-  }
-}
-
-// ================================================
-// ORDER UTILITIES
-// ================================================
-
-//--Define the order values you want to support
-//--0 is default, higher numbers push items later in the order
-$novix-order-values: (0, 1, 2, 3, 4, 5);
-
-@each $novix-val in $novix-order-values {
-  //--Base
-  .order-#{$novix-val} { order: $novix-val !important; }
-
-  //--Responsive
-  @each $novix-bp, $novix-bp-width in $novix-breakpoints {
-    .order-#{$novix-bp}-#{$novix-val} {
-      @include novix-respond($novix-bp) {
-        order: $novix-val !important;
-      }
-    }
-  }
-}
-
-//--Special keyword values
-$novix-order-keywords: (
-  first: -1,
-  last: 999
-);
-
-@each $novix-name, $novix-val in $novix-order-keywords {
-  //--Base
-  .order-#{$novix-name} { order: $novix-val !important; }
-
-  //--Responsive
-  @each $novix-bp, $novix-bp-width in $novix-breakpoints {
-    .order-#{$novix-bp}-#{$novix-name} {
-      @include novix-respond($novix-bp) {
-        order: $novix-val !important;
+  @each $bp, $bp-width in $novix-breakpoints {
+    .justify-content-#{$bp}-#{$key} {
+      @include novix-respond($bp) {
+        justify-content: $val !important;
       }
     }
   }
 }
 
 // ================================================
-// Justify-content (Bootstrap-style naming)
+// Align Items
 // ================================================
-$novix-justify-values: (
-  start: flex-start,
-  end: flex-end,
-  center: center,
-  between: space-between,
-  around: space-around,
-  evenly: space-evenly
-);
+@each $key, $val in $novix-align-values {
+  .align-items-#{$key} { @extend %align-items-#{$key}; }
 
-@each $novix-name, $novix-val in $novix-justify-values {
-  .justify-content-#{$novix-name} { justify-content: $novix-val !important; }
-  @each $novix-bp, $novix-bp-width in $novix-breakpoints {
-    .justify-content-#{$novix-bp}-#{$novix-name} {
-      @include novix-respond($novix-bp) {
-        justify-content: $novix-val !important;
-      }
-    }
-  }
-}
-
-// ================================================
-// Align-items (Bootstrap-style naming)
-// ================================================
-$novix-align-values: (
-  start: flex-start,
-  end: flex-end,
-  center: center,
-  baseline: baseline,
-  stretch: stretch
-);
-
-@each $novix-name, $novix-val in $novix-align-values {
-  .align-items-#{$novix-name} { align-items: $novix-val !important; }
-  @each $novix-bp, $novix-bp-width in $novix-breakpoints {
-    .align-items-#{$novix-bp}-#{$novix-name} {
-      @include novix-respond($novix-bp) {
-        align-items: $novix-val !important;
+  @each $bp, $bp-width in $novix-breakpoints {
+    .align-items-#{$bp}-#{$key} {
+      @include novix-respond($bp) {
+        align-items: $val !important;
       }
     }
   }
@@ -271,99 +189,45 @@ $novix-align-values: (
 // ================================================
 // Container Utilities
 // ================================================
-.container,
-.container-fluid {
-  width: 100%;
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: map.get($novix-spacing-scale, 3);
-  padding-left: map.get($novix-spacing-scale, 3);
-}
+.container { @extend %container; }
+.container-fluid { @extend %container-fluid; }
 
-.container {
-  @include novix-respond(sm) { max-width: 540px; }
-  @include novix-respond(md) { max-width: 720px; }
-  @include novix-respond(lg) { max-width: 960px; }
-  @include novix-respond(xl) { max-width: 1140px; }
-}
+// ================================================
+// Border Width
+// ================================================
+@each $key, $val in $novix-border-width-values {
+  .border-#{$key} {
+    @extend %border-#{$key};
+  }
 
-.container-fluid {
-  max-width: 100%;
+  .border-top-#{$key}     { @extend %border-top-#{$key}; }
+  .border-end-#{$key}     { @extend %border-end-#{$key}; }
+  .border-bottom-#{$key}  { @extend %border-bottom-#{$key}; }
+  .border-start-#{$key}   { @extend %border-start-#{$key}; }
 }
 
 // ================================================
-// BORDER WIDTH UTILITIES
+// Border Style
 // ================================================
-$novix-border-widths: (
-  0: 0,
-  1: 1px,
-  2: 2px,
-  3: 3px,
-  4: 4px,
-  5: 5px
-);
+@each $style in $novix-border-styles {
+  .border-#{$style} { @extend %border-#{$style}; }
 
-//--Whole element border widths
-@each $novix-name, $novix-val in $novix-border-widths {
-  .border-#{$novix-name} {
-    border-width: $novix-val !important;
-    @if $novix-val != 0 {
-      border-style: solid !important;
-    }
-  }
-}
-
-//--Per-side border widths
-@each $novix-name, $novix-val in $novix-border-widths {
-  .border-top-#{$novix-name}    { border-top-width: $novix-val !important; }
-  .border-end-#{$novix-name}    { border-inline-end-width: $novix-val !important; }
-  .border-bottom-#{$novix-name} { border-bottom-width: $novix-val !important; }
-  .border-start-#{$novix-name}  { border-inline-start-width: $novix-val !important; }
+  .border-top-#{$style}     { @extend %border-top-#{$style}; }
+  .border-end-#{$style}     { @extend %border-end-#{$style}; }
+  .border-bottom-#{$style}  { @extend %border-bottom-#{$style}; }
+  .border-start-#{$style}   { @extend %border-start-#{$style}; }
 }
 
 // ================================================
-// BORDER STYLE UTILITIES
+// Border Radius
 // ================================================
-$novix-border-styles: (solid, dashed, dotted, double, groove, ridge, inset, outset, none);
+@each $key, $val in $novix-radius-scale {
+  .rounded-#{$key} {
+    @extend %rounded-#{$key};
+  }
 
-//--Whole element border styles
-@each $novix-style in $novix-border-styles {
-  .border-#{$novix-style} { border-style: $novix-style !important; }
-}
-
-//--Per-side border styles
-@each $novix-style in $novix-border-styles {
-  .border-top-#{$novix-style}    { border-top-style: $novix-style !important; }
-  .border-end-#{$novix-style}    { border-inline-end-style: $novix-style !important; }
-  .border-bottom-#{$novix-style} { border-bottom-style: $novix-style !important; }
-  .border-start-#{$novix-style}  { border-inline-start-style: $novix-style !important; }
-}
-
-// ================================================
-// Border Radius Utilities (Bootstrap-style naming)
-// ================================================
-@each $novix-name, $novix-val in $novix-radius-scale {
-  .rounded-#{$novix-name} {
-    border-radius: $novix-val !important;
-  }
-}
-
-//--Per-corder radius utilities
-@each $novix-name, $novix-val in $novix-radius-scale {
-  .rounded-top-#{$novix-name} {
-    border-top-left-radius: $novix-val !important;
-    border-top-right-radius: $novix-val !important;
-  }
-  .rounded-end-#{$novix-name} {
-    border-top-right-radius: $novix-val !important;
-    border-bottom-right-radius: $novix-val !important;
-  }
-  .rounded-bottom-#{$novix-name} {
-    border-bottom-left-radius: $novix-val !important;
-    border-bottom-right-radius: $novix-val !important;
-  }
-  .rounded-start-#{$novix-name} {
-    border-top-left-radius: $novix-val !important;
-    border-bottom-left-radius: $novix-val !important;
-  }
+  .rounded-top-#{$key}    { @extend %rounded-top-#{$key}; }
+  .rounded-end-#{$key}    { @extend %rounded-end-#{$key}; }
+  .rounded-bottom-#{$key} { @extend %rounded-bottom-#{$key}; }
+  .rounded-start-#{$key}  { @extend %rounded-start-#{$key}; }
 }

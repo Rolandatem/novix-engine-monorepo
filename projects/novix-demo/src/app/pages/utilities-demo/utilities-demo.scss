@@ -1,13 +1,73 @@
+// @use 'novix-engine/styles/base/utilities';
+// @use 'novix-engine/styles/base/text-utilities';
+// @use 'novix-engine/styles/base/color-utilities';
+@use 'novix-engine/styles/placeholders';
+
+hr {
+  @extend %container;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+section {
+  @extend %container;
+}
+
 table {
   border-collapse: collapse;
   width: 100%;
+  @extend %rounded-md;
+  @extend %border-1;
+  @extend %border-neutral-variant;
 
   th, td {
-    border: solid 1px var(--novix-on-background);
-    // @extend .p-4;
+    @extend %p-3;
+    @extend %text-nowrap;
+    @extend %text-start;
+    @extend %border-bottom-neutral-variant;
+    @extend %border-bottom-1;
+    vertical-align: top;
   }
 
-  th {
-    background-color: var(--novix-neutral-variant);
+  thead {
+    @extend %bg-neutral-variant;
+    @extend %text-on-neutral-variant;
+    @extend %fw-semibold;
   }
+
+  tbody tr {
+    @extend %bg-surface;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      @extend %bg-surface-variant;
+    }
+  }
+
+  tbody tr.special-info {
+    @extend %bg-neutral-variant-40;
+
+    td {
+      @extend %text-on-neutral-variant;
+    }
+
+    &:hover {
+      @extend %bg-neutral-variant-60;
+    }
+  }
+
+  td:first-child {
+    @extend %fw-medium;
+    @extend %text-primary;
+  }
+
+  td:last-child {
+    width: 100%;
+    @extend %text-muted;
+  }
+}
+
+.sectionHeader {
+  @extend %fs-2;
+  @extend %fw-bold;
 }

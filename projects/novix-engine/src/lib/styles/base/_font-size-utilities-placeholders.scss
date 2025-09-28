@@ -1,0 +1,8 @@
+@use 'variables' as *;
+
+// Base font-size classes + placeholders
+@each $novix-num, $novix-size in $novix-font-sizes {
+  %fs-#{$novix-num} {
+    font-size: $novix-size !important;
+  }
+}

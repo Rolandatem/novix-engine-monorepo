@@ -26,6 +26,13 @@
   font-family: var(--novix-font-family);
   font-size: var(--novix-font-size-sm);
   line-height: 1.5;
+  body {
+    margin: 0;
+    padding: 0px;
+  }
+  * {
+    box-sizing: border-box;
+  }
 
   //--Links
   a {

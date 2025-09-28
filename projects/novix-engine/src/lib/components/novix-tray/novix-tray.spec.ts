@@ -318,7 +318,7 @@ describe('NovixTray - UI Testing', () => {
 
   //===========================================================================================================================
   it('should not close tray when autoCloseOnOutsideClick is false and the user clicks on anything outside of the tray', async() => {
-    fixture.componentRef.setInput('autoCloseOnOutsideCLick', false);
+    fixture.componentRef.setInput('autoCloseOnOutsideClick', false);
     fixture.componentRef.setInput('startOpen', true);
     fixture.detectChanges();
 

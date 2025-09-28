@@ -1,4 +1,36 @@
 // ================================================
+// Theme Color Utilities (Bootstrap-style naming)
+// ================================================
+$novix-color-tokens: (
+  primary,
+  secondary,
+  tertiary,
+  accent,
+  neutral,
+  neutral-variant,
+  warn,
+  error,
+  success,
+  info,
+  background,
+  surface,
+  surface-variant,
+  on-primary,
+  on-secondary,
+  on-tertiary,
+  on-accent,
+  on-background,
+  on-surface,
+  on-neutral,
+  on-neutral-variant,
+  on-warn,
+  on-error,
+  on-success,
+  on-info,
+  on-surface-variant
+);
+
+// ================================================
 // Breakpoints (Bootstrap-style naming)
 // ================================================
 $novix-breakpoints: (
@@ -41,3 +73,96 @@ $novix-elevation-scale: (
   3: 0 4px 8px rgba(0,0,0,0.1),
   4: 0 8px 16px rgba(0,0,0,0.1)
 );
+
+// ================================================
+// Spacing Utilities
+// ================================================
+$novix-spacing-directions: (
+  "": (margin),
+  "t": (margin-top),
+  "b": (margin-bottom),
+  "s": (margin-inline-start),
+  "e": (margin-inline-end),
+  "x": (margin-left, margin-right),
+  "y": (margin-top, margin-bottom)
+);
+
+$novix-padding-directions: (
+  "": (padding),
+  "t": (padding-top),
+  "b": (padding-bottom),
+  "s": (padding-inline-start),
+  "e": (padding-inline-end),
+  "x": (padding-left, padding-right),
+  "y": (padding-top, padding-bottom)
+);
+
+// ================================================
+// Display Utilities
+// ================================================
+$novix-display-values: (none, inline, inline-block, block, flex, grid);
+
+// ================================================
+// Flex Wrap Utilities
+// ================================================
+$novix-flex-wrap-values: (wrap, nowrap, wrap-reverse);
+
+// ================================================
+// Flex Direction Utilities
+// ================================================
+$novix-flex-directions: (row, row-reverse, column, column-reverse);
+
+// ================================================
+// Justify Content
+// ================================================
+$novix-justify-values: (start: flex-start, end: flex-end, center: center, between: space-between, around: space-around, evenly: space-evenly);
+
+// ================================================
+// Align Items
+// ================================================
+$novix-align-values: (start: flex-start, end: flex-end, center: center, baseline: baseline, stretch: stretch);
+
+// ================================================
+// Border Width
+// ================================================
+$novix-border-width-values: (0: 0, 1: 1px, 2: 2px, 3: 3px, 4: 4px, 5: 5px);
+
+// ================================================
+// Border Style
+// ================================================
+$novix-border-styles: (solid, dashed, dotted, double, groove, ridge, inset, outset, none);
+
+// ================================================
+// Text Alignment Utilities (with responsive variants)
+// ================================================
+$novix-text-alignments: (start, center, end, justify);
+
+// ================================================
+// Line Height Utilities
+// ================================================
+$novix-line-heights: (
+  1: 1,
+  sm: 1.25,
+  base: 1.5,
+  lg: 1.75,
+  xl: 2
+);
+
+// ================================================
+// Font Size Utilities (Bootstrap-style + extras)
+// ================================================
+$novix-font-sizes: (
+  1: var(--novix-font-size-display), // Largest
+  2: var(--novix-font-size-xl),
+  3: var(--novix-font-size-lg),
+  4: var(--novix-font-size-md),
+  5: var(--novix-font-size-sm),
+  6: var(--novix-font-size-xs),
+  7: var(--novix-font-size-xxs),   // Smaller than xs
+  8: var(--novix-font-size-xxxs)   // Smallest
+);
+
+// ================================================
+// Opacity Variants (10% increments)
+// ================================================
+$novix-opacity-steps: (0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100);

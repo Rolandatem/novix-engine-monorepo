@@ -1,45 +1,45 @@
 @use "sass:map";
 @use 'variables' as *;
 @use 'mixins' as *;
+@use 'text-utilities-placeholders' as *;
 
 // ================================================
 // Font Weight Utilities
 // ================================================
-.fw-bold      { font-weight: 700 !important; }
-.fw-semibold  { font-weight: 600 !important; }
-.fw-medium    { font-weight: 500 !important; }
-.fw-normal    { font-weight: 400 !important; }
-.fw-light     { font-weight: 300 !important; }
+.fw-bold      { @extend %fw-bold; }
+.fw-semibold  { @extend %fw-semibold; }
+.fw-medium    { @extend %fw-medium; }
+.fw-normal    { @extend %fw-normal; }
+.fw-light     { @extend %fw-light; }
 
 // ================================================
 // Font Style Utilities
 // ================================================
-.fst-italic     { font-style: italic !important; }
-.fst-normal     { font-style: normal !important; }
+.fst-italic { @extend %fst-italic; }
+.fst-normal { @extend %fst-normal; }
 
 // ================================================
 // Text Decoration Utilities
 // ================================================
-.text-decoration-underline   { text-decoration: underline !important; }
-.text-decoration-none        { text-decoration: none !important; }
-.text-decoration-line-through { text-decoration: line-through !important; }
-.text-decoration-overline    { text-decoration: overline !important; }
+.text-decoration-underline    { @extend %text-decoration-underline; }
+.text-decoration-none         { @extend %text-decoration-none; }
+.text-decoration-line-through { @extend %text-decoration-line-through; }
+.text-decoration-overline     { @extend %text-decoration-overline; }
 
 // ================================================
 // Text Transform Utilities
 // ================================================
-.text-uppercase  { text-transform: uppercase !important; }
-.text-lowercase  { text-transform: lowercase !important; }
-.text-capitalize { text-transform: capitalize !important; }
-.text-normal-case { text-transform: none !important; }
+.text-uppercase   { @extend %text-uppercase; }
+.text-lowercase   { @extend %text-lowercase; }
+.text-capitalize  { @extend %text-capitalize; }
+.text-normal-case { @extend %text-normal-case; }
 
 // ================================================
 // Text Alignment Utilities (with responsive variants)
 // ================================================
-$text-alignments: (start, center, end, justify);
+@each $align in $novix-text-alignments {
+  .text-#{$align} { @extend %text-#{$align}; }
 
-@each $align in $text-alignments {
-  .text-#{$align} { text-align: $align !important; }
   @each $bp, $bp-width in $novix-breakpoints {
     .text-#{$bp}-#{$align} {
       @include novix-respond($bp) {
@@ -52,40 +52,29 @@ $text-alignments: (start, center, end, justify);
 // ================================================
 // White Space & Wrapping Utilities
 // ================================================
-.text-wrap       { white-space: normal !important; }
-.text-nowrap     { white-space: nowrap !important; }
-.text-pre        { white-space: pre !important; }
-.text-pre-line   { white-space: pre-line !important; }
-.text-pre-wrap   { white-space: pre-wrap !important; }
+.text-wrap     { @extend %text-wrap; }
+.text-nowrap   { @extend %text-nowrap; }
+.text-pre      { @extend %text-pre; }
+.text-pre-line { @extend %text-pre-line; }
+.text-pre-wrap { @extend %text-pre-wrap; }
 
 // ================================================
 // Text Overflow Utilities
 // ================================================
 .text-truncate {
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-  white-space: nowrap !important;
+  @extend %text-truncate;
 }
 
 // ================================================
 // Line Height Utilities
 // ================================================
-$line-heights: (
-  1: 1,
-  sm: 1.25,
-  base: 1.5,
-  lg: 1.75,
-  xl: 2
-);
-
-@each $name, $lh in $line-heights {
-  .lh-#{$name} { line-height: $lh !important; }
+@each $name, $lh in $novix-line-heights {
+  .lh-#{$name} { @extend %lh-#{$name}; }
 }
 
 // ================================================
-// Text Muted Utility (Bootstrap-style naming)
+// Text Muted Utility
 // ================================================
 .text-muted {
-  color: var(--on-background);
-  opacity: 0.65; // matches Bootstrap's default muted look
+  @extend %text-muted;
 }
