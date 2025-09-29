@@ -8,6 +8,7 @@ import { isPlatformBrowser } from '@angular/common';
   templateUrl: './novix-tray.html',
   styleUrl: './novix-tray.scss',
   host: {
+    '[style.z-index]': "'1000'",
     '[class.attach-left]': 'attachDirection() === "left"',
     '[class.attach-right]': 'attachDirection() === "right"',
     '[class.attach-top]': 'attachDirection() === "top"',

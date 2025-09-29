@@ -38,10 +38,12 @@ export class NovixEngThemeService {
   private _themes = new Map<string, INovixEngRegisteredTheme>();
 
   /** Currently selected light theme ID */
-  private _lightThemeId?: string;
+  //private _lightThemeId?: string;
+  private _lightThemeId = signal<string | null>(null);
 
   /** Currently selected dark theme ID */
-  private _darkThemeId?: string;
+  //private _darkThemeId?: string;
+  private _darkThemeId = signal<string | null>(null);
 
   /** Current mode signal ('light' or 'dark') */
   private _currentModeSig = signal<'light' | 'dark' | undefined>(undefined);
@@ -50,7 +52,7 @@ export class NovixEngThemeService {
   private _currentThemeIdSig = signal<string>('novix-default-light');
 
   /** Tracks the last theme class applied to <html> so it can be safely removed before applying a new one. */
-  private _lastAppliedThemeId?: string;
+  private _lastAppliedThemeId?: string | null;
 
   //===========================================================================================================================
   // PUBLIC PROPERTIES
@@ -90,7 +92,7 @@ export class NovixEngThemeService {
   private applyCurrentMode(): void {
     if (!this._isBrowser || !this._rootEl) { return; }
 
-    const targetId = this._currentModeSig() === 'dark' ? this._darkThemeId : this._lightThemeId;
+    const targetId = this._currentModeSig() === 'dark' ? this._darkThemeId() : this._lightThemeId();
     if (!targetId) { return; }
 
     //--Remove previously applied theme class.
@@ -131,8 +133,8 @@ export class NovixEngThemeService {
     if (!this._isBrowser) return;
 
     const options = { path: '/', expires: 365 }; //--1 year
-    Cookies.set(NOVIX_STORAGE_KEYS.light, this._lightThemeId ?? '', options);
-    Cookies.set(NOVIX_STORAGE_KEYS.dark, this._darkThemeId ?? '', options);
+    Cookies.set(NOVIX_STORAGE_KEYS.light, this._lightThemeId() ?? '', options);
+    Cookies.set(NOVIX_STORAGE_KEYS.dark, this._darkThemeId() ?? '', options);
 
     const mode = this._currentModeSig();
     Cookies.set(NOVIX_STORAGE_KEYS.mode, mode ?? '', {
@@ -149,8 +151,8 @@ export class NovixEngThemeService {
     const dark = Cookies.get(NOVIX_STORAGE_KEYS.dark);
     const mode = Cookies.get(NOVIX_STORAGE_KEYS.mode) as 'light' | 'dark' | undefined;
 
-    if (light && this._themes.has(light)) { this._lightThemeId = light; }
-    if (dark && this._themes.has(dark)) { this._darkThemeId = dark; }
+    if (light && this._themes.has(light)) { this._lightThemeId.set(light); }
+    if (dark && this._themes.has(dark)) { this._darkThemeId.set(dark); }
     if (mode === 'light' || mode === 'dark') { this._currentModeSig.set(mode); }
   }
 
@@ -199,7 +201,7 @@ export class NovixEngThemeService {
    * Sets the theme to use in light mode.
    */
   public setLightTheme(id: string): void {
-    this._lightThemeId = id;
+    this._lightThemeId.set(id);
     this.applyCurrentMode();
     this.persist();
   }
@@ -208,7 +210,7 @@ export class NovixEngThemeService {
    * Sets the theme to use in dark mode.
    */
   public setDarkTheme(id: string): void {
-    this._darkThemeId = id;
+    this._darkThemeId.set(id);
     this.applyCurrentMode();
     this.persist();
   }
@@ -243,7 +245,7 @@ export class NovixEngThemeService {
    * Returns both light and dark theme IDs.
    */
   public getActiveThemeIds(): { light: string; dark: string } {
-    return { light: this._lightThemeId!, dark: this._darkThemeId! };
+    return { light: this._lightThemeId() ?? '', dark: this._darkThemeId() ?? '' };
   }
 
   /**
@@ -307,11 +309,11 @@ export class NovixEngThemeService {
     const initialDark = options?.initialDarkTheme ?? 'novix-default-dark';
 
     //--Step 3: Validate restored theme id's against CSS presence.
-    if (!this._lightThemeId || !this.cssClassExists(this._lightThemeId)) {
-      this._lightThemeId = initialLight;
+    if (!this._lightThemeId || !this.cssClassExists(this._lightThemeId() ?? '')) {
+      this._lightThemeId.set(initialLight);
     }
-    if (!this._darkThemeId || !this.cssClassExists(this._darkThemeId)) {
-      this._darkThemeId = initialDark;
+    if (!this._darkThemeId || !this.cssClassExists(this._darkThemeId() ?? '')) {
+      this._darkThemeId.set(initialDark);
     }
 
     //--Step 4: Decide mode if not restored.
@@ -327,8 +329,8 @@ export class NovixEngThemeService {
 
     //--Step 5: Initialize last applied theme for SSR-safe removal
     this._lastAppliedThemeId = this._currentModeSig() === 'dark'
-      ? this._darkThemeId
-      : this._lightThemeId;
+      ? this._darkThemeId()
+      : this._lightThemeId();
 
     //--Step 6: Apply immediately
     this.applyCurrentMode();

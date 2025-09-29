@@ -106,8 +106,8 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideNovixEngine({
       registerThemes: [
-        { id: 'my-light-theme', map: myLightTheme },
-        { id: 'my-dark-theme', map: myDarkTheme }
+        { id: 'my-light-theme' },
+        { id: 'my-dark-theme' }
       ],
       initialLightTheme: 'my-light-theme',
       initialDarkTheme: 'my-dark-theme',
@@ -121,10 +121,10 @@ export const appConfig: ApplicationConfig = {
 
 | Option             | Type       | Description |
 |--------------------|------------|-------------|
-| `registerThemes`   | `Array<{ id: string; map: Record<string, any> }>` | Registers one or more theme maps with unique IDs |
+| `registerThemes`   | `Array<{ id: string; }>` | Registers one or more theme's with id's from the theme SCSS file. |
 | `initialLightTheme`| `string`   | Theme ID to use when mode is `'light'` |
-| `initialDarkTheme` | `string`   | Theme ID to use when mode is `'dark'` |
-| `watchSystemTheme` | `boolean`  | If `true`, listens for system theme changes and switches automatically |
+| `initialDarkTheme` | `string`   | Theme ID to use when mode is `'dark'` (Optional) |
+| `watchSystemTheme` | `boolean`  | Flag used to turn on light and dark mode, otherwise only uses light mode. Default `false` |
 
 ---
 

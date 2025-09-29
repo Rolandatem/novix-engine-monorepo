@@ -5,7 +5,15 @@
 @use './app/themes/blue-theme.scss';
 @use './app/themes/rose-theme.scss';
 @use './app/themes/mint-theme.scss';
+@import 'prismjs/themes/prism-okaidia.css';
 
 body {
   padding-bottom: 30px !important;
+}
+
+.code-line {
+  font-family: Menlo, Consolas, Monaco, 'Courier New', monospace;
+  font-size: 0.875rem;
+  background-color: var(--novix-surface-variant);
+  padding: 2px 5px;
 }

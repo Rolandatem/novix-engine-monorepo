@@ -11,7 +11,7 @@
   },
   "sideEffects": false,
   "bin": {
-    "novix": "./src/lib/tools/cli/novix.js"
+    "novix": "/src/lib/tools/cli/novix.js"
   },
   "scripts": {
     "test": "npx vitest run",

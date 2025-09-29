@@ -246,8 +246,8 @@ describe('NovixEngThemeService - Structure', () => {
     service = TestBed.inject(NovixEngThemeService);
     service['restore']();
 
-    expect(service['_lightThemeId']).toBeUndefined();
-    expect(service['_darkThemeId']).toBeUndefined();
+    expect(service['_lightThemeId']()).toBeNull();
+    expect(service['_darkThemeId']()).toBeNull();
   });
 
   //===========================================================================================================================
@@ -261,8 +261,8 @@ describe('NovixEngThemeService - Structure', () => {
 
     service['restore']();
 
-    expect(service['_lightThemeId']).toBe('light-theme');
-    expect(service['_darkThemeId']).toBe('dark-theme');
+    expect(service['_lightThemeId']()).toBe('light-theme');
+    expect(service['_darkThemeId']()).toBe('dark-theme');
   });
 
   //===========================================================================================================================
@@ -468,5 +468,13 @@ describe('NovixEngThemeService - Structure', () => {
     const ids = service.getActiveThemeIds();
     expect(ids.light).toBe('novix-default-light');
     expect(ids.dark).toBe('novix-default-dark');
+  });
+
+  //===========================================================================================================================
+  it('should return empty theme ids for light and dark when calling getActiveThemeIds and not setting any', () => {
+    service = TestBed.inject(NovixEngThemeService);
+
+    expect(service.getActiveThemeIds().light).toBe('');
+    expect(service.getActiveThemeIds().dark).toBe('');
   });
 });

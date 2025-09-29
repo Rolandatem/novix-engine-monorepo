@@ -1,5 +1,14 @@
 #!/usr/bin/env node
 /* NovixEngine CLI – Theme Generator */
+/*
+NovixEngine rebuilds can mess up the link, so if needing to relink do
+the following:
+- Go to the novix-engine root folder.
+- npm unlink -g
+- npm link
+- *may* need to mark as executable with (in bash):
+--chmod +x src/lib/tools/cli/novix.js
+*/
 
 const fs = require('fs');
 const path = require('path');

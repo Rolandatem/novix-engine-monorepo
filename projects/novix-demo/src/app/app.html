@@ -15,17 +15,12 @@
    </div>
 </header>
 
-<nav class="bg-surface-variant mt-3 p-4 pt-1">
+<nav class="bg-surface-variant mt-3 p-4 pt-1 container">
   <h3>Features:</h3>
   <div>
     <button (click)="goTo('colors-demo')">Colors</button>
     <button (click)="goTo('utilities-demo')">Utilities</button>
-    <select (change)="onThemeChange($event)">
-      <option selected value="">Select</option>
-      @for (theme of registeredThemes(); track theme.id) {
-        <option [value]="theme.id">{{ theme.id }}</option>
-      }
-    </select>
+    <button (click)="goTo('themes-demo')">Themes</button>
   </div>
 </nav>
 

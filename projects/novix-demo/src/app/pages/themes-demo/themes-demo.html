@@ -1,0 +1,342 @@
+<section class="container mt-5">
+  <h1 id="introduction" class="fs-1 fw-bold">Novix Engine Themes</h1>
+  <p>
+    NovixEngine offers a modular, token-driven theming architecture designed for clarity,
+    scalability, and developer control. With semantic tokens, responsive utilities, and
+    SCSS-powered customization, you can adapt colors, spacing, typography, and component
+    behavior across light, dark, and custom themes — all without touching core styles.
+    Whether you're building a design system or fine-tuning a single app, NovixEngine makes
+    theming intuitive and maintainable.
+  </p>
+
+  <hr />
+
+  <section id="light-vs-dark" class="mt-3">
+    <div class="sectionHeader">Light & Dark Mode Support</div>
+    <p>
+      NovixEngine includes built-in support for light and dark themes, with full control
+      over how each mode is styled. On initial visit, the system automatically respects
+      the user's OS-level preference — ensuring a seamless experience from the start.
+      Developers can override theme behavior per mode using semantic tokens and scoped
+      variables, making it easy to customize colors, backgrounds, and component styles
+      independently. To explore mode switching in action, click the theme toggle icon in
+      the top-right corner of the screen.
+    </p>
+  </section>
+
+  <hr />
+
+  <section id="theme-setup" class="mt-3">
+    <div class="sectionHeader">🎨 Theme Setup</div>
+    <p>
+      NovixEngine supports flicker-safe theming with light/dark mode, system preference detection, and SCSS token maps.
+      Themes are applied before the first render using Angular's <code class="code-line">provideAppInitializer</code>, ensuring visual stability across SSR and hydration.
+    </p>
+
+    <div class="mt-3">
+      <div id="minimal-setup" class="fs-4 fw-bold">✅ Minimal Setup</div>
+      <p>
+        For most apps, you can initialize NovixEngine with no parameters. This will assume
+        you're using the default themes included in the engine:
+      </p>
+      <ul>
+        <li><span class="code-line">novix-default-light</span></li>
+        <li><span class="code-line">novix-default-dark</span></li>
+      </ul>
+
+      <app-code-block [language]="'typescript'" [code]="themeMinimalSetupCode"></app-code-block>
+    </div>
+
+    <div class="mt-3">
+      <div id="custom-setup" class="fs-4 fw-bold">🛠️ Custom Setup</div>
+      <p>
+        You can register your own themes and constol initial behavior:
+      </p>
+
+      <app-code-block [language]="'typescript'" [code]="themeCustomSetupCode"></app-code-block>
+
+      <div class="fw-bold mt-3">Option Reference:</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Option</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>registerThemes</td>
+            <td>Array<&lbrace; id: string $rbrace;></td>
+            <td>Registers one or more theme's with id's from the theme SCSS file.</td>
+          </tr>
+          <tr>
+            <td>initialLightTheme</td>
+            <td>string</td>
+            <td>Theme ID to use when mode is 'light'</td>
+          </tr>
+          <tr>
+            <td>initialDarkTheme</td>
+            <td>string</td>
+            <td>Theme ID to use when mode is 'dark' (Optional)</td>
+          </tr>
+          <tr>
+            <td>watchSystemTheme</td>
+            <td>boolean</td>
+            <td>Flag used to turn on light and dark mode, otherwise only uses light mode. Default `false`</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-3">
+      <div id="ssr-theme-flicker-mitigation" class="fs-4 fw-bold">🧩 SSR Theme Flicker Mitigation</div>
+      <p>
+        NovixEngine support server-side theme injection to reduce clickering during hydration.
+        This is especially useful when using light/dark mode switching with peristent cookies.
+      </p>
+      <p>
+        On initial visits, a slight flicker may still occur if the user has no theme cookies
+        set yet (initial visit to site). However, once the theme is persisted, subsequent
+        visits will render the most correct theme to use when possible to eliminate flicker.
+        Depending on the consumers Novix setup the tool will pick the theme in this order:
+        Check for cookies for theme, if not found will use the consumer apps defined fallback
+        theme, if no fallback theme is specified, then will catch-all with the default
+        novix light and dark themes (still requires themes to be included in the apps
+        styles, and registered through the novix provider).
+      </p>
+      <p class="warning">
+        ⚠️ Currently, only Express is supported. We plan to offer adapters for other popular
+        Node.js servers (e.g. NestJS, Fastify, Koa) in future releases.
+      </p>
+
+      <div id="express-server-setup" class="fs-4 fw-bold">🛠️ Express Server Setup</div>
+      <p>To enable this for Express use the <code class="code-line">injectNovixThemeClassForExpress</code> middleware.</p>
+      <p>n your <code class="code-line">server.ts</code> file or equivalent, look for something like this:</p>
+      <app-code-block [language]="'typescript'" [code]="expressOrignalServerCode"></app-code-block>
+      <p>and replace with this:</p>
+      <app-code-block [language]="'typescript'" [code]="expressNovixServerCode"></app-code-block>
+      <p>
+        <code class="code-line">light</code> - Optional fallback theme id to use for light mode.
+        <code class="code-line">dark</code> - Optional fallback theme id to use for dark mode (if configured).
+      </p>
+    </div>
+  </section>
+
+  <hr />
+
+  <section id="scss-imports" class="mt-3">
+    <div class="sectionHeader">🎨 SCSS Imports</div>
+    <p>To enable theming, import the required SCSS files into your global <code class="code-line">styles.scss</code>:</p>
+    <app-code-block [language]="'scss'" [code]="scssImportsCode"></app-code-block>
+    <ul>
+      <li>The first line (<code class="code-line">@use 'novix-engine/styles' as *;</code>) is <strong>required</strong> for utility mixins and shared tokens.</li>
+      <li>The <code class="code-line">novix-default-light-theme</code> and <code class="code-line">novix-default-dark-theme</code> themes files are not require but packaged with the engine for quick use.</li>
+      <li>You can replace these with custom themes like the example <code class="code-line">blue-theme.scss</code> as needed.</li>
+    </ul>
+    <p class="warning">
+      ⚠️ If a theme is activated but it's SCSS is not imported, CSS variables will be missing and the app may render incorrectly.
+    </p>
+  </section>
+
+  <hr />
+
+  <section id="custom-theme-scss" class="mt-3">
+    <div class="sectionHeader">🎨 Custom Theme SCSS Files</div>
+    <p>
+      NovixEngine supports the creation of custom themes for use across
+      your application. It includes a CLI tool that generates a starter
+      template with the required structure for theming. To create a minimal
+      theme file, run:
+    </p>
+    <app-code-block [code]="'novix generate theme blue-theme'"></app-code-block>
+    <p>
+      After generation, edit the theme file and update the token values as
+      needed. By default, the template mirrors the
+      <code class="code-line">novix-default-light-theme</code>.
+    </p>
+    <p class="warning">
+      ⚠️ Removing required tokens may cause rendering issues in the
+      application.
+    </p>
+    <p>
+      For additional options and usage details, run
+      <code class="code-line">novix --help</code>.
+    </p>
+    <p>
+      Make sure to use a unique and identifying value for the
+      <code class="code-line">$theme-id</code> value. This is the ID
+      that will be needed for theme registration and other tools
+      used in the Novix Engine Theme Service.
+    </p>
+  </section>
+
+  <hr />
+
+  <section id="novix-engine-theme-service" class="mt-3">
+    <div class="sectionHeader">🎛️ Novix Engine Theme Service</div>
+    <p>
+      At the heart of NovixEngine is the
+      <code class="code-line">NovixEngThemeService</code>, which powers
+      both internal theming logic and developer-facing customization.
+      This service is automatically configured via dependency injection
+      when you initialize the engine using
+      <code class="code-line">provideNovixEngine</code>. To access its
+      functionality, simply inject
+      <code class="code-line">NovixEngThemeService</code> into your
+      component and begin using its runtime tools.
+    </p>
+    <table class="engineThemeInfoTable">
+      <tbody>
+        <tr>
+          <td>
+            <app-code-block [class]="'d-inline-block'" [code]="'getRegisteredThemes(): INovixEngRegisteredTheme[]'"></app-code-block>
+            <div>Returns all registered themes.</div>
+            <app-code-block [class]="'d-inline-block;'" [code]="exampleGetRegisteredThemesOutput"></app-code-block>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <app-code-block [class]="'d-inline-block'" [code]="'setLightTheme(id: string): void'"></app-code-block>
+            <div>Sets the theme to use in light mode.</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <app-code-block [class]="'d-inline-block'" [code]="'setDarkTheme(id: string): void'"></app-code-block>
+            <div>Sets the theme to use in dark mode.</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <app-code-block [class]="'d-inline-block'" [code]="'setCurrentModeTheme(id: string): void'"></app-code-block>
+            <div>
+              Sets the theme for the current mode ('light' or 'dark').
+              Useful for runtime overrides in dual-mode setups.
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <app-code-block [class]="'d-inline-block'" [code]="`getCurrentMode(): 'light' | 'dark'`"></app-code-block>
+            <div>Returns the current mode, either <code class="code-line">light</code> or <code class="code-line">dark</code>.</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <app-code-block [class]="'d-inline-block'" [code]="'getCurrentThemeId(): string'"></app-code-block>
+            <div>Returns the current theme ID for the active mode.</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <app-code-block [class]="'d-inline-block'" [code]="'getActiveThemeIds(): { light: string, dark: string }'"></app-code-block>
+            <div>
+              Returns an object containing the <code class="code-line">light</code>
+              and <code class="code-line">dark</code> properties with their
+              corresponding values.
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <app-code-block [class]="'d-inline-block'" [code]="'toggleMode(): void'"></app-code-block>
+            <div>
+              Toggles between light and dark mode. <strong>Note:</strong> only works
+              when dual-mode is set (via <code class="code-line">watchSystemTheme</code> flag in provider).
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <app-code-block [class]="'d-inline-block'" [code]="`setMode(mode: 'light' | 'dark'): void`"></app-code-block>
+            <div>Forcefully sets the current light/dark mode.</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+</section>
+
+<novix-tray
+  [handleText]="'Navigation Links'"
+  [rounded]="true"
+  [style.top]="'60px'"
+  [style.bottom]="'60px'"
+  [traySize]="'400px'"
+  [autoCloseOnOutsideClick]="true">
+
+  <tray-header>
+    <div class="fw-bold fs-3 text-center">Page Navigation</div>
+  </tray-header>
+
+  <tray-content>
+    <ul>
+      <li><a [routerLink]="['/themes-demo']" fragment="introduction">Introduction</a></li>
+      <li><a [routerLink]="['/themes-demo']" fragment="light-vs-dark">Light & Dark Mode Support</a></li>
+      <li><a [routerLink]="['/themes-demo']" fragment="theme-setup">Theme Setup</a></li>
+      <li>
+        <ul>
+          <li><a [routerLink]="['/themes-demo']" fragment="minimal-setup">Minimal Setup</a></li>
+          <li><a [routerLink]="['/themes-demo']" fragment="custom-setup">Custom Setup</a></li>
+          <li><a [routerLink]="['/themes-demo']" fragment="ssr-theme-flicker-mitigation">SSR Theme Flicker Mitigation</a></li>
+          <li><a [routerLink]="['/themes-demo']" fragment="express-server-setup">Express Server Setup</a></li>
+        </ul>
+      </li>
+      <li><a [routerLink]="['/themes-demo']" fragment="scss-imports">SCSS Imports</a></li>
+      <li><a [routerLink]="['/themes-demo']" fragment="custom-theme-scss">Custom Theme SCSS Files</a></li>
+      <li><a [routerLink]="['/themes-demo']" fragment="novix-engine-theme-service">Novix Engine Theme Service</a></li>
+    </ul>
+  </tray-content>
+</novix-tray>
+
+<novix-tray
+  [attachDirection]="'right'"
+  [handleText]="'Options and Info'"
+  [rounded]="true"
+  [traySize]="'400px'"
+  [style.top]="'60px'"
+  [style.bottom]="'60px'"
+  [startOpen]="false"
+  [autoCloseOnOutsideClick]="true">
+
+  <tray-header>
+    <div class="fs-3 fw-bold">Options and Info</div>
+  </tray-header>
+
+  <tray-content>
+    <div class="mt-3"><strong>Current Mode:</strong> {{ currentMode() }}</div>
+    <div><strong>Current Theme:</strong> {{ currentTheme() }}</div>
+    <div>
+      <div class="fw-bold">Active Themes:</div>
+      <ul class="my-0">
+        <li><strong>Light Theme:</strong> {{ activeThemes().light }}</li>
+        <li><strong>Dark Theme:</strong> {{ activeThemes().dark }}</li>
+      </ul>
+    </div>
+    <div>
+      <div class="fw-bold">Registered Themes:</div>
+      <ul class="my-0">
+        @for (theme of registeredThemes(); track theme.id) {
+          <li>{{ theme.id }}</li>
+        }
+      </ul>
+    </div>
+
+    <hr />
+
+    <div>
+      <strong>Change Current Mode Theme:</strong>
+      <select [value]="selectedThemeId()" (change)="onThemeChange($event)">
+        @for (theme of registeredThemes(); track theme.id) {
+          <option [value]="theme.id">{{theme.id}}</option>
+        }
+      </select>
+    </div>
+
+    <div class="mt-3">
+      <button (click)="toggleMode()">Toggle Light/Dark</button>
+    </div>
+  </tray-content>
+</novix-tray>

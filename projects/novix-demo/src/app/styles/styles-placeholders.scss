@@ -1,0 +1,55 @@
+@use 'novix-engine/styles/placeholders';
+
+%common-table {
+  border-collapse: collapse;
+  width: 100%;
+  @extend %rounded-md;
+  @extend %border-1;
+  @extend %border-neutral-variant;
+
+  th, td {
+    @extend %p-3;
+    @extend %text-nowrap;
+    @extend %text-start;
+    @extend %border-bottom-neutral-variant;
+    @extend %border-bottom-1;
+    vertical-align: top;
+  }
+
+  thead {
+    @extend %bg-neutral-variant;
+    @extend %text-on-neutral-variant;
+    @extend %fw-semibold;
+  }
+
+  tbody tr {
+    @extend %bg-surface;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      @extend %bg-surface-variant;
+    }
+  }
+
+  tbody tr.special-info {
+    @extend %bg-neutral-variant-40;
+
+    td {
+      @extend %text-on-neutral-variant;
+    }
+
+    &:hover {
+      @extend %bg-neutral-variant-60;
+    }
+  }
+
+  td:first-child {
+    @extend %fw-medium;
+    @extend %text-primary;
+  }
+
+  td:last-child {
+    width: 100%;
+    @extend %text-muted;
+  }
+}
