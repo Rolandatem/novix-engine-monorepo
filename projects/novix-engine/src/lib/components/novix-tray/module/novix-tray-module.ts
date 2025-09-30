@@ -6,12 +6,12 @@ import { NovixTray } from '../novix-tray';
 @NgModule({
   declarations: [],
   imports: [
-    NovixTray,
+    //NovixTray,
     TrayHeaderDirective,
     TrayContentDirective
   ],
   exports: [
-    NovixTray,
+    //NovixTray,
     TrayHeaderDirective,
     TrayContentDirective
   ]

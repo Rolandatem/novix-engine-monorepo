@@ -1,1 +1,68 @@
 <p>home works!</p>
+
+<novix-tray-demo #leftTray
+  [handleText]="'Left Side'"
+  [style.top]="'20px'"
+  [style.bottom]="'20px'"
+  [rounded]="true"
+  [autoCloseOnOutsideClick]="true">
+
+  <tray-header>
+    header
+  </tray-header>
+
+  <tray-content>
+    content
+  </tray-content>
+
+</novix-tray-demo>
+
+<novix-tray-demo #rightTray
+  [handleText]="'Right Side'"
+  [attachDirection]="'right'"
+  [rounded]="true"
+  [trayHeight]="'300px'"
+  [style.top]="'20px'"
+  [style.bottom]="'20px'"
+  [trayVerticalAlign]="'center'">
+
+  <tray-header>
+    header
+  </tray-header>
+
+  <tray-content>
+    adasdasd
+  </tray-content>
+
+</novix-tray-demo>
+
+<!-- <novix-tray-demo #topTray
+  [handleText]="'Top Side'"
+  [attachDirection]="'top'"
+  [style.left]="'20px'"
+  [style.right]="'20px'"
+  [traySize]="'200px'"
+  [trayWidth]="'300px'">
+  <tray-header>
+    header
+  </tray-header>
+
+  <tray-content>
+    content
+  </tray-content>
+</novix-tray-demo> -->
+
+
+<div class="container">
+  <button (click)="toggleLeftTray()">Left Tray</button>
+  <button (click)="toggleRightTray()">Right Tray</button>
+
+  <!-- <div>
+    <div><strong>Left Tray:</strong></div>
+    <div>Is Open: {{ leftTray.isOpen() }}</div>
+    <div>Attach Direction: {{ leftTray.attachDirection() }}</div>
+    <div>Left: {{ leftTray.calculatedLeftPosition() }}</div>
+    <div>Right: {{ leftTray.calculatedRightPosition() }}</div>
+    <div>Offset: {{ leftTray.trayClosedOffset() }}</div>
+  </div> -->
+</div>

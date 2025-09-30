@@ -1,0 +1,27 @@
+@if (showHandle()) {
+  <div #trayHandleRef class="novix-tray-handle"
+    [class.rounded-end-lg]="rounded() && attachDirection() === 'left'"
+    [class.rounded-start-lg]="rounded() && attachDirection() === 'right'"
+    [style.background]="handleBackground()"
+    [style.color]="handleColor()"
+    [style.font-family]="handleFontFamily()"
+    [style.font-size]="handleFontSize()"
+    (click)="toggleTray()">
+    <span class="fw-medium">{{ handleText() ?? '⋮' }}</span>
+  </div>
+}
+
+<div class="novix-tray-content"
+  [class.rounded-end-lg]="rounded() && !showHandle() && attachDirection() === 'left'"
+  [class.rounded-start-lg]="rounded() && !showHandle() && attachDirection() === 'right'"
+  [style.background]="contentsBackground()"
+  [style.color]="contentsColor()"
+  [style.border-color]="contentsBorderColor()">
+
+  <ng-content select="tray-header"></ng-content>
+  @if (trayHeader) {
+    <hr />
+  }
+  <ng-content select="tray-content"></ng-content>
+
+</div>

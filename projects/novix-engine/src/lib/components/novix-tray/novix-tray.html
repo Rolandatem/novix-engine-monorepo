@@ -1,5 +1,9 @@
 <div #trayContainerRef class="novix-tray-container">
 
+  <!--
+        [style.width]="isVertical() === false && trayDimension()"
+        [style.height]="isVertical() && trayDimension()"
+  -->
   <!-- TRAY CONTENTS -->
   @if (templateIsRendered()) {
     <div class="novix-tray-content"
@@ -13,8 +17,8 @@
         [class.rounded-start-lg]="rounded() && !showHandle() && attachDirection() === 'right'"
         [class.rounded-bottom-lg]="rounded() && !showHandle() && attachDirection() === 'top'"
         [class.rounded-top-lg]="rounded() && !showHandle() && attachDirection() === 'bottom'"
-        [style.width]="isVertical() === false && trayDimension()"
-        [style.height]="isVertical() && trayDimension()"
+        [style.width]="isVertical() ? trayCrossSize() : trayDimension()"
+        [style.height]="isVertical() ? trayDimension() : trayCrossSize()"
         [style.background]="contentsBackground()"
         [style.color]="contentsColor()"
         [style.border-color]="contentsBorderColor()">
@@ -47,6 +51,8 @@
         [style.color]="handleColor()"
         [style.font-family]="handleFontFamily()"
         [style.font-size]="handleFontSize()"
+        [style.height]="isVertical() === false ? trayCrossSize() : null"
+        [style.width]="isVertical() ? trayCrossSize(): null"
         (click)="toggleTray()">
       <span class="fw-medium">{{ handleText() ?? '⋮' }}</span>
     </div>

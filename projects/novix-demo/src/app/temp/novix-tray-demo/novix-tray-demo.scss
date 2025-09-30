@@ -1,0 +1,77 @@
+@use 'novix-engine/styles/placeholders';
+
+:host {
+  z-index: 1000;
+  background: rgba(255,0,0,.15);
+  position: fixed;
+  display: flex;
+  transition:
+    left 0.3s ease,
+    right 0.3s ease;
+
+  &.v-align-top {
+    top: 0 !important;
+    bottom: auto !important;
+  }
+
+  &.v-align-center {
+    top: 50% !important;
+    bottom: auto !important;
+    transform: translateY(-50%);
+  }
+
+  &.v-align-bottom {
+    top: auto !important;
+    bottom: 0 !important;
+  }
+
+  &.attach-left {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: auto;
+    flex-direction: row-reverse;
+  }
+
+  &.attach-right {
+    top: 0;
+    bottom: 0;
+    left: auto;
+    right: 0;
+    flex-direction: row;
+  }
+
+  &.attach-top {
+    top: 0;
+    bottom: auto;
+    left: 0;
+    right: 0;
+    flex-direction: column-reverse;
+  }
+
+  &.attach-bottom {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+.novix-tray-handle {
+  background: rgba(0,255,0,.15);
+  cursor: pointer;
+  writing-mode: vertical-lr;
+  text-align: center;
+
+  @extend %px-1;
+}
+
+.novix-tray-content {
+  background: rgba(0,0,255,.15);
+  flex: 1;
+  overflow: hidden;
+  border-style: solid;
+  border-width: 1px;
+
+  @extend %p-3;
+}

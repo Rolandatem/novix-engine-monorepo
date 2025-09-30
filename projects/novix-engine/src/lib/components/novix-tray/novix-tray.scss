@@ -6,6 +6,14 @@
     right: auto;
     top: 0;
     bottom: 0;
+    /*
+      Closed
+        left: -271;
+        right: auto;
+      Open
+        left: 0;
+        right: auto;
+    */
   }
 
   &.attach-right {
@@ -13,6 +21,14 @@
     left: auto;
     top: 0;
     bottom: 0;
+    /*
+      Closed
+        left: auto;
+        right: -271;
+      Open
+        left: auto;
+        right: 0;
+    */
   }
 
   &.attach-top {
@@ -47,7 +63,6 @@
   &.attach-left {
     top: 0;
     left: 0;
-    height: 100%;
     transform: translateX(-100%);
     border-left: none;
   }
@@ -55,7 +70,6 @@
   &.attach-right {
     top: 0;
     right: 0;
-    height: 100%;
     transform: translateX(100%);
     border-right: none;
   }
@@ -102,18 +116,22 @@
   &.attach-left,
   &.attach-right {
     writing-mode: vertical-rl;
-    height: 100%;
-    width: auto;
-    top: 50%;
-    transform: translateY(-50%);
+    // height: 100%;
+    // width: auto;
+    // top: 50%;
+    // transform: translateY(-50%);
+    top: 0;
+    transform: none;
   }
 
   &.attach-top,
   &.attach-bottom {
     writing-mode: horizontal-tb;
-    width: 100%;
-    height: auto;
-    left: 50%;
-    transform: translateX(-50%);
+    // width: 100%;
+    // height: auto;
+    // left: 50%;
+    // transform: translateX(-50%);
+    left: 0;
+    transform: none;
   }
 }
