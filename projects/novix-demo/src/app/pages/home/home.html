@@ -1,9 +1,7 @@
 <p>home works!</p>
 
-<novix-tray-demo #leftTray
+<novix-tray-demo #leftTray style="top: 50px; bottom: 50px;"
   [handleText]="'Left Side'"
-  [style.top]="'20px'"
-  [style.bottom]="'20px'"
   [rounded]="true"
   [autoCloseOnOutsideClick]="true">
 
@@ -17,14 +15,10 @@
 
 </novix-tray-demo>
 
-<novix-tray-demo #rightTray
+<novix-tray-demo #rightTray style="top: 50px; bottom: 50px;"
   [handleText]="'Right Side'"
   [attachDirection]="'right'"
-  [rounded]="true"
-  [trayHeight]="'300px'"
-  [style.top]="'20px'"
-  [style.bottom]="'20px'"
-  [trayVerticalAlign]="'center'">
+  [rounded]="true">
 
   <tray-header>
     header
@@ -36,13 +30,11 @@
 
 </novix-tray-demo>
 
-<!-- <novix-tray-demo #topTray
+<novix-tray-demo #topTray style="left: 50px; right: 50px;"
   [handleText]="'Top Side'"
   [attachDirection]="'top'"
-  [style.left]="'20px'"
-  [style.right]="'20px'"
-  [traySize]="'200px'"
-  [trayWidth]="'300px'">
+  [rounded]="true"
+  [autoCloseOnOutsideClick]="true">
   <tray-header>
     header
   </tray-header>
@@ -50,19 +42,24 @@
   <tray-content>
     content
   </tray-content>
-</novix-tray-demo> -->
+</novix-tray-demo>
+
+<novix-tray-demo #bottomTray style="left: 50px; right: 50px;"
+  [handleText]="'Bottom Side'"
+  [attachDirection]="'bottom'"
+  [rounded]="true">
+  <tray-header>
+    header
+  </tray-header>
+  <tray-content>
+    asdasdsa
+  </tray-content>
+</novix-tray-demo>
 
 
 <div class="container">
-  <button (click)="toggleLeftTray()">Left Tray</button>
-  <button (click)="toggleRightTray()">Right Tray</button>
-
-  <!-- <div>
-    <div><strong>Left Tray:</strong></div>
-    <div>Is Open: {{ leftTray.isOpen() }}</div>
-    <div>Attach Direction: {{ leftTray.attachDirection() }}</div>
-    <div>Left: {{ leftTray.calculatedLeftPosition() }}</div>
-    <div>Right: {{ leftTray.calculatedRightPosition() }}</div>
-    <div>Offset: {{ leftTray.trayClosedOffset() }}</div>
-  </div> -->
+  <button (click)="toggleTray(leftTray)">Left Tray</button>
+  <button (click)="toggleTray(rightTray)">Right Tray</button>
+  <button (click)="toggleTray(topTray)">Top Tray</button>
+  <button (click)="toggleTray(bottomTray)">Bottom Tray</button>
 </div>

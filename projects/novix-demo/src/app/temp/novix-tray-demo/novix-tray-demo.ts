@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, computed, ContentChild, ElementRef, inject, input, OnDestroy, OnInit, PLATFORM_ID, signal, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, computed, ContentChild, ElementRef, inject, input, model, OnDestroy, OnInit, PLATFORM_ID, signal, ViewChild } from '@angular/core';
 import { TrayContentDirective, TrayHeaderDirective } from 'novix-engine';
 import { FormsModule } from "@angular/forms";
 import { isPlatformBrowser } from '@angular/common';
@@ -11,14 +11,20 @@ import { isPlatformBrowser } from '@angular/common';
   host: {
     '[class.attach-left]': "attachDirection() === 'left'",
     '[class.attach-right]': "attachDirection() === 'right'",
-    '[style.width]': "trayContainerSize()",
+    '[class.attach-top]': "attachDirection() === 'top'",
+    '[class.attach-bottom]': "attachDirection() === 'bottom'",
     '[style.left]': "calculatedLeftPosition()",
     '[style.right]': "calculatedRightPosition()",
-
-    '[style.height]': "trayHeight() !== '100%' ? trayHeight() : null",
-    '[class.v-align-top]': "trayHeight() !== '100%' && trayVerticalAlign() === 'top'",
-    '[class.v-align-center]': "trayHeight() !== '100%' && trayVerticalAlign() === 'center'",
-    '[class.v-align-bottom]': "trayHeight() !== '100%' && trayVerticalAlign() === 'bottom'"
+    '[style.top]': "calculatedTopPosition()",
+    '[style.bottom]': "calculatedBottomPosition()",
+    '[style.width]': "calculatedWidth()",
+    '[style.height]': "calculatedHeight()",
+    '[class.v-align-top]': "!isVertical() && trayCrossSize() !== '100%' && trayCrossAlign() === 'top'",
+    '[class.v-align-center]': "!isVertical() && trayCrossSize() !== '100%' && trayCrossAlign() === 'center'",
+    '[class.v-align-bottom]': "!isVertical() && trayCrossSize() !== '100%' && trayCrossAlign() === 'bottom'",
+    '[class.h-align-start]': "isVertical() && trayCrossSize() !== '100%' && trayCrossAlign() === 'start'",
+    '[class.h-align-center]': "isVertical() && trayCrossSize() !== '100%' && trayCrossAlign() == 'center'",
+    '[class.h-align-end]': "isVertical() && trayCrossSize() !== '100%' && trayCrossAlign() == 'end'"
   }
 })
 
@@ -48,16 +54,9 @@ export class NovixTrayDemo implements AfterViewInit, OnInit, OnDestroy {
   public autoCloseOnOutsideClick = input<boolean>(false);
   public showHandle = input<boolean>(true);
   public handleText = input<string>();
-  public handleBackground = input<string>('var(--novix-primary)');
-  public handleColor = input<string>('var(--novix-on-primary)');
-  public handleFontFamily = input<string>('var(--novix-font-family)');
-  public handleFontSize = input<string>('var(--novix-font-size-xs)');
-  public contentsBackground = input<string>('var(--novix-surface)');
-  public contentsColor = input<string>('var(--novix-on-surface)');
-  public contentsBorderColor = input<string>('var(--novix-primary)');
 
-  public trayHeight = input<string>('100%');
-  public trayVerticalAlign = input<'top' | 'center' | 'bottom'>('top');
+  public trayCrossSize = input<string>('100%');
+  public trayCrossAlign = model<'top' | 'center' | 'bottom' | 'start' | 'end'>();
 
   //===========================================================================================================================
   // PRIVATE PROPERTIES
@@ -74,6 +73,22 @@ export class NovixTrayDemo implements AfterViewInit, OnInit, OnDestroy {
   public trayClosedOffset = computed(() => `calc(-1 * (${this.trayContainerSize()} - ${this._trayHandleSize()}))`);
   public calculatedLeftPosition = computed(() => this.commonPositionCalculation('left'));
   public calculatedRightPosition = computed(() => this.commonPositionCalculation('right'));
+  public calculatedTopPosition = computed(() => this.commonPositionCalculation('top'));
+  public calculatedBottomPosition = computed(() => this.commonPositionCalculation('bottom'));
+  public calculatedWidth = computed(() => {
+    if (this.isVertical()) {
+      return this.trayCrossSize() !== '100%' ? this.trayCrossSize() : null;
+    }
+
+    return this.trayContainerSize();
+  });
+  public calculatedHeight = computed(() => {
+    if (this.isVertical()) {
+      return this.trayContainerSize();
+    }
+
+    return this.trayCrossSize() !== '100%' ? this.trayCrossSize() : null;
+  });
 
   //===========================================================================================================================
   // LIFECYCLE HOOKS
@@ -82,6 +97,8 @@ export class NovixTrayDemo implements AfterViewInit, OnInit, OnDestroy {
     this.trayContainerSize.set(this.traySize() !== ''
       ? this.traySize()
       : ['left','right'].includes(this.attachDirection()) ? '300px' : '500px');
+
+    //if (this.trayCrossSize() !== '100%' && )
   }
 
   ngAfterViewInit(): void {
@@ -105,9 +122,22 @@ export class NovixTrayDemo implements AfterViewInit, OnInit, OnDestroy {
   //===========================================================================================================================
   // PRIVATE METHODS
   //===========================================================================================================================
+  // private commonPositionCalculation(direction: 'left' | 'right' | 'top' | 'bottom'): string {
+  //   if (this.attachDirection() !== direction) { return 'auto'; }
+  //   return this.isOpen() ? '0px' : this.trayClosedOffset();
+  // }
   private commonPositionCalculation(direction: 'left' | 'right' | 'top' | 'bottom'): string {
-    if (this.attachDirection() !== direction) { return 'auto'; }
-    return this.isOpen() ? '0px' : this.trayClosedOffset();
+    const attached = this.attachDirection();
+    const isSameDirection = attached === direction;
+    const isOpposite = (attached === 'left' && direction === 'right') ||
+                       (attached === 'right' && direction === 'left') ||
+                       (attached === 'top' && direction === 'bottom') ||
+                       (attached === 'bottom' && direction === 'top');
+
+    if (isSameDirection) { return this._isOpen() ? '0px' : this.trayClosedOffset(); }
+    if (isOpposite) { return 'auto'; }
+
+    return '0px';
   }
 
   private calculateHandleHeight() {
@@ -130,9 +160,9 @@ export class NovixTrayDemo implements AfterViewInit, OnInit, OnDestroy {
   }
 
   public verticalOffset(side: 'top' | 'bottom'): string | null {
-    if (this.trayHeight() === '100%') { return null; }
+    if (this.trayCrossSize() === '100%') { return null; }
 
-    switch (this.trayVerticalAlign()) {
+    switch (this.trayCrossAlign()) {
       case 'top' : return side === 'top' ? '0' : null;
       case 'bottom' : return side === 'bottom' ? '0' : null;
       case 'center' : return side === 'top' ? '50%' : null;

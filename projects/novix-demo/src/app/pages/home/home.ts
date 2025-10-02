@@ -19,12 +19,7 @@ export class Home {
   @ViewChild('rightTray')
   public rightTray!: NovixTrayDemo;
 
-
-  public toggleLeftTray(): void {
-    this.leftTray.toggleTray();
-  }
-
-  public toggleRightTray(): void {
-    this.rightTray.toggleTray();
+  public toggleTray(tray: NovixTrayDemo): void {
+    tray.toggleTray();
   }
 }
