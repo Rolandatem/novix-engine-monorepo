@@ -1,8 +1,9 @@
 <p>home works!</p>
 
-<novix-tray-demo #leftTray style="top: 50px; bottom: 50px;"
+<novix-tray #leftTray style="top: 50px; bottom: 50px;"
   [handleText]="'Left Side'"
   [rounded]="true"
+  [traySize]="'600px'"
   [autoCloseOnOutsideClick]="true">
 
   <tray-header>
@@ -13,9 +14,9 @@
     content
   </tray-content>
 
-</novix-tray-demo>
+</novix-tray>
 
-<novix-tray-demo #rightTray style="top: 50px; bottom: 50px;"
+<novix-tray #rightTray class="right-side-tray"
   [handleText]="'Right Side'"
   [attachDirection]="'right'"
   [rounded]="true">
@@ -28,9 +29,9 @@
     adasdasd
   </tray-content>
 
-</novix-tray-demo>
+</novix-tray>
 
-<novix-tray-demo #topTray style="left: 50px; right: 50px;"
+<novix-tray #topTray style="left: 50px; right: 50px;"
   [handleText]="'Top Side'"
   [attachDirection]="'top'"
   [rounded]="true"
@@ -42,9 +43,9 @@
   <tray-content>
     content
   </tray-content>
-</novix-tray-demo>
+</novix-tray>
 
-<novix-tray-demo #bottomTray style="left: 50px; right: 50px;"
+<novix-tray #bottomTray style="left: 50px; right: 50px;"
   [handleText]="'Bottom Side'"
   [attachDirection]="'bottom'"
   [rounded]="true">
@@ -54,12 +55,12 @@
   <tray-content>
     asdasdsa
   </tray-content>
-</novix-tray-demo>
+</novix-tray>
 
 
 <div class="container">
   <button (click)="toggleTray(leftTray)">Left Tray</button>
-  <button (click)="toggleTray(rightTray)">Right Tray</button>
-  <button (click)="toggleTray(topTray)">Top Tray</button>
-  <button (click)="toggleTray(bottomTray)">Bottom Tray</button>
+  <!-- <button (click)="toggleTray(rightTray)">Right Tray</button> -->
+  <!-- <button (click)="toggleTray(topTray)">Top Tray</button> -->
+  <!-- <button (click)="toggleTray(bottomTray)">Bottom Tray</button> -->
 </div>

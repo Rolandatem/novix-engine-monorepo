@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { screen } from '@testing-library/angular';
+import { screen, waitFor } from '@testing-library/angular';
 import { userEvent } from '@testing-library/user-event';
 import { NovixTray } from './novix-tray';
 
@@ -35,13 +35,12 @@ describe('NovixTray - Structure', () => {
     { input: 'rounded', expected: false },
     { input: 'showHandle', expected: true },
     { input: 'handleText', expected: undefined },
-    { input: 'handleBackground', expected: 'var(--novix-primary)' },
-    { input: 'handleColor', expected: 'var(--novix-on-primary)' },
-    { input: 'handleFontFamily', expected: 'var(--novix-font-family)' },
-    { input: 'handleFontSize', expected: 'var(--novix-font-size-xs)' },
-    { input: 'contentsBackground', expected: 'var(--novix-surface)' },
-    { input: 'contentsColor', expected: 'var(--novix-on-surface)' },
-    { input: 'contentsBorderColor', expected: 'var(--novix-primary)' },
+    { input: 'handleBackgroundColor', expected: null },
+    { input: 'handleColor', expected: null },
+    { input: 'handleFontFamily', expected: null },
+    { input: 'handleFontSize', expected: null },
+    { input: 'contentBackgroundColor', expected: null },
+    { input: 'contentBorderColor', expected: null },
     { input: 'autoCloseOnOutsideClick', expected: false }
   ])('should have default values appropriately set', (test) => {
     fixture.detectChanges();
@@ -64,10 +63,18 @@ describe('NovixTray - Structure', () => {
     fixture.detectChanges();
 
     if (component.isVertical()) {
-      expect(component["_traySizeInternal"]()).toBe('500px');
+      expect(component.trayContainerSize()).toBe('500px');
     } else {
-      expect(component["_traySizeInternal"]()).toBe('300px');
+      expect(component.trayContainerSize()).toBe('300px');
     }
+  });
+
+  //===========================================================================================================================
+  it('should use traySize when specified', () => {
+    fixture.componentRef.setInput('traySize', '400px');
+    fixture.detectChanges();
+
+    expect(component.trayContainerSize()).toBe('400px');
   });
 
   //===========================================================================================================================
@@ -125,44 +132,7 @@ describe('NovixTray - Structure', () => {
   });
 
   //===========================================================================================================================
-  it('should subtract handle size from tray size when handle is shown', () => {
-    fixture.componentRef.setInput('traySize', '400px');
-    fixture.componentRef.setInput('showHandle', true);
-    fixture.detectChanges();
-    component['_trayHandleSize'].set('50px');
-    expect(component.trayDimension()).toBe('calc(400px - 50px)');
-  })
-
-  //===========================================================================================================================
-  it.each([
-    { startOpen: true, showHandle: true, handleSize: '50px', expected: 'calc(300px - 0px)' },
-    { startOpen: true, showHandle: false, handleSize: '0px', expected: '300px' },
-    { startOpen: false, showHandle: true, handleSize: '50px', expected: '0px' },
-    { startOpen: false, showHandle: false, handleSize: '0px', expected: '0px' }
-  ])
-  ('should return correct handleOffset based on test settings', (test) => {
-    fixture.componentRef.setInput('startOpen', test.startOpen);
-    fixture.componentRef.setInput('traySize', '300px');
-    fixture.componentRef.setInput('showHandle', test.showHandle);
-    component['_trayHandleSize'].set(test.handleSize);
-
-    fixture.detectChanges();
-    expect(component.handleOffset()).toBe(test.expected);
-  })
-
-  //===========================================================================================================================
-  it('should not render tray content before view init', () => {
-    expect(component.templateIsRendered()).toBe(false);
-  });
-
-  //===========================================================================================================================
-  it('should render after view init', () => {
-    fixture.detectChanges();
-    expect(component.templateIsRendered()).toBe(true);
-  });
-
-  //===========================================================================================================================
-  it('should open tray when openTray() is called and already open', () => {
+  it('should not open tray when openTray() is called and already open', () => {
     fixture.componentRef.setInput('startOpen', true);
     fixture.detectChanges();
 
@@ -209,12 +179,12 @@ describe('NovixTray - UI Testing', () => {
     fixture.componentRef.setInput('attachDirection', direction);
     fixture.detectChanges();
 
-    const contentTray = fixture.nativeElement.querySelector('.novix-tray-content');
-    if (['left','right'].includes(direction)) {
-      expect(contentTray.classList.contains('openLeftRight')).toBe(false);
-    } else {
-      expect(contentTray.classList.contains('openTopBottom')).toBe(false);
-    }
+    const tray = fixture.nativeElement;
+
+    if (direction === 'left') { expect(tray.classList.contains('open')).toBe(false); }
+    else if (direction === 'right') { expect(tray.classList.contains('open')).toBe(false); }
+    else if (direction === 'top') { expect(tray.classList.contains('open')).toBe(false); }
+    else { expect(tray.classList.contains('open')).toBe(false); }
   });
 
   //===========================================================================================================================
@@ -223,16 +193,16 @@ describe('NovixTray - UI Testing', () => {
     fixture.componentRef.setInput('attachDirection', direction);
     fixture.detectChanges();
 
-    const contentTray = fixture.nativeElement.querySelector('.novix-tray-content');
-    if (['left','right'].includes(direction)) {
-      expect(contentTray.classList.contains('openLeftRight')).toBe(true);
-    } else {
-      expect(contentTray.classList.contains('openTopBottom')).toBe(true);
-    }
+    const tray = fixture.nativeElement;
+
+    if (direction === 'left') { expect(tray.classList.contains('open')).toBe(true); }
+    else if (direction === 'right') { expect(tray.classList.contains('open')).toBe(true); }
+    else if (direction === 'top') { expect(tray.classList.contains('open')).toBe(true); }
+    else { expect(tray.classList.contains('open')).toBe(true); }
   });
 
   //===========================================================================================================================
-  it.each(['left','right','top','bottom'])('should render try handle when showHandle is true', (direction) => {
+  it.each(['left','right','top','bottom'])('should render tray handle when showHandle is true', (direction) => {
     fixture.componentRef.setInput('showHandle', true);
     fixture.componentRef.setInput('attachDirection', direction);
     fixture.componentRef.setInput('handleText', 'HANDLE_TEXT');
@@ -277,43 +247,49 @@ describe('NovixTray - UI Testing', () => {
     fixture.componentRef.setInput('handleText', 'HANDLE_TEXT');
     fixture.detectChanges();
 
+    const tray = fixture.nativeElement;
+    expect(tray).toBeTruthy();
+    expect(tray.classList.contains('open')).toBe(false);
+
     const handle = screen.getByText('HANDLE_TEXT');
     await userEvent.click(handle);
     fixture.detectChanges();
 
-    const trayContent = fixture.nativeElement.querySelector('.novix-tray-content');
-    expect(trayContent).not.toBeNull();
-    expect(trayContent.classList.contains('openLeftRight')).toBe(true);
+    expect(tray.classList.contains('open')).toBe(true);
   });
 
   //===========================================================================================================================
   it('should close tray when handle is clicked while open', async() => {
+    fixture.componentRef.setInput('startOpen', true);
     fixture.componentRef.setInput('handleText', 'HANDLE_TEXT');
     fixture.detectChanges();
 
+    const tray = fixture.nativeElement;
     const handle = screen.getByText('HANDLE_TEXT');
-    await userEvent.click(handle); //--Open
+    expect(tray).toBeTruthy();
+    expect(handle).toBeTruthy();
+    expect(tray.classList.contains('open')).toBe(true);
+    await userEvent.click(handle);
     fixture.detectChanges();
 
-    await userEvent.click(handle); //--Close
-    fixture.detectChanges();
-
-    const trayContent = fixture.nativeElement.querySelector('.novix-tray-content');
-    expect(trayContent.classList.contains('openLeftRight')).toBe(false);
+    expect(tray.classList.contains('open')).toBe(false);
   });
 
   //===========================================================================================================================
-  it('should auto-close tray when autoCloseOnOutsideClick is true and the use clicks on anything outside of the tray', async() => {
+  it('should auto-close tray when autoCloseOnOutsideClick is true and the user clicks on anything outside of the tray', async() => {
     fixture.componentRef.setInput('autoCloseOnOutsideClick', true);
     fixture.componentRef.setInput('startOpen', true);
+    fixture.nativeElement.classList.add('no-transition');
     fixture.detectChanges();
 
-    expect(component.isOpen()).toBe(true);
+    const tray = fixture.nativeElement;
+    expect(tray).toBeTruthy();
+    expect(tray.classList.contains('open')).toBe(true);
 
     await userEvent.click(document.body);
     fixture.detectChanges();
 
-    expect(component.isOpen()).toBe(false);
+    expect(tray.classList.contains('open')).toBe(false);
   });
 
   //===========================================================================================================================
@@ -322,11 +298,13 @@ describe('NovixTray - UI Testing', () => {
     fixture.componentRef.setInput('startOpen', true);
     fixture.detectChanges();
 
-    expect(component.isOpen()).toBe(true);
+    const tray = fixture.nativeElement;
+    expect(tray).toBeTruthy();
+    expect(tray.classList.contains('open')).toBe(true);
 
     await userEvent.click(document.body);
     fixture.detectChanges();
 
-    expect(component.isOpen()).toBe(true);
+    expect(tray.classList.contains('open')).toBe(true);
   });
 });

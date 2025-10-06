@@ -231,3 +231,67 @@
   .rounded-bottom-#{$key} { @extend %rounded-bottom-#{$key}; }
   .rounded-start-#{$key}  { @extend %rounded-start-#{$key}; }
 }
+
+// ================================================
+// Positioning
+// ================================================
+@each $key, $val in $novix-position-values {
+  .start-#{$key}   { @extend %start-#{$key}; }
+  .end-#{$key}     { @extend %end-#{$key}; }
+  .top-#{$key}     { @extend %top-#{$key}; }
+  .bottom-#{$key}  { @extend %bottom-#{$key}; }
+
+  @each $bp, $bp-width in $novix-breakpoints {
+    .start-#{$bp}-#{$key} {
+      @include novix-respond($bp) {
+        left: $val !important;
+      }
+    }
+    .end-#{$bp}-#{$key} {
+      @include novix-respond($bp) {
+        right: $val !important;
+      }
+    }
+    .top-#{$bp}-#{$key} {
+      @include novix-respond($bp) {
+        top: $val !important;
+      }
+    }
+    .bottom-#{$bp}-#{$key} {
+      @include novix-respond($bp) {
+        bottom: $val !important;
+      }
+    }
+  }
+}
+
+@each $bp, $bp-width in $novix-breakpoints {
+  .translate-#{$bp}-middle {
+    @include novix-respond($bp) {
+      transform: translate(-50%, -50%);
+    }
+  }
+  .translate-#{$bp}-middle-x {
+    @include novix-respond($bp) {
+      transform: translateX(-50%);
+    }
+  }
+  .translate-#{$bp}-middle-y {
+    @include novix-respond($bp) {
+      transform: translateY(-50%);
+    }
+  }
+
+  .v-#{$bp}-center {
+    @include novix-respond($bp) {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+  .h-#{$bp}-center {
+    @include novix-respond($bp) {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+}

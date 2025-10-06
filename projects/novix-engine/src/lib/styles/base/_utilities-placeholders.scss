@@ -186,3 +186,26 @@
     border-bottom-left-radius: $val !important;
   }
 }
+
+// ================================================
+// Positioning
+// ================================================
+@each $key, $val in $novix-position-values {
+  %start-#{$key}   { left: $val !important; }
+  %end-#{$key}     { right: $val !important; }
+  %top-#{$key}     { top: $val !important; }
+  %bottom-#{$key}  { bottom: $val !important; }
+}
+
+%translate-middle   { transform: translate(-50%, -50%); }
+%translate-middle-x { transform: translateX(-50%); }
+%translate-middle-y { transform: translateY(-50%); }
+
+%v-center {
+  @extend %top-50;
+  @extend %translate-middle-y;
+}
+%h-center {
+  @extend %start-50;
+  @extend %translate-middle-x;
+}

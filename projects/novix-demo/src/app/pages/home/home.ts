@@ -1,12 +1,10 @@
-import { Component, computed, ViewChild } from '@angular/core';
-import { NovixTrayModule } from 'novix-engine';
-import { NovixTrayDemo } from '../../temp/novix-tray-demo/novix-tray-demo';
+import { Component, ViewChild } from '@angular/core';
+import { NovixTray, NovixTrayModule } from 'novix-engine';
 
 @Component({
   selector: 'app-home',
   imports: [
-    NovixTrayModule,
-    NovixTrayDemo
+    NovixTrayModule
   ],
   templateUrl: './home.html',
   styleUrl: './home.scss'
@@ -14,12 +12,12 @@ import { NovixTrayDemo } from '../../temp/novix-tray-demo/novix-tray-demo';
 
 export class Home {
   @ViewChild('leftTray')
-  public leftTray!: NovixTrayDemo;
+  public leftTray!: NovixTray;
 
   @ViewChild('rightTray')
-  public rightTray!: NovixTrayDemo;
+  public rightTray!: NovixTray;
 
-  public toggleTray(tray: NovixTrayDemo): void {
+  public toggleTray(tray: NovixTray): void {
     tray.toggleTray();
   }
 }
