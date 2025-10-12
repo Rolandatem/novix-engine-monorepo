@@ -1,7 +1,0 @@
-@use 'novix-engine/styles/placeholders';
-
-.right-side-tray {
-  --novix-tray-handle-background-color: var(--novix-accent);
-  height: 500px;
-  @extend %v-center;
-}

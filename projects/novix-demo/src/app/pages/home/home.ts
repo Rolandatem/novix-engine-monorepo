@@ -1,23 +1,11 @@
-import { Component, ViewChild } from '@angular/core';
-import { NovixTray, NovixTrayModule } from 'novix-engine';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-home',
-  imports: [
-    NovixTrayModule
-  ],
+  imports: [],
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })
 
 export class Home {
-  @ViewChild('leftTray')
-  public leftTray!: NovixTray;
-
-  @ViewChild('rightTray')
-  public rightTray!: NovixTray;
-
-  public toggleTray(tray: NovixTray): void {
-    tray.toggleTray();
-  }
 }
