@@ -1,0 +1,17 @@
+<!-- HANDLES -->
+<div class="novix-cabinet-handle-container">
+  @for (tray of trays; track tray.id) {
+    <div class="novix-cabinet-tray-handle" [class.is-active]="tray.isOpen" (click)="toggleTray(tray.id)">
+      {{ tray.handleText }}
+    </div>
+  }
+</div>
+
+<!-- TRAYS -->
+<div class="novix-cabinet-trays">
+  @for (tray of trays; track tray.id) {
+    <div class="novix-cabinet-tray" [class.open]="tray.isOpen">
+      Content for {{ tray.handleText }}
+    </div>
+  }
+</div>
