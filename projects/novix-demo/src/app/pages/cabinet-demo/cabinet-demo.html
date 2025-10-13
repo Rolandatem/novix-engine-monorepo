@@ -1,3 +1,25 @@
 <p>cabinet-demo works!</p>
 
-<novix-cabinet-demo></novix-cabinet-demo>
+<novix-cabinet-demo>
+  <novix-cabinet-tray [trayId]="'tray1'">
+    <novix-cabinet-tray-handle [handleText]="'Settings'" />
+    <novix-cabinet-tray-content>
+      Contents for Settings
+    </novix-cabinet-tray-content>
+  </novix-cabinet-tray>
+
+  <novix-cabinet-tray [trayId]="'tray2'">
+    <novix-cabinet-tray-handle [handleText]="'Profile'" />
+    <novix-cabinet-tray-content>
+      Contents for Profile
+    </novix-cabinet-tray-content>
+  </novix-cabinet-tray>
+
+  <novix-cabinet-tray [trayId]="'tray3'">
+    <novix-cabinet-tray-handle [handleText]="'Notifications'" />
+    <novix-cabinet-tray-content>
+      Contents for Notifications
+      <button (click)="doSomething()">Click me</button>
+    </novix-cabinet-tray-content>
+  </novix-cabinet-tray>
+</novix-cabinet-demo>

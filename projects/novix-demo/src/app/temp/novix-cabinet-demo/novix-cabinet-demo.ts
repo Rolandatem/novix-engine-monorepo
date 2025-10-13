@@ -1,30 +1,36 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ContentChildren, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { NovixCabinetModule, NovixCabinetTrayDirective } from 'novix-engine';
 
 @Component({
   selector: 'novix-cabinet-demo',
-  imports: [],
+  imports: [NovixCabinetModule],
   templateUrl: './novix-cabinet-demo.html',
   styleUrl: './novix-cabinet-demo.scss'
 })
 
-export class NovixCabinetDemo {
-  public trays = [
-    { id: 'tray1', handleText: 'Settings', isOpen: false },
-    { id: 'tray2', handleText: 'Profile', isOpen: false },
-    { id: 'tray3', handleText: 'Notifications', isOpen: false }
-  ];
+export class NovixCabinetDemo implements AfterViewInit {
+  @ContentChildren(NovixCabinetTrayDirective)
+  public trays!: QueryList<NovixCabinetTrayDirective>;
 
-  openTray(id: string) {
-    this.trays.forEach(tray => tray.isOpen = tray.id === id);
+  @ViewChildren('container', { read: ElementRef})
+  public containers!: QueryList<ElementRef<HTMLElement>>;
+
+  ngAfterViewInit(): void {
+    queueMicrotask(() => {
+      this.trays.forEach((tray, index) => {
+        const contentEl = tray.trayContentRef?.nativeElement;
+        const containerEl = this.containers.get(index)?.nativeElement;
+
+        if (contentEl && containerEl && !containerEl.contains(contentEl)) {
+          containerEl.appendChild(contentEl);
+        }
+      })
+    })
   }
 
-  closeTray(id: string) {
-    this.trays.find(tray => tray.id === id)!.isOpen = false;
-  }
-
-  toggleTray(id: string) {
-    this.trays.forEach(tray => { if (tray.id !== id) { tray!.isOpen = false }});
-    const tray = this.trays.find(tray => tray.id === id);
-    tray!.isOpen = !tray?.isOpen;
+  public toggleTray(id: string): void {
+    this.trays.forEach(tray => {
+      tray.trayId() === id ? tray.toggle() : tray.close();
+    })
   }
 }

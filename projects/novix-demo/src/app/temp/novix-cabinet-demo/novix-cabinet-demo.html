@@ -1,17 +1,19 @@
 <!-- HANDLES -->
 <div class="novix-cabinet-handle-container">
-  @for (tray of trays; track tray.id) {
-    <div class="novix-cabinet-tray-handle" [class.is-active]="tray.isOpen" (click)="toggleTray(tray.id)">
-      {{ tray.handleText }}
+  @for (tray of trays.toArray(); track tray.trayId()) {
+    <div class="novix-cabinet-tray-handle"
+         [class.is-active]="tray.isOpen()"
+         (click)="toggleTray(tray.trayId())">
+
+      {{ tray.trayHandleText() }}
     </div>
   }
 </div>
 
 <!-- TRAYS -->
 <div class="novix-cabinet-trays">
-  @for (tray of trays; track tray.id) {
-    <div class="novix-cabinet-tray" [class.open]="tray.isOpen">
-      Content for {{ tray.handleText }}
+  @for (tray of trays.toArray(); track tray.trayId()) {
+    <div class="novix-cabinet-tray" [class.open]="tray.isOpen()" #container>
     </div>
   }
 </div>
