@@ -2,10 +2,11 @@
 <div class="novix-cabinet-handle-container">
   @for (tray of trays.toArray(); track tray.trayId()) {
     <div class="novix-cabinet-tray-handle"
+         #handleElement
          [class.is-active]="tray.isOpen()"
          (click)="toggleTray(tray.trayId())">
 
-      {{ tray.trayHandleText() }}
+      {{ tray.handleText() }}
     </div>
   }
 </div>
@@ -13,7 +14,8 @@
 <!-- TRAYS -->
 <div class="novix-cabinet-trays">
   @for (tray of trays.toArray(); track tray.trayId()) {
-    <div class="novix-cabinet-tray" [class.open]="tray.isOpen()" #container>
+    <div class="novix-cabinet-tray" [class.open]="tray.isOpen()" #trayElement>
+      <ng-container *ngTemplateOutlet="tray.templateRef"></ng-container>
     </div>
   }
 </div>
