@@ -1,20 +1,32 @@
 <p>cabinet-demo works!</p>
 
 <novix-cabinet-demo [autoCloseOnOutsideClick]="true">
-  <ng-template novix-cabinet-tray [trayId]="'tray1'" [handleText]="'Settings'">
+  <ng-template novix-cabinet-tray
+      [trayId]="'tray1'"
+      [handleText]="'Settings'"
+      [traySize]="'300px'">
     Contents for Settings
   </ng-template>
 
-  <ng-template novix-cabinet-tray [trayId]="'tray2'" [handleText]="'Profile'">
+  <ng-template novix-cabinet-tray
+    [trayId]="'tray2'"
+    [handleText]="'Profile'"
+    [traySize]="'400px'">
     Contents for Profile
   </ng-template>
 
-  <ng-template novix-cabinet-tray [trayId]="'tray3'" [handleText]="'Notifications'">
+  <ng-template novix-cabinet-tray
+    [trayId]="'tray3'"
+    [handleText]="'Notifications'"
+    [traySize]="'500px'">
     Contents for Notifications
     <button (click)="doSomething()">Click me</button>
   </ng-template>
 
-  <ng-template novix-cabinet-tray [trayId]="'tray4'" [handleText]="'New Tab'">
+  <ng-template novix-cabinet-tray
+    [trayId]="'tray4'"
+    [handleText]="'New Tab'"
+    [traySize]="'600px'">
     WOOT!
   </ng-template>
 </novix-cabinet-demo>

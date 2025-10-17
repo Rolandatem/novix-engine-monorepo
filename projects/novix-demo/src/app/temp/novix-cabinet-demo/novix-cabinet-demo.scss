@@ -36,9 +36,9 @@
     left: 0;
     z-index: 1000;
 
-    &.is-active {
-      left: 500px;
-    }
+    // &.is-active {
+    //   left: 500px;
+    // }
   }
 }
 
@@ -59,10 +59,8 @@
     @extend %p-3;
 
     position: absolute;
-    width: 500px;
     height: 100%;
 
-    left: -500px;
     transition: left 0.3s ease;
 
     &.open {
