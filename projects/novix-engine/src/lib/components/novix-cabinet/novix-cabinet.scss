@@ -1,7 +1,6 @@
 @use '../../styles/placeholders';
 
 :host {
-  background-color: rgba(255,0,0,.15);
   //--Novix Cabinet Variables
   --novix-cabinet-tray-handle-background-color: var(--novix-primary);
   --novix-cabinet-tray-handle-color: var(--novix-on-primary);
@@ -11,17 +10,14 @@
   --novix-cabinet-tray-content-border-color: var(--novix-primary);
 
   position: fixed;
-  top: 40px;
-  bottom: 40px;
-  width: 30px;
-  z-index: 1001;
+  z-index: 1000;
   display: flex;
 
   &.attach-left {
     top: 0;
     bottom: 0;
-    right: auto;
     left: 0;
+    right: auto;
     flex-direction: row;
   }
 
@@ -32,54 +28,90 @@
     right: 0;
     flex-direction: row-reverse;
   }
+
+  &.attach-top {
+    top: 0;
+    bottom: auto;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+  }
+
+  &.attach-bottom {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    flex-direction: column-reverse;
+  }
 }
 
 .novix-cabinet-handle-container {
   @extend %d-flex;
-  @extend %flex-column;
   @extend %g-1;
 
+  &.attach-left-right {
+    @extend %flex-column;
+  }
+
+  &.attach-top-bottom {
+    @extend %flex-row;
+  }
+
   .novix-cabinet-tray-handle {
-    writing-mode: vertical-lr;
     cursor: pointer;
     background-color: var(--novix-cabinet-tray-handle-background-color);
     color: var(--novix-cabinet-tray-handle-color);
     font-family: var(--novix-cabinet-tray-handle-font-family);
     font-size: var(--novix-cabinet-tray-handle-font-size);
-    @extend %px-1;
-    @extend %py-2;
     position: relative;
     transition: left 0.3s ease,
                 right 0.3s ease,
                 top 0.3s ease,
                 bottom 0.3s ease;
-    //left: 0;
-    z-index: 1000;
+    z-index: 1002;
 
-    // &.is-active {
-    //   left: 500px;
-    // }
+    &.attach-left-right {
+      writing-mode: vertical-lr;
+      @extend %px-1;
+      @extend %py-2;
+    }
+
+    &.attach-top-bottom {
+      writing-mode: horizontal-tb;
+      @extend %px-2;
+      @extend %py-1;
+    }
   }
 }
 
 .novix-cabinet-trays {
   background-color: rgba(0,255,0,.15);
 
-  height: 100%;
+  //height: 100%;
   position: absolute;
-  top: 0;
-  z-index: 1001;
+
+  &.attach-left-right {
+    top: 0;
+    bottom: 0;
+  }
+
+  &.attach-top-bottom {
+    left: 0;
+    right: 0;
+  }
 
   .novix-cabinet-tray {
     background-color: var(--novix-cabinet-tray-content-background-color);
     border-color: var(--novix-cabinet-tray-content-border-color);
     border-style: solid;
     border-width: 1px;
+    z-index: 1001;
 
     @extend %p-3;
 
     position: absolute;
-    height: 100%;
+    //height: 100%;
 
     transition: left 0.3s ease,
                 right 0.3s ease,

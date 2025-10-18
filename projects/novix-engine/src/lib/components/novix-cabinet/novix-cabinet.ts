@@ -1,4 +1,4 @@
-import { Component, ContentChildren, ElementRef, forwardRef, inject, input, PLATFORM_ID, QueryList, ViewChildren } from '@angular/core';
+import { Component, computed, ContentChildren, ElementRef, forwardRef, inject, input, PLATFORM_ID, QueryList, ViewChildren } from '@angular/core';
 import { NovixCabinetTrayDirective } from './directives/novix-cabinet-tray-directive';
 import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
 import { NovixCardinalDirection } from '../../types/NovixCardinalDirections';
@@ -34,6 +34,7 @@ export class NovixCabinet {
   //===========================================================================================================================
   public autoCloseOnOutsideClick = input<boolean>(false);
   public attachDirection = input<NovixCardinalDirection>('left');
+  public rounded = input<boolean>(false);
 
   //===========================================================================================================================
   // PRIVATE PROPERTIES
@@ -62,6 +63,11 @@ export class NovixCabinet {
 
   //===========================================================================================================================
   // PUBLIC PROPERTIES
+  //===========================================================================================================================
+  public isVertical = computed(() => ['top', 'bottom'].includes(this.attachDirection()));
+
+  //===========================================================================================================================
+  // PUBLIC METHODS
   //===========================================================================================================================
   public toggleTray(idx: number): void {
     this.trays.forEach((tray, i) => {

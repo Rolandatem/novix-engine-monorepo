@@ -1,13 +1,17 @@
 <p>cabinet-demo works!</p>
 
-<novix-cabinet [autoCloseOnOutsideClick]="true">
+<novix-cabinet
+  [autoCloseOnOutsideClick]="true"
+  [style.top]="'40px'"
+  [style.bottom]="'40px'"
+  [rounded]="true">
   <ng-template novix-cabinet-tray
       [handleText]="'Settings'"
       [traySize]="'300px'">
     Contents for Settings
   </ng-template>
 
-  <!-- <ng-template novix-cabinet-tray
+  <ng-template novix-cabinet-tray
     [handleText]="'Profile'"
     [traySize]="'400px'">
     Contents for Profile
@@ -24,10 +28,14 @@
     [handleText]="'New Tab'"
     [traySize]="'600px'">
     WOOT!
-  </ng-template> -->
+  </ng-template>
 </novix-cabinet>
 
-<novix-cabinet [attachDirection]="'right'">
+<novix-cabinet
+  [attachDirection]="'right'"
+  [style.z-index]="'4000'"
+  [style.top]="'40px'"
+  [rounded]="true">
   <ng-template novix-cabinet-tray
     [handleText]="'First Tray'">
     first tray content
@@ -37,4 +45,29 @@
     [handleText]="'Second Tray'">
     second tray content
   </ng-template> -->
+</novix-cabinet>
+
+<novix-cabinet
+  [attachDirection]="'top'"
+  [style.left]="'40px'"
+  [rounded]="true">
+  <ng-template novix-cabinet-tray
+    [handleText]="'First Tray'">
+    first tray content
+  </ng-template>
+
+  <!-- <ng-template novix-cabinet-tray
+    [handleText]="'Second Tray'">
+    second tray content
+  </ng-template> -->
+</novix-cabinet>
+
+<novix-cabinet
+  [attachDirection]="'bottom'"
+  [style.left]="'40px'"
+  [rounded]="true">
+  <ng-template novix-cabinet-tray
+    [handleText]="'First Tray'">
+    first tray content
+  </ng-template>
 </novix-cabinet>

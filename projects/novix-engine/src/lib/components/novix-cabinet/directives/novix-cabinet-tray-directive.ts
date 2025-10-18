@@ -22,18 +22,17 @@ export class NovixCabinetTrayDirective implements AfterViewInit, OnDestroy {
   public traySize = input<string>('');
   public attachDirection = computed(() => this._parentCabinet.attachDirection());
   public trayContainerSize = signal<string>('');
-  public isVertical = computed(() => ['top', 'bottom'].includes(this.attachDirection()));
   public openClass = computed(() => this.isOpen() ? `open${this.attachDirection().charAt(0).toUpperCase()}${this.attachDirection().slice(1)}` : '')
-  public calculatedWidth = computed(() => {
-    return this.isVertical() ? null : this.trayContainerSize();
-  });
-  public calculatedHeight = computed(() => {
-    return this.isVertical() ? this.trayContainerSize() : null;
-  });
+  public calculatedWidth = computed(() => this._parentCabinet.isVertical() ? null : this.trayContainerSize());
+  public calculatedHeight = computed(() => this._parentCabinet.isVertical() ? this.trayContainerSize() : null);
   public calculatedLeftPosition = computed(() => this.commonPositionCalculation('left'));
   public calculatedRightPosition = computed(() => this.commonPositionCalculation('right'));
+  public calculatedTopPosition = computed(() => this.commonPositionCalculation('top'));
+  public calculatedBottomPosition = computed(() => this.commonPositionCalculation('bottom'));
   public calculatedHandleLeftPosition = computed(() => this.commonHandlePositionCalculation('left'));
   public calculatedHandleRightPosition = computed(() => this.commonHandlePositionCalculation('right'));
+  public calculatedHandleTopPosition = computed(() => this.commonHandlePositionCalculation('top'));
+  public calculatedHandleBottomPosition = computed(() => this.commonHandlePositionCalculation('bottom'));
   public trayClosedOffset = computed(() => `calc(-1 * (${this.trayContainerSize()} - ${this._trayHandleSize()}))`);
   public readonly templateRef = inject<TemplateRef<unknown>>(TemplateRef);
 
@@ -104,7 +103,7 @@ export class NovixCabinetTrayDirective implements AfterViewInit, OnDestroy {
       : ['left','right'].includes(this.attachDirection()) ? '300px' : '500px');
 
     //--Measure tray handle size based on direction.
-    this._trayHandleSize.set(this.isVertical()
+    this._trayHandleSize.set(this._parentCabinet.isVertical()
       ? this.calculateHandleHeight()
       : this.calculateHandleWidth());
   }
