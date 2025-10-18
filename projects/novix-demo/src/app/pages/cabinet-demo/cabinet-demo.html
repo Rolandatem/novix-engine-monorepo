@@ -2,21 +2,18 @@
 
 <novix-cabinet [autoCloseOnOutsideClick]="true">
   <ng-template novix-cabinet-tray
-      [trayId]="'tray1'"
       [handleText]="'Settings'"
       [traySize]="'300px'">
     Contents for Settings
   </ng-template>
 
-  <ng-template novix-cabinet-tray
-    [trayId]="'tray2'"
+  <!-- <ng-template novix-cabinet-tray
     [handleText]="'Profile'"
     [traySize]="'400px'">
     Contents for Profile
   </ng-template>
 
   <ng-template novix-cabinet-tray
-    [trayId]="'tray3'"
     [handleText]="'Notifications'"
     [traySize]="'500px'">
     Contents for Notifications
@@ -24,9 +21,20 @@
   </ng-template>
 
   <ng-template novix-cabinet-tray
-    [trayId]="'tray4'"
     [handleText]="'New Tab'"
     [traySize]="'600px'">
     WOOT!
+  </ng-template> -->
+</novix-cabinet>
+
+<novix-cabinet [attachDirection]="'right'">
+  <ng-template novix-cabinet-tray
+    [handleText]="'First Tray'">
+    first tray content
   </ng-template>
+
+  <!-- <ng-template novix-cabinet-tray
+    [handleText]="'Second Tray'">
+    second tray content
+  </ng-template> -->
 </novix-cabinet>
