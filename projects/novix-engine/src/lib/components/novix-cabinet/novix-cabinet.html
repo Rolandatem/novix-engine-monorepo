@@ -14,6 +14,10 @@
          [style.right]="tray.calculatedHandleRightPosition()"
          [style.top]="tray.calculatedHandleTopPosition()"
          [style.bottom]="tray.calculatedHandleBottomPosition()"
+         [style.background-color]="tray.handleBackgroundColor()"
+         [style.color]="tray.handleColor()"
+         [style.font-family]="tray.handleFontFamily()"
+         [style.font-size]="tray.handleFontSize()"
          (click)="toggleTray(i)">
 
       {{ tray.handleText() }}
@@ -32,7 +36,9 @@
       [style.top]="tray.calculatedTopPosition()"
       [style.bottom]="tray.calculatedBottomPosition()"
       [style.width]="tray.calculatedWidth()"
-      [style.height]="tray.calculatedHeight()">
+      [style.height]="tray.calculatedHeight()"
+      [style.background-color]="tray.contentBackgroundColor()"
+      [style.border-color]="tray.contentBorderColor()">
       <ng-container *ngTemplateOutlet="tray.templateRef"></ng-container>
     </div>
   }

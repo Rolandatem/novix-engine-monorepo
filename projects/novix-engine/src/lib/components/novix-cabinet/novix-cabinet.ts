@@ -1,4 +1,4 @@
-import { Component, computed, ContentChildren, ElementRef, forwardRef, inject, input, PLATFORM_ID, QueryList, ViewChildren } from '@angular/core';
+import { Component, computed, ContentChildren, ElementRef, inject, input, PLATFORM_ID, QueryList, ViewChildren } from '@angular/core';
 import { NovixCabinetTrayDirective } from './directives/novix-cabinet-tray-directive';
 import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
 import { NovixCardinalDirection } from '../../types/NovixCardinalDirections';
@@ -32,8 +32,11 @@ export class NovixCabinet {
   //===========================================================================================================================
   // INPUT PROPERTIES
   //===========================================================================================================================
-  public autoCloseOnOutsideClick = input<boolean>(false);
+  /** The direction in which the cabinet is attached. */
   public attachDirection = input<NovixCardinalDirection>('left');
+  /** Whether to auto-close trays when clicking outside of the cabinet. */
+  public autoCloseOnOutsideClick = input<boolean>(false);
+  /** Whether to apply rounded corners to the tray handles. */
   public rounded = input<boolean>(false);
 
   //===========================================================================================================================
@@ -42,33 +45,28 @@ export class NovixCabinet {
   private _isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   //===========================================================================================================================
+  // PUBLIC PROPERTIES
+  //===========================================================================================================================
+  public isVertical = computed(() => ['top', 'bottom'].includes(this.attachDirection()));
+
+  //===========================================================================================================================
   // LIFECYCLE METHODS
   //===========================================================================================================================
   public ngAfterViewInit(): void {
     //--Iterate trays.
     this.trays.forEach((tray, index) => {
       //--Create reference to tray and handle elements.
-      const trayEl = this.trayElements.get(index)?.nativeElement;
-      const handleEl = this.handleElements.get(index)?.nativeElement;
-
-      //--Browser only actions
-      if (this._isBrowser) {
-        //--Add auto-close event listener if flagged.
-        if (trayEl && handleEl && this.autoCloseOnOutsideClick()) {
-          tray.initAutoClose(trayEl, handleEl);
-        }
-      }
+      tray.setElementReferences(
+        this.trayElements.get(index)?.nativeElement,
+        this.handleElements.get(index)?.nativeElement
+      )
     })
   }
 
   //===========================================================================================================================
-  // PUBLIC PROPERTIES
-  //===========================================================================================================================
-  public isVertical = computed(() => ['top', 'bottom'].includes(this.attachDirection()));
-
-  //===========================================================================================================================
   // PUBLIC METHODS
   //===========================================================================================================================
+  /** Toggle the specified tray, closing all others. */
   public toggleTray(idx: number): void {
     this.trays.forEach((tray, i) => {
       i === idx ? tray.toggle() : tray.close();

@@ -69,7 +69,7 @@
                 right 0.3s ease,
                 top 0.3s ease,
                 bottom 0.3s ease;
-    z-index: 1002;
+    z-index: 1001;
 
     &.attach-left-right {
       writing-mode: vertical-lr;
@@ -86,9 +86,6 @@
 }
 
 .novix-cabinet-trays {
-  background-color: rgba(0,255,0,.15);
-
-  //height: 100%;
   position: absolute;
 
   &.attach-left-right {
@@ -106,12 +103,11 @@
     border-color: var(--novix-cabinet-tray-content-border-color);
     border-style: solid;
     border-width: 1px;
-    z-index: 1001;
+    z-index: 1002;
 
     @extend %p-3;
 
     position: absolute;
-    //height: 100%;
 
     transition: left 0.3s ease,
                 right 0.3s ease,
