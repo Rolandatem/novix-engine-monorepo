@@ -175,5 +175,36 @@ $novix-position-values: (
   25: 25%,
   50: 50%,
   75: 75%,
-  100: 100%
+  100: 100%,
+  auto: auto
 );
+
+// ================================================
+// Cursor
+// ================================================
+$novix-cursor-values: (
+  auto,
+  default,
+  pointer,
+  text,
+  move,
+  grab,
+  grabbing,
+  not-allowed,
+  wait,
+  help,
+  crosshair,
+  all-scroll,
+  cell,
+  col-resize,
+  row-resize
+  copy,
+  n-resize,
+  s-resize,
+  e-resize,
+  w-resize,
+  ne-resize,
+  nw-resize,
+  se-resize,
+  sw-resize
+)

@@ -265,6 +265,11 @@
   }
 }
 
+.position-relative  { @extend %position-relative; }
+.position-absolute  { @extend %position-absolute; }
+.position-fixed     { @extend %position-fixed; }
+.position-sticky    { @extend %position-sticky; }
+
 @each $bp, $bp-width in $novix-breakpoints {
   .translate-#{$bp}-middle {
     @include novix-respond($bp) {
@@ -292,6 +297,90 @@
     @include novix-respond($bp) {
       left: 50%;
       transform: translateX(-50%);
+    }
+  }
+
+  .position-#{bp}-relative {
+    @include novix-respond($bp) {
+      position: relative;
+    }
+  }
+  .position-#{bp}-absolute {
+    @include novix-respond($bp) {
+      position: absolute;
+    }
+  }
+  .position-#{bp}-fixed {
+    @include novix-respond($bp) {
+      position: fixed;
+    }
+  }
+  .position-#{bp}-sticky {
+    @include novix-respond($bp) {
+      position: sticky;
+    }
+  }
+}
+
+// ================================================
+// Z-INDEX
+// ================================================
+//----Custom based on bootstrap style.
+.z-n1   { @extend %z-n1; }
+
+@each $val in (0, 1, 2, 3, 4, 5) {
+  .z-#{$val}    { z-index: $val !important; }
+  .z-100#{$val} { z-index: 1000 + $val !important; }
+  .z-200#{$val} { z-index: 2000 + $val !important; }
+  .z-300#{$val} { z-index: 3000 + $val !important; }
+  .z-400#{$val} { z-index: 4000 + $val !important; }
+  .z-500#{$val} { z-index: 5000 + $val !important; }
+
+  @each $bp, $bp-width in $novix-breakpoints {
+    .z-#{$bp}-#{$val} {
+      @include novix-respond($bp) {
+        z-index: $val !important;
+      }
+    }
+    .z-100#{$bp}-#{$val} {
+      @include novix-respond($bp) {
+        z-index: 1000 + $val !important;
+      }
+    }
+    .z-200#{$bp}-#{$val} {
+      @include novix-respond($bp) {
+        z-index: 2000 + $val !important;
+      }
+    }
+    .z-300#{$bp}-#{$val} {
+      @include novix-respond($bp) {
+        z-index: 3000 + $val !important;
+      }
+    }
+    .z-400#{$bp}-#{$val} {
+      @include novix-respond($bp) {
+        z-index: 4000 + $val !important;
+      }
+    }
+    .z-500#{$bp}-#{$val} {
+      @include novix-respond($bp) {
+        z-index: 5000 + $val !important;
+      }
+    }
+  }
+}
+
+// ================================================
+// Cursor
+// ================================================
+@each $val in $novix-cursor-values {
+  .cursor-#{$val} { cursor: $val !important; }
+
+  @each $bp, $bp-width in $novix-breakpoints {
+    .cursor-#{$bp}-#{$val} {
+      @include novix-respond($bp) {
+        z-index: $val !important;
+      }
     }
   }
 }

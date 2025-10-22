@@ -209,3 +209,30 @@
   @extend %start-50;
   @extend %translate-middle-x;
 }
+
+%position-relative    { position: relative !important; }
+%position-absolute    { position: absolute !important; }
+%position-fixed       { position: fixed !important; }
+%position-sticky      { position: sticky !important; }
+
+// ================================================
+// Z-INDEX
+// ================================================
+//----Custom based on bootstrap style.
+%z-n1   { z-index: -1; }
+
+@each $val in (0, 1, 2, 3, 4, 5) {
+  %z-#{$val}    { z-index: $val !important; }
+  %z-100#{$val} { z-index: 1000 + $val !important; }
+  %z-200#{$val} { z-index: 2000 + $val !important; }
+  %z-300#{$val} { z-index: 3000 + $val !important; }
+  %z-400#{$val} { z-index: 4000 + $val !important; }
+  %z-500#{$val} { z-index: 5000 + $val !important; }
+}
+
+// ================================================
+// Cursor
+// ================================================
+@each $val in $novix-cursor-values {
+  %cursor-#{$val} { cursor: $val !important; }
+}
