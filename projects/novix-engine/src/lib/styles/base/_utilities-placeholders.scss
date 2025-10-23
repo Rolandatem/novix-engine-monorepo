@@ -50,6 +50,18 @@
   %flex-#{$dir} {
     flex-direction: $dir !important;
   }
+  // @each $bp, $bp-width in $novix-breakpoints {
+  //   @media (min-width: $bp-width) {
+  //     %flex-#{$bp}-#{$dir} { flex-direction: $dir !important; }
+  //   }
+  // }
+  @each $bp, $bp-width in $novix-breakpoints {
+    %flex-#{$bp}-#{$dir} {
+      @media (min-width: $bp-width) {
+        flex-direction: $dir !important;
+      }
+    }
+  }
 }
 
 // ================================================
@@ -72,6 +84,20 @@
   %g-#{$key}   { gap: $size !important; }
   %gx-#{$key}  { column-gap: $size !important; }
   %gy-#{$key}  { row-gap: $size !important; }
+
+  @each $bp, $bp-width in $novix-breakpoints {
+    // @media (min-width: $bp-width) {
+    //   %g-#{$bp}-#{$key} { gap: $size !important; }
+    //   %gx-#{$bp}-#{$key} { column-gap: $size !important; }
+    //   %gy-#{$bp}-#{$key} { row-gap: $size !important; }
+    // }
+
+    %g-#{$bp}-#{$key} {
+      @media (min-width: $bp-width) {
+        gap: $size !important;
+      }
+    }
+  }
 }
 
 // ================================================
@@ -90,6 +116,12 @@
 // ================================================
 @each $key, $val in $novix-justify-values {
   %justify-content-#{$key} { justify-content: $val !important; }
+
+  @each $bp, $bp-width in $novix-breakpoints {
+    @media(min-width: $bp-width) {
+      %justify-content-#{$bp}-#{$val} { justify-content: $val !important }
+    }
+  }
 }
 
 // ================================================

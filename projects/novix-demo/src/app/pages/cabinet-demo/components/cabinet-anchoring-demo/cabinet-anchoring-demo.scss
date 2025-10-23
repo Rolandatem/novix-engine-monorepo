@@ -1,0 +1,25 @@
+@use 'sass:map';
+@use '../../shared-styles.scss';
+@use 'novix-engine/styles/base/variables' as *;
+
+.anchoring-demo-contents {
+  // @extend %d-flex,
+  //         %flex-column,
+  //         %flex-md-row,
+  //         %justify-content-md-center,
+  //         %g-2,
+  //         %g-md-5;
+
+  @extend %d-flex;
+  @extend %flex-column;
+
+  //flex-column flex-md-row justify-content-md-center g-2 g-md-5
+
+  > div {
+    @extend %bg-surface-variant,
+            %border-1,
+            %border-on-surface-20,
+            %p-2,
+            %text-center;
+  }
+}

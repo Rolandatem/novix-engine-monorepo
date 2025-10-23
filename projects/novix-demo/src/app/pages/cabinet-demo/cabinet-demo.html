@@ -1,79 +1,51 @@
-<p>cabinet-demo works!</p>
+<section class="container mt-5">
+  <h1 id="introduction" class="fs-1 fw-bold">Novix Cabinet Component</h1>
+  <p>
+    The Novix Cabinet is a flexible UI component that can be anchored to any
+    edge of the user's screen — top, bottom, left, or right — with the default
+    position set to the left. It provides a modular system of slide-out trays,
+    each activated by its own handle. These trays can contain independent
+    content, making the Cabinet ideal for organizing tools, panels, or
+    contextual features in a compact, accessible layout.
+  </p>
 
-<novix-cabinet id="my-left-cabinet"
-  [autoCloseOnOutsideClick]="true"
-  [style.top]="'40px'"
-  [style.bottom]="'40px'"
-  [rounded]="true">
-  <ng-template novix-cabinet-tray
-      [handleText]="'Settings'"
-      [traySize]="'300px'">
-    Contents for Settings
-  </ng-template>
+  <hr />
 
-  <ng-template novix-cabinet-tray
-    [handleText]="'Profile'"
-    [traySize]="'400px'"
-    [handleBackgroundColor]="'var(--novix-secondary)'"
-    [handleColor]="'var(--novix-on-secondary)'"
-    [handleFontFamily]="'Courier New, monospace'"
-    [handleFontSize]="'16px'"
-    [contentBackgroundColor]="'var(--novix-neutral)'"
-    [contentBorderColor]="'var(--novix-warn)'">
-    Contents for Profile
-  </ng-template>
+  <section id="live-showcase" class="mt-3">
+    <div class="sectionHeader">🎬 Live Showcase</div>
+      <p class="fst-italic no-top">
+        Note: The tray content shown in these demos is illustrative only
+        and not part of the NovixCabinet itself. It serves to demonstrate
+        possible usage scenarios.
+      </p>
 
-  <ng-template novix-cabinet-tray
-    [handleText]="'Notifications'"
-    [traySize]="'500px'">
-    Contents for Notifications
-    <button (click)="doSomething()">Click me</button>
-  </ng-template>
+      <app-cabinet-anchoring-demo />
+  </section>
+</section>
 
-  <ng-template novix-cabinet-tray
-    [handleText]="'New Tab'"
-    [traySize]="'600px'">
-    WOOT!
-  </ng-template>
-</novix-cabinet>
+<!-- TEMPLATES FOR COMMON USE IN TRAYS -->
+<ng-template #quickSettingsContent>
+  <div class="p-3">
+    <h3 class="fs-4 fw-bold mb-2">Quick Settings</h3>
+    <label class="d-block mb-2">
+      <input type="checkbox" /> Enable animations
+    </label>
+    <label class="d-block mb-2">
+      <input type="checkbox" /> Show debug panel
+    </label>
+    <label class="d-block mb-2">
+      <input type="checkbox" /> Use compact layout
+    </label>
+  </div>
+</ng-template>
 
-<novix-cabinet
-  [attachDirection]="'right'"
-  [style.z-index]="'4000 !important'"
-  [style.top]="'40px !important'"
-  [rounded]="true">
-  <ng-template novix-cabinet-tray
-    [handleText]="'First Tray'">
-    first tray content
-  </ng-template>
-
-  <!-- <ng-template novix-cabinet-tray
-    [handleText]="'Second Tray'">
-    second tray content
-  </ng-template> -->
-</novix-cabinet>
-
-<novix-cabinet
-  [attachDirection]="'top'"
-  [style.left]="'40px'"
-  [rounded]="true">
-  <ng-template novix-cabinet-tray
-    [handleText]="'First Tray'">
-    first tray content
-  </ng-template>
-
-  <!-- <ng-template novix-cabinet-tray
-    [handleText]="'Second Tray'">
-    second tray content
-  </ng-template> -->
-</novix-cabinet>
-
-<novix-cabinet
-  [attachDirection]="'bottom'"
-  [style.left]="'40px'"
-  [rounded]="true">
-  <ng-template novix-cabinet-tray
-    [handleText]="'First Tray'">
-    first tray content
-  </ng-template>
-</novix-cabinet>
+<ng-template #liveStatsContent>
+  <div class="p-3">
+    <h3 class="fs-4 fw-bold mb-2">Live Stats</h3>
+    <ul class="m-0 p-0 list-unstyled">
+      <li class="mb-1">🟢 Active sessions: <strong>12</strong></li>
+      <li class="mb-1">📦 Cached components: <strong>37</strong></li>
+      <li class="mb-1">⏱️ Uptime: <strong>3h 42m</strong></li>
+    </ul>
+  </div>
+</ng-template>

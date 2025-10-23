@@ -1,8 +1,1 @@
-novix-cabinet#my-left-cabinet { //-tray-handle {
-  --novix-cabinet-tray-handle-background-color: var(--novix-accent);
-  --novix-cabinet-tray-handle-color: var(--novix-on-tertiary);
-  --novix-cabinet-tray-handle-font-family: Arial;
-  --novix-cabinet-tray-handle-font-size: 20px;
-  --novix-cabinet-tray-content-background-color: var(--novix-neutral-variant);
-  --novix-cabinet-tray-content-border-color: var(--novix-success);
-}
+@use 'shared-styles.scss';

@@ -1,0 +1,24 @@
+@use 'novix-engine/styles/placeholders';
+
+.sectionHeader {
+  @extend %fs-3,
+          %fw-bold;
+}
+
+p.no-top {
+  margin-block-start: 0;
+}
+
+.demo-box {
+  @extend %bg-surface,
+          %border-1,
+          %border-on-surface,
+          %p-3;
+}
+
+/* Temporary until real one is made */
+.linkButton {
+  @extend %text-primary,
+          %hover-text-secondary,
+          %cursor-pointer;
+}

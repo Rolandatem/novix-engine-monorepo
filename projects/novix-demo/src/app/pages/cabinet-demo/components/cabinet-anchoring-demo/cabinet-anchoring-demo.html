@@ -1,0 +1,82 @@
+<section id="anchoring-demo" class="mt-3">
+  <div class="fs-4 fw-bold">Anchoring Demo</div>
+  <p class="no-top">
+    The Cabinet can be anchored to any edge of the user's screen — top,
+    bottom, left, or right — to suit your layout needs.
+  </p>
+  <div><span class="linkButton" (click)="cabinetDemoPage.hideAllCabinets()">Close all cabinets</span></div>
+  <div class="demo-box anchoring-demo-contents">
+    <div>
+      <div>Left Anchored</div>
+      <div>
+        <button class="mt-1" (click)="cabinetDemoPage.demoVisibility.anchoredLeft.set(!cabinetDemoPage.demoVisibility.anchoredLeft())">Toggle</button>
+      </div>
+    </div>
+    <div>
+      <div>Right Anchored</div>
+      <div><button class="mt-1" (click)="cabinetDemoPage.demoVisibility.anchoredRight.set(!cabinetDemoPage.demoVisibility.anchoredRight())">Toggle</button></div>
+    </div>
+    <div>
+      <div>Top Anchored</div>
+      <div><button class="mt-1" (click)="cabinetDemoPage.demoVisibility.anchoredTop.set(!cabinetDemoPage.demoVisibility.anchoredTop())">Toggle</button></div>
+    </div>
+    <div>
+      <div>Bottom Anchored</div>
+      <div><button class="mt-1" (click)="cabinetDemoPage.demoVisibility.anchoredBottom.set(!cabinetDemoPage.demoVisibility.anchoredBottom())">Toggle</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ANCHORING DEMO CABINETS -->
+@if (cabinetDemoPage.demoVisibility.anchoredLeft()) {
+  <novix-cabinet>
+    <ng-template novix-cabinet-tray
+      [handleText]="'Quick Settings'">
+      <ng-container *ngTemplateOutlet="cabinetDemoPage.quickSettingsContent"></ng-container>
+    </ng-template>
+
+    <ng-template novix-cabinet-tray
+      [handleText]="'Live Stats'">
+      <ng-container *ngTemplateOutlet="cabinetDemoPage.liveStatsContent"></ng-container>
+    </ng-template>
+  </novix-cabinet>
+}
+@if (cabinetDemoPage.demoVisibility.anchoredRight()) {
+  <novix-cabinet [attachDirection]="'right'">
+    <ng-template novix-cabinet-tray
+      [handleText]="'Quick Settings'">
+      <ng-container *ngTemplateOutlet="cabinetDemoPage.quickSettingsContent"></ng-container>
+    </ng-template>
+
+    <ng-template novix-cabinet-tray
+      [handleText]="'Live Stats'">
+      <ng-container *ngTemplateOutlet="cabinetDemoPage.liveStatsContent"></ng-container>
+    </ng-template>
+  </novix-cabinet>
+}
+@if (cabinetDemoPage.demoVisibility.anchoredTop()) {
+  <novix-cabinet [attachDirection]="'top'">
+    <ng-template novix-cabinet-tray
+      [handleText]="'Quick Settings'">
+      <ng-container *ngTemplateOutlet="cabinetDemoPage.quickSettingsContent"></ng-container>
+    </ng-template>
+
+    <ng-template novix-cabinet-tray
+      [handleText]="'Live Stats'">
+      <ng-container *ngTemplateOutlet="cabinetDemoPage.liveStatsContent"></ng-container>
+    </ng-template>
+  </novix-cabinet>
+}
+@if (cabinetDemoPage.demoVisibility.anchoredBottom()) {
+  <novix-cabinet [attachDirection]="'bottom'">
+    <ng-template novix-cabinet-tray
+      [handleText]="'Quick Settings'">
+      <ng-container *ngTemplateOutlet="cabinetDemoPage.quickSettingsContent"></ng-container>
+    </ng-template>
+
+    <ng-template novix-cabinet-tray
+      [handleText]="'Live Stats'">
+      <ng-container *ngTemplateOutlet="cabinetDemoPage.liveStatsContent"></ng-container>
+    </ng-template>
+  </novix-cabinet>
+}

@@ -31,17 +31,17 @@
 // State Variants (hover, focus, active)
 // ================================================
 @each $token in $novix-color-tokens {
-  %hover-text-#{$token}   { color: var(--novix-#{$token}) !important; }
-  %hover-bg-#{$token}     { background-color: var(--novix-#{$token}) !important; }
-  %hover-border-#{$token} { border-color: var(--novix-#{$token}) !important; }
+  %hover-text-#{$token}   { &:hover { color: var(--novix-#{$token}) !important; } }
+  %hover-bg-#{$token}     { &:hover { background-color: var(--novix-#{$token}) !important; } }
+  %hover-border-#{$token} { &:hover { border-color: var(--novix-#{$token}) !important; } }
 
-  %focus-text-#{$token}   { color: var(--novix-#{$token}) !important; }
-  %focus-bg-#{$token}     { background-color: var(--novix-#{$token}) !important; }
-  %focus-border-#{$token} { border-color: var(--novix-#{$token}) !important; }
+  %focus-text-#{$token}   { &:focus { color: var(--novix-#{$token}) !important; } }
+  %focus-bg-#{$token}     { &:focus { background-color: var(--novix-#{$token}) !important; } }
+  %focus-border-#{$token} { &:focus { border-color: var(--novix-#{$token}) !important; } }
 
-  %active-text-#{$token}   { color: var(--novix-#{$token}) !important; }
-  %active-bg-#{$token}     { background-color: var(--novix-#{$token}) !important; }
-  %active-border-#{$token} { border-color: var(--novix-#{$token}) !important; }
+  %active-text-#{$token}   { &:active { color: var(--novix-#{$token}) !important; } }
+  %active-bg-#{$token}     { &:active { background-color: var(--novix-#{$token}) !important; } }
+  %active-border-#{$token} { &:active { border-color: var(--novix-#{$token}) !important; } }
 }
 
 // ================================================
