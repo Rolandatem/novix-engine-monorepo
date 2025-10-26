@@ -1,0 +1,87 @@
+@use 'sass:map';
+@use '../variables' as *;
+@use 'functional-mixins' as *;
+
+// ================================================
+// Base Text, Background, Border Utilities
+// ================================================
+@mixin text($token, $bp: null, $opacity: null, $state: null) {
+  $color: var(--novix-#{$token});
+  @if $opacity != null {
+    $color: rgba(var(--novix-#{$token}-rgb), $opacity / 100);
+  }
+
+  @if $bp == null {
+    #{if($state, "&:#{$state}", "&")} {
+      color: $color !important;
+    }
+  } @else {
+    @include novix-responsive($bp) {
+      #{if($state, "&:#{$state}", "&")} {
+        color: $color !important;
+      }
+    }
+  }
+}
+
+@mixin bg($token, $bp: null, $opacity: null, $state: null) {
+  $color: var(--novix-#{$token});
+  @if $opacity != null {
+    $color: rgba(var(--novix-#{$token}-rgb), $opacity / 100);
+  }
+
+  @if $bp == null {
+    #{if($state, "&:#{$state}", "&")} {
+      background-color: $color !important;
+    }
+  } @else {
+    @include novix-responsive($bp) {
+      #{if($state, "&:#{$state}", "&")} {
+        background-color: $color !important;
+      }
+    }
+  }
+}
+
+@mixin border-color($token, $bp: null, $opacity: null, $state: null) {
+  $color: var(--novix-#{$token});
+  @if $opacity != null {
+    $color: rgba(var(--novix-#{$token}-rgb), $opacity / 100);
+  }
+
+  @if $bp == null {
+    #{if($state, "&:#{$state}", "&")} {
+      border-color: $color !important;
+    }
+  } @else {
+    @include novix-responsive($bp) {
+      #{if($state, "&:#{$state}", "&")} {
+        border-color: $color !important;
+      }
+    }
+  }
+}
+
+// ================================================
+// Per-side Border Color Utilities
+// ================================================
+@mixin border-color-direction($token, $dir, $bp: null, $opacity: null, $state: null) {
+  $css-dir: map.get($novix-logical-directions, $dir);
+  $color: var(--novix-#{$token});
+
+  @if $opacity != null {
+    $color: rgba(var(--novix-#{$token}-rgb), $opacity / 100);
+  }
+
+  @if $bp == null {
+    #{if($state, "&:#{$state}", "&")} {
+      border-#{$css-dir}-color: $color !important;
+    }
+  } @else {
+    @include novix-responsive($bp) {
+      #{if($state, "&:#{$state}", "&")} {
+        border-#{$css-dir}-color: $color !important;
+      }
+    }
+  }
+}

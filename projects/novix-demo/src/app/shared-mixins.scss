@@ -1,0 +1,54 @@
+@use 'novix-engine/styles/base/mixins' as *;
+
+@mixin common-table {
+  border-collapse: collapse;
+
+  td, th {
+    @include p(3);
+    @include text-whitespace(nowrap);
+    @include text-align(start);
+
+    @include border-color(neutral);
+    @include border-width(1);
+  }
+
+  thead {
+    @include bg(neutral-variant);
+    @include text(on-neutral-variant);
+    @include fw-semibold;
+  }
+
+  tbody {
+
+    tr {
+      transition: background-color 0.2s ease;
+      @include bg(surface);
+
+      &:hover {
+        @include bg(surface-variant);
+      }
+
+      &.special-info {
+        @include bg(neutral-variant, $opacity: 40);
+
+        td {
+          @include text(on-neutral-variant);
+        }
+
+        &:hover {
+          @include bg(neutral-variant);
+        }
+      }
+    }
+
+    td:first-child {
+      vertical-align: top;
+      @include text(primary);
+    }
+
+    td:last-child {
+      @include width(100);
+      @include text-muted;
+    }
+  }
+}

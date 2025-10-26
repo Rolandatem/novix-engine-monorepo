@@ -1,0 +1,84 @@
+@use '../variables' as *;
+@use '../mixins/text-utilities-mixins' as *;
+
+// ================================================
+// Font Weight Utilities
+// ================================================
+.fw-bold      { @include fw-bold; }
+.fw-semibold  { @include fw-semibold; }
+.fw-medium    { @include fw-medium; }
+.fw-normal    { @include fw-normal; }
+.fw-light     { @include fw-light; }
+
+// ================================================
+// Font Style Utilities
+// ================================================
+.fst-italic { @include fst-italic; }
+.fst-normal { @include fst-normal; }
+
+// ================================================
+// Text Decoration Utilities
+// ================================================
+.text-decoration-underline    { @include text-decoration-underline; }
+.text-decoration-none         { @include text-decoration-none; }
+.text-decoration-line-through { @include text-decoration-line-through; }
+.text-decoration-overline     { @include text-decoration-overline; }
+
+// ================================================
+// Text Transform Utilities
+// ================================================
+.text-uppercase   { @include text-uppercase; }
+.text-lowercase   { @include text-lowercase; }
+.text-capitalize  { @include text-capitalize; }
+.text-normal-case { @include text-normal-case; }
+
+// ================================================
+// Text Alignment Utilities
+// ================================================
+@each $alignment in $novix-text-alignments {
+  .text-#{$alignment} { @include text-align($alignment); }
+
+  //--Responsive
+  @each $bp, $bp-width in $novix-breakpoints {
+    .text-#{$bp}-#{$alignment} { @include text-align($alignment, $bp); }
+  }
+}
+
+// ================================================
+// White Space & Wrapping Utilities
+// ================================================
+@each $wrap in $novix-whitespace-values {
+  .text-#{$wrap} { @include text-whitespace($wrap); }
+
+  //--Responsive
+  @each $bp, $bp-width in $novix-breakpoints {
+    .text-#{$bp}-#{$wrap} { @include text-whitespace($wrap, $bp); }
+  }
+}
+
+// ================================================
+// Text Overflow Utilities
+// ================================================
+.text-truncate { @include text-truncate; }
+
+// ================================================
+// Line Height Utilities
+// ================================================
+@each $level, $lh in $novix-line-heights {
+  .lh-#{$level} { @include lh($level); }
+
+  //--Responsive
+  @each $bp, $bp-width in $novix-breakpoints {
+    .lh-#{$bp}-#{$level} { @include lh($level, $bp); }
+  }
+}
+
+// ================================================
+// Text Muted Utility
+// ================================================
+.text-muted { @include text-muted; }
+
+//--Responsive
+@each $bp, $bp-width in $novix-breakpoints {
+  .text-#{$bp}-muted { @include text-muted; }
+}

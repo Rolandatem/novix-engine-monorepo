@@ -1,30 +1,37 @@
-@use 'novix-engine/styles/placeholders' as *;
-@use '../../styles/styles-placeholders.scss';
+@use 'novix-engine/styles/base/mixins' as *;
+@use '../../shared-mixins.scss' as *;
 
-.sectionHeader {
- @extend %fs-2;
- @extend %fw-bold;
-}
+// .sectionHeader {
+//  @extend %fs-2;
+//  @extend %fw-bold;
+// }
 
 table {
-  @extend %common-table;
+  @include common-table;
 }
 
+// .engineThemeInfoTable {
+//   @extend %common-table;
+//   td:first-child {
+//     color: var(--novix-on-background) !important;
+//     @extend %fw-normal;
+//   }
+//   td:last-child {
+//     opacity: 1;
+//   }
+// }
+
 .engineThemeInfoTable {
-  @extend %common-table;
-  td:first-child {
-    color: var(--novix-on-background) !important;
-    @extend %fw-normal;
-  }
-  td:last-child {
+  td {
+    @include text(on-background);
     opacity: 1;
   }
 }
 
-.warning {
-  @extend %bg-neutral-variant;
-  @extend %border-start-neutral;
-  @extend %border-start-5;
-  @extend %fw-medium;
-  @extend %p-1;
-}
+// .warning {
+//   @extend %bg-neutral-variant;
+//   @extend %border-start-neutral;
+//   @extend %border-start-5;
+//   @extend %fw-medium;
+//   @extend %p-1;
+// }

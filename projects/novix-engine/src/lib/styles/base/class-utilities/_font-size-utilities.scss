@@ -1,0 +1,14 @@
+@use '../variables' as *;
+@use '../mixins/font-size-utilities-mixins' as *;
+
+// ================================================
+// Base Font-Size Classes
+// ================================================
+@each $level, $size in $novix-font-sizes {
+  .fs-#{$level} { @include fs($level); }
+
+  //--Responsive
+  @each $bp, $bp-width in $novix-breakpoints {
+    .fs-#{$bp}-#{$level} { @include fs($level, $bp); }
+  }
+}

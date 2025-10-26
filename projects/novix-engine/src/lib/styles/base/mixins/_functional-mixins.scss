@@ -1,0 +1,25 @@
+@use 'sass:map';
+@use '../variables' as *;
+
+/// Responsive Breakpoint mixin.
+/// @param $bp-width - Breakpoint size.
+@mixin novix-responsive($bp-width) {
+  @media (min-width: map.get($novix-breakpoints, $bp-width)) {
+    @content;
+  }
+}
+
+/// Box Shadow
+@mixin novix-box-shadow($level) {
+  box-shadow: map.get($novix-elevation-scale, $level);
+}
+
+/// Auto-grid
+/// Creates a responsive grid that fits as many items
+/// as possible, with min/max width per item.
+/// @param $min Minimum width of each item
+/// @param $max Maximum width of each item (e.g. 300px or 1fr)
+@mixin novix-grid-auto($min, $max) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($min, $max));
+}

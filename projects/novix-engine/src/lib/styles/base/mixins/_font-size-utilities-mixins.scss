@@ -1,0 +1,16 @@
+@use 'sass:map';
+@use '../variables' as *;
+@use 'functional-mixins' as *;
+
+// ================================================
+// Base Font-Size Classes
+// ================================================
+@mixin fs($level, $bp: null) {
+  @if $bp == null {
+    font-size: map.get($novix-font-sizes, $level) !important;
+  } @else {
+    @include novix-responsive($bp) {
+      font-size: map.get($novix-font-sizes, $level) !important;
+    }
+  }
+}

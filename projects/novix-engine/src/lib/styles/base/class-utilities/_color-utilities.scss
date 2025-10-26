@@ -1,0 +1,76 @@
+@use '../variables' as *;
+@use '../mixins/color-utilities-mixins' as *;
+
+// ================================================
+// Base Text, Background, Border Utilities
+// ================================================
+@each $token in $novix-color-tokens {
+  //--Base
+  .text-#{$token}         { @include text($token); }
+  .bg-#{$token}           { @include bg($token); }
+  .border-color-#{$token} { @include border-color($token); }
+
+  //--Opacity Variants
+  @each $opacity in $novix-opacity-steps {
+    .text-#{$token}-#{$opacity}         { @include text($token, $opacity: $opacity); }
+    .bg-#{$token}-#{$opacity}           { @include bg($token, $opacity: $opacity); }
+    .border-color-#{$token}-#{$opacity} { @include border-color($token, $opacity: $opacity); }
+  }
+
+  //--State Variants
+  @each $state in (hover, focus, active, disabled) {
+    .#{$state}-text-#{$token}   { @include text($token, $state: $state); }
+    .#{$state}-bg-#{$token}     { @include bg($token, $state: $state); }
+    .#{$state}-border-#{$token} { @include border-color($token, $state: $state); }
+
+    @each $opacity in $novix-opacity-steps {
+      .#{$state}-text-#{$token}-#{$opacity} {
+        @include text($token, $opacity: $opacity, $state: $state);
+      }
+      .#{$state}-bg-#{$token}-#{$opacity} {
+        @include bg($token, $opacity: $opacity, $state: $state);
+      }
+      .#{$state}-border-#{$token}-#{$opacity} {
+        @include border-color($token, $opacity: $opacity, $state: $state);
+      }
+    }
+  }
+
+  //--Responsive Variants
+  @each $bp, $bp-width in $novix-breakpoints {
+    .text-#{$bp}-#{$token}    { @include text($token, $bp); }
+    .bg-#{$bp}-#{$token}      { @include bg($token, $bp); }
+    .border-#{$bp}-#{$token}  { @include border-color($token, $bp); }
+  }
+}
+
+// ================================================
+// Per-side Border Color Utilities
+// ================================================
+@each $dir, $css-dir in $novix-logical-directions {
+  @each $token in $novix-color-tokens {
+    //--Base
+    .border-#{$dir}-#{$token} { @include border-color-direction($token, $dir); }
+
+    //--Opacity
+    @each $opacity in $novix-opacity-steps {
+      .border-#{$dir}-#{$token}-#{$opacity} {
+        @include border-color-direction($token, $dir, $opacity: $opacity);
+      }
+    }
+
+    //--State Variants
+    @each $state in (hover, focus, active) {
+      .#{$state}-border-#{$dir}-#{$token} {
+        @include border-color-direction($token, $dir, $state: $state);
+      }
+    }
+
+    //--Responsive Variants
+    @each $bp, $bp-width in $novix-breakpoints {
+      .border-#{$dir}-#{$bp}-#{$token} {
+        @include border-color-direction($token, $dir, $bp: $bp);
+      }
+    }
+  }
+}

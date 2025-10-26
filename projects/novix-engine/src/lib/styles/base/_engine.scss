@@ -89,3 +89,10 @@
     line-height: 1.2;
   }
 }
+
+// ================================================
+// Theme map getter
+// ================================================
+@function novix-theme-get($theme-map, $key) {
+  @return map.get($theme-map, $key);
+}

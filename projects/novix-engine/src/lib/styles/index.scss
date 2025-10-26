@@ -7,12 +7,10 @@
 
 // 1. Core variables, functions, mixins
 @forward 'base/variables';
-@forward 'base/functions';
-@forward 'base/mixins';
 @forward 'base/engine';
 
-// 2. Utility classes
-@forward 'base/utilities';
-@forward 'base/text-utilities';
-@forward 'base/font-size-utilities';
-@forward 'base/color-utilities';
+// 2. Mixins (definitions only, no CSS emitted until @include)
+@forward 'base/mixins/index';
+
+// 3. Utility class generators (emit global CSS once)
+@forward 'base/class-utilities/index';
