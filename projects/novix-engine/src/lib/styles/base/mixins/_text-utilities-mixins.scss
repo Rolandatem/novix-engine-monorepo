@@ -1,0 +1,90 @@
+@use 'sass:map';
+@use '../variables' as *;
+@use 'functional-mixins' as *;
+
+// ================================================
+// Font Weight Utilities
+// ================================================
+@mixin fw-bold      { font-weight: 700 !important; }
+@mixin fw-semibold  { font-weight: 600 !important; }
+@mixin fw-medium    { font-weight: 500 !important; }
+@mixin fw-normal    { font-weight: 400 !important; }
+@mixin fw-light     { font-weight: 300 !important; }
+
+// ================================================
+// Font Style Utilities
+// ================================================
+@mixin fst-italic { font-style: italic !important; }
+@mixin fst-normal { font-style: normal !important; }
+
+// ================================================
+// Text Decoration Utilities
+// ================================================
+@mixin text-decoration-underline    { text-decoration: underline !important; }
+@mixin text-decoration-none         { text-decoration: none !important; }
+@mixin text-decoration-line-through { text-decoration: line-through !important; }
+@mixin text-decoration-overline     { text-decoration: overline !important; }
+
+// ================================================
+// Text Transform Utilities
+// ================================================
+@mixin text-uppercase   { text-transform: uppercase !important; }
+@mixin text-lowercase   { text-transform: lowercase !important; }
+@mixin text-capitalize  { text-transform: capitalize !important; }
+@mixin text-normal-case { text-transform: none !important; }
+
+// ================================================
+// Text Alignment Utilities
+// ================================================
+@mixin text-align($alignment, $bp: null) {
+  @if $bp == null {
+    text-align: $alignment !important;
+  } @else {
+    @include novix-responsive($bp) {
+      text-align: $alignment !important;
+    }
+  }
+}
+
+// ================================================
+// White Space & Wrapping Utilities
+// ================================================
+@mixin text-whitespace($wrap, $bp: null) {
+  @if $bp == null {
+    white-space: $wrap !important;
+  } @else {
+    @include novix-responsive($bp) {
+      white-space: $wrap !important;
+    }
+  }
+}
+
+// ================================================
+// Text Overflow Utilities
+// ================================================
+@mixin text-truncate {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+// ================================================
+// Line Height Utilities
+// ================================================
+@mixin lh($level, $bp: null) {
+  @if $bp == null {
+    line-height: map.get($novix-line-heights, $level) !important;
+  } @else {
+    @include novix-responsive($bp) {
+      line-height: map.get($novix-line-heights, $level) !important;
+    }
+  }
+}
+
+// ================================================
+// Text Muted Utility
+// ================================================
+@mixin text-muted {
+  color: var(--novix-on-background) !important;
+  opacity: 0.65 !important;
+}

@@ -1,4 +1,4 @@
-@use '../../styles/placeholders';
+@use '../../styles/base/mixins' as *;
 
 :host {
   //--Novix Tray Variables
@@ -9,39 +9,34 @@
   --novix-tray-content-background-color: var(--novix-surface-variant);
   --novix-tray-content-border-color: var(--novix-primary);
 
-  z-index: 1000;
-  position: fixed;
-  display: flex;
+  @include z(1000);
+  @include position(fixed);
+  @include d(flex);
   transition:
     left 0.3s ease,
     right 0.3s ease,
     top 0.3s ease,
     bottom 0.3s ease;
 
-  &.no-transition {
-    //--For unit testing.
-    transition: none !important;
-  }
-
   &.attach-left {
-    top: 0;
-    bottom: 0;
-    right: auto;
-    flex-direction: row-reverse;
+    @include top(0);
+    @include bottom(0);
+    @include end(auto);
+    @include flex-direction(row-reverse);
 
     &.open {
-      left: 0;
+      @include start(0);
     }
   }
 
   &.attach-right {
-    top: 0;
-    bottom: 0;
-    left: auto;
-    flex-direction: row;
+    @include top(0);
+    @include bottom(0);
+    @include start(auto);
+    @include flex-direction(row);
 
     &.open {
-      right: 0;
+      @include end(0);
     }
   }
 
@@ -49,29 +44,29 @@
   &.attach-right {
     .novix-tray-handle {
       writing-mode: vertical-lr;
-      @extend %px-1;
+      @include p(1, 'x');
     }
   }
 
   &.attach-top {
-    bottom: auto;
-    left: 0;
-    right: 0;
-    flex-direction: column-reverse;
+    @include bottom(auto);
+    @include start(0);
+    @include end(0);
+    @include flex-direction(column-reverse);
 
     &.open {
-      top: 0;
+      @include top(0);
     }
   }
 
   &.attach-bottom {
-    top: auto;
-    left: 0;
-    right: 0;
-    flex-direction: column;
+    @include top(auto);
+    @include start(0);
+    @include end(0);
+    @include flex-direction(column);
 
     &.open {
-      bottom: 0;
+      @include bottom(0);
     }
   }
 
@@ -79,14 +74,14 @@
   &.attach-bottom {
     .novix-tray-handle {
       writing-mode: horizontal-tb;
-      @extend %py-1;
+      @include p(1, 'y');
     }
   }
 }
 
 .novix-tray-handle {
-  cursor: pointer;
-  text-align: center;
+  @include cursor(pointer);
+  @include text-align(center);
   background-color: var(--novix-tray-handle-background-color);
   color: var(--novix-tray-handle-color);
   font-family: var(--novix-tray-handle-font-family);
@@ -94,15 +89,12 @@
 }
 
 .novix-tray-content {
-  flex: 1;
-  overflow: hidden;
-  border-style: solid;
-  border-width: 1px;
+  @include flex(1);
+  @include overflow(hidden);
+  @include border-style(solid);
+  @include border-width(1);
+  @include p(3);
   color: var(--novix-on-surface);
-  //border-color: var(--novix-primary);
-  //background-color: var(--novix-surface-variant);
   background-color: var(--novix-tray-content-background-color);
   border-color: var(--novix-tray-content-border-color);
-
-  @extend %p-3;
 }

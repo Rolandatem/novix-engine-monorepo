@@ -8,12 +8,34 @@
 @import 'prismjs/themes/prism-okaidia.css';
 
 body {
-  padding-bottom: 30px !important;
+  @include p(3, b);
+}
+
+p.no-top {
+  @include m(0, t);
 }
 
 .code-line {
   font-family: Menlo, Consolas, Monaco, 'Courier New', monospace;
-  font-size: 0.875rem;
   background-color: var(--novix-surface-variant);
   padding: 2px 5px;
+  @include fs(5);
+}
+
+.sectionHeader {
+  @include fs(3);
+  @include fw-bold;
+}
+
+.linkButton {
+  @include text(primary);
+  @include text(secondary, $state: hover);
+  @include cursor(pointer);
+}
+
+.demo-box {
+  @include bg(surface);
+  @include border-width(1);
+  @include border-color(surface);
+  @include p(3);
 }
