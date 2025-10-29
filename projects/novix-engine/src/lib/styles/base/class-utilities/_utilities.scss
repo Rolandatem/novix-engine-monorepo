@@ -192,11 +192,11 @@
 }
 @each $dir-key, $dir-value in $novix-logical-directions {
   @each $b-key, $b-value in $novix-border-width-values {
-    .border-#{$dir-key}-#{$b-key} { @include border-width-direction($dir-key, $b-key); }
+    .border-#{$dir-key}-#{$b-key} { @include border-width-direction($b-key, $dir-key); }
 
     //--Responsive
     @each $bp, $bp-width in $novix-breakpoints {
-      .border-#{$bp}-#{$dir-key}-#{$b-key} { @include border-width-direction($dir-key, $b-key, $bp); }
+      .border-#{$bp}-#{$dir-key}-#{$b-key} { @include border-width-direction($b-key, $dir-key, $bp); }
     }
   }
 }
@@ -214,11 +214,11 @@
 }
 @each $dir-key, $dir-value in $novix-logical-directions {
   @each $b-key in $novix-border-styles {
-    .border-#{$dir-key}-#{$b-key} { @include border-style-direction($dir-key, $b-key); }
+    .border-#{$dir-key}-#{$b-key} { @include border-style-direction($b-key, $dir-key); }
 
     //--Responsive
     @each $bp, $bp-width in $novix-breakpoints {
-      .border-#{$bp}-#{$dir-key}-#{$b-key} { @include border-style-direction($dir-key, $b-key, $bp); }
+      .border-#{$bp}-#{$dir-key}-#{$b-key} { @include border-style-direction($b-key, $dir-key, $bp); }
     }
   }
 }
@@ -239,11 +239,11 @@
 //--Directional
 @each $dir-key, $dir-value in $novix-logical-directions {
   @each $r-key, $r-value in $novix-radius-scale {
-    .rounded-#{$dir-key}-#{$r-key} { @include rounded-direction($dir-key, $r-key); }
+    .rounded-#{$dir-key}-#{$r-key} { @include rounded-direction($r-key, $dir-key); }
 
     //--Responsive
     @each $bp, $bp-width in $novix-breakpoints {
-      .rounded-#{$bp}-#{$dir-key}-#{$r-key} { @include rounded-direction($dir-key, $r-key, $bp); }
+      .rounded-#{$bp}-#{$dir-key}-#{$r-key} { @include rounded-direction($r-key, $dir-key, $bp); }
     }
   }
 }
@@ -251,11 +251,11 @@
 //--Individual Corners
 @each $corner-key in $novix-border-radius-corners {
   @each $r-key, $r-value in $novix-radius-scale {
-    .rounded-#{$corner-key}-#{$r-key} { @include rounded-corner($corner-key, $r-key); }
+    .rounded-#{$corner-key}-#{$r-key} { @include rounded-corner($r-key, $corner-key); }
 
     //--Responsive
     @each $bp, $bp-width in $novix-breakpoints {
-      .rounded-#{$bp}-#{$corner-key}-#{$r-key} { @include rounded-corner($corner-key, $r-key, $bp); }
+      .rounded-#{$bp}-#{$corner-key}-#{$r-key} { @include rounded-corner($r-key, $corner-key, $bp); }
     }
   }
 }

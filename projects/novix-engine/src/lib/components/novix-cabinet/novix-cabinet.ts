@@ -1,4 +1,4 @@
-import { Component, computed, ContentChildren, ElementRef, inject, input, PLATFORM_ID, QueryList, ViewChildren } from '@angular/core';
+import { Component, computed, ContentChildren, ElementRef, HostBinding, inject, input, PLATFORM_ID, QueryList, ViewChildren } from '@angular/core';
 import { NovixCabinetTrayDirective } from './directives/novix-cabinet-tray-directive';
 import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
 import { NovixCardinalDirection } from '../../types/NovixCardinalDirections';
@@ -12,7 +12,7 @@ import { NovixCardinalDirection } from '../../types/NovixCardinalDirections';
     '[class.attach-left]': "attachDirection() === 'left'",
     '[class.attach-right]': "attachDirection() === 'right'",
     '[class.attach-top]': "attachDirection() === 'top'",
-    '[class.attach-bottom]': "attachDirection() === 'bottom'"
+    '[class.attach-bottom]': "attachDirection() === 'bottom'",
   }
 })
 
@@ -29,6 +29,21 @@ export class NovixCabinet {
   @ViewChildren('handleElement', { read: ElementRef })
   public handleElements!: QueryList<ElementRef<HTMLElement>>;
 
+  @HostBinding('style')
+  get marginStyles() {
+    if (this.edgeMargin() == null) { return {}; }
+
+    return this.isVertical()
+      ? {
+        'inset-inline-start': `${this.edgeMargin()} !important`,
+        'inset-inline-end': `${this.edgeMargin()} !important`
+      }
+      : {
+        'inset-block-start': `${this.edgeMargin()} !important`,
+        'inset-block-end': `${this.edgeMargin()} !important`
+      }
+  }
+
   //===========================================================================================================================
   // INPUT PROPERTIES
   //===========================================================================================================================
@@ -38,6 +53,10 @@ export class NovixCabinet {
   public autoCloseOnOutsideClick = input<boolean>(false);
   /** Whether to apply rounded corners to the tray handles. */
   public rounded = input<boolean>(false);
+  /** Margin to place on edges of the cabinet. */
+  public edgeMargin = input<string | null>(null);
+  /** How to justify the handles against the cabinet. */
+  public justifyHandles = input<'start' | 'center' | 'end'>('start');
 
   //===========================================================================================================================
   // PRIVATE PROPERTIES

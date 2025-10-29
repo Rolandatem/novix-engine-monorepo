@@ -1,7 +1,8 @@
 <!-- HANDLES -->
 <div class="novix-cabinet-handle-container"
      [class.attach-left-right]="!isVertical()"
-     [class.attach-top-bottom]="isVertical()">
+     [class.attach-top-bottom]="isVertical()"
+     [style.justify-content]="justifyHandles()">
   @for (tray of trays.toArray(); let i = $index; track i) {
     <div class="novix-cabinet-tray-handle" #handleElement
          [class.rounded-end-lg]="rounded() && attachDirection() === 'left'"

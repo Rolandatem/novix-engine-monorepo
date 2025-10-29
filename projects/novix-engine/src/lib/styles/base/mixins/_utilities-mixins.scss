@@ -245,20 +245,20 @@
     }
   }
 }
-@mixin border-width-direction($dir-key, $b-key, $bp: null) {
+@mixin border-width-direction($b-key, $dir-key, $bp: null) {
   $dir-value: map.get($novix-logical-directions, $dir-key);
   $b-value: map.get($novix-border-width-values, $b-key);
 
   @if $bp == null {
     border-#{$dir-value}-width: $b-value !important;
     @if $b-key != 0 {
-      border-style: solid;
+      border-#{$dir-value}-style: solid;
     }
   } @else {
     @include novix-responsive($bp) {
       border-#{$dir-value}-width: $b-value !important;
       @if $b-key != 0 {
-        border-style: solid;
+        border-#{$dir-value}-style: solid;
       }
     }
   }
@@ -276,7 +276,7 @@
     }
   }
 }
-@mixin border-style-direction($dir-key, $b-key, $bp: null) {
+@mixin border-style-direction($b-key, $dir-key, $bp: null) {
   $dir-value: map.get($novix-logical-directions, $dir-key);
 
   @if $bp == null {
@@ -302,7 +302,7 @@
     }
   }
 }
-@mixin rounded-direction($dir-key, $r-key, $bp: null) {
+@mixin rounded-direction($r-key, $dir-key, $bp: null) {
   $r-value: map.get($novix-radius-scale, $r-key);
 
   @if $bp == null {
@@ -337,7 +337,7 @@
     }
   }
 }
-@mixin rounded-corner($corner-key, $r-key, $bp: null) {
+@mixin rounded-corner($r-key, $corner-key, $bp: null) {
   $r-value: map.get($novix-radius-scale, $r-key);
 
   @if $bp == null {
@@ -381,7 +381,7 @@
 }
 @mixin bottom($val, $bp: null) {
   @if $bp == null {
-    inset-block-start: $val !important;
+    inset-block-end: $val !important;
   } @else {
     @include novix-responsive($bp) {
       bottom: $val !important;

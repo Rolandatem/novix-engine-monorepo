@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, computed, Directive, inject, input, OnDestroy, PLATFORM_ID, signal, TemplateRef } from '@angular/core';
+import { AfterViewInit, computed, Directive, effect, inject, input, OnDestroy, PLATFORM_ID, signal, TemplateRef } from '@angular/core';
 import { NovixCardinalDirection } from '../../../types/NovixCardinalDirections';
 import { NovixCabinet } from '../novix-cabinet';
 
@@ -90,21 +90,32 @@ export class NovixCabinetTrayDirective implements AfterViewInit, OnDestroy {
   //===========================================================================================================================
   // LIFECYCLE HOOKS
   //===========================================================================================================================
-  public ngAfterViewInit(): void {
-    //--Determine tray size by using specified value, otherwise default.
-    this.trayContainerSize.set(this.traySize() !== ''
-      ? this.traySize()
-      : this._parentCabinet.isVertical() ? '500px' : '300px');
+  constructor() {
+    if (!this._isBrowser) { return; }
 
+    effect(() => {
+      const enabled = this._parentCabinet.autoCloseOnOutsideClick();
+
+      //--Remove first to avoid possible duplicates.
+      document.removeEventListener('click', this._boundOutsideClickEvent, true);
+      if (enabled) {
+        document.addEventListener('click', this._boundOutsideClickEvent, true);
+      }
+    })
+
+    effect(() => {
+      //--Determine tray size by using specified value, otherwise default.
+      this.trayContainerSize.set(this.traySize() !== ''
+        ? this.traySize()
+        : this._parentCabinet.isVertical() ? '500px' : '300px');
+    })
+  }
+
+  public ngAfterViewInit(): void {
     //--Measure tray handle size based on direction.
     this._trayHandleSize.set(this._parentCabinet.isVertical()
       ? this.calculatedHandleHeight()
       : this.calculatedHandleWidth());
-
-    //--Setup auto-close if parent cabinet is set to.
-    if (this._parentCabinet.autoCloseOnOutsideClick()) {
-      this.initAutoClose();
-    }
   }
 
   public ngOnDestroy(): void {
@@ -200,11 +211,11 @@ export class NovixCabinetTrayDirective implements AfterViewInit, OnDestroy {
   }
 
   /** Initialized the tray to have the auto-close feature. */
-  public initAutoClose(): void {
-    if (this._isBrowser) {
-      document.addEventListener('click', this._boundOutsideClickEvent, true);
-    }
-  }
+  // public initAutoClose(): void {
+  //   if (this._isBrowser) {
+  //     document.addEventListener('click', this._boundOutsideClickEvent, true);
+  //   }
+  // }
 
   /**
    * Sets the specific handle and tray elements to the directive for use.

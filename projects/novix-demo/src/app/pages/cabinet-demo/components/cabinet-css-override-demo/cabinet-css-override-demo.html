@@ -1,0 +1,71 @@
+<section id="css-override-demo">
+  <div class="sectionHeader">CSS Overriding Demo</div>
+  <p class="no-top">
+    If you’d prefer to adjust the Novix Cabinet’s appearance using CSS instead
+    of override properties, you can use the following variables.
+  </p>
+
+  <div class="fw-bold bg-tertiary text-on-tertiary px-2 py-1">Cabinet and Tray CSS Variables</div>
+  <div class="css-variables-table">
+    <div class="row">
+      <div class="header">Variable</div>
+      <div class="header">Description</div>
+    </div>
+
+    <div class="row">
+      <div class="text-primary">--novix-cabinet-tray-handle-background-color</div>
+      <div>Defines the background color of tray handles. <span class="default-value">-primary</span></div>
+    </div>
+
+    <div class="row">
+      <div class="text-primary">--novix-cabinet-tray-handle-color</div>
+      <div>Sets the text color used on tray handles. <span class="default-value">-on-primary</span></div>
+    </div>
+
+    <div class="row">
+      <div class="text-primary">--novix-cabinet-tray-handle-font-family</div>
+      <div>Specifies the font family for tray handle text. <span class="default-value">-font-family</span></div>
+    </div>
+
+    <div class="row">
+      <div class="text-primary">--novix-cabinet-tray-handle-font-size</div>
+      <div>Controls the font size of tray handle text. <span class="default-value">-font-size-xs</span></div>
+    </div>
+
+    <div class="row">
+      <div class="text-primary">--novix-cabinet-tray-content-background-color</div>
+      <div>Defines the background color of the tray’s content area. <span class="default-value">-surface-variant</span></div>
+    </div>
+
+    <div class="row">
+      <div class="text-primary">--novix-cabinet-tray-content-border-color</div>
+      <div>Sets the border color of the tray. <span class="default-value">-primary</span></div>
+    </div>
+  </div>
+
+  <hr class="mt-4" />
+
+  <div class="toggle-section">
+    <div class="linkButton" (click)="cabinetDemoPage.hideAllCabinets()">Close all cabinets</div>
+    <button (click)="cabinetDemoPage.toggleCabinet('cssOverrideDemo')">Toggle</button>
+  </div>
+
+  <div class="mt-2">All cabinets on page</div>
+  <div><app-code-block [language]="'css'" [code]="allCabinetsCSS" /></div>
+  <div class="mt-3">Specific Cabinet on page by ID</div>
+  <div><app-code-block [language]="'css'" [code]="idSpecifiedCabinetCSS" /></div>
+
+</section>
+
+<!-- CSS OVERRIDE DEMO -->
+@if (cabinetDemoPage.demoVisibility.cssOverrideDemo()) {
+  <novix-cabinet id="specific-cabinet">
+    <ng-template novix-cabinet-tray [handleText]="'Quick Settings'">
+      <ng-container *ngTemplateOutlet="cabinetDemoPage.quickSettingsContent" />
+    </ng-template>
+
+    <ng-template novix-cabinet-tray [handleText]="'Live Stats'">
+      <ng-container *ngTemplateOutlet="cabinetDemoPage.liveStatsContent" />
+    </ng-template>
+  </novix-cabinet>
+}

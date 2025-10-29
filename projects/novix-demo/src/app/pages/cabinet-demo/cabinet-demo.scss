@@ -1,0 +1,5 @@
+@use 'novix-engine/styles/base/mixins' as *;
+
+hr {
+  @include m(4, t);
+}

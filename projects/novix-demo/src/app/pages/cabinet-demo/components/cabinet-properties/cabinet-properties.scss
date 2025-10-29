@@ -1,0 +1,7 @@
+@use '../../../../shared-mixins.scss' as *;
+@use 'novix-engine/styles/base/mixins' as *;
+
+.properties-table {
+  grid-template-columns: auto auto auto 1fr;
+  @include responsive-table;
+}

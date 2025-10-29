@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CabinetAnchoringDemo } from './cabinet-anchoring-demo';
+import { CabinetBasicUsage } from './cabinet-basic-usage';
 
-describe('CabinetAnchoringDemo', () => {
-  let component: CabinetAnchoringDemo;
-  let fixture: ComponentFixture<CabinetAnchoringDemo>;
+describe('CabinetBasicUsage', () => {
+  let component: CabinetBasicUsage;
+  let fixture: ComponentFixture<CabinetBasicUsage>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CabinetAnchoringDemo]
+      imports: [CabinetBasicUsage]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CabinetAnchoringDemo);
+    fixture = TestBed.createComponent(CabinetBasicUsage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

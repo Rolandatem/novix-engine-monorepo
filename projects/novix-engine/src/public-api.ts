@@ -23,3 +23,4 @@ export * from './lib/tools/server/novix-server-tools-express';
 // export * from './lib/tools/server/novix-server-tools-fastify';
 // export * from './lib/tools/server/novix-server-tools-hapi';
 // export * from './lib/tools/server/novix-server-tools-koa';
+export * from './lib/types/NovixCardinalDirections';

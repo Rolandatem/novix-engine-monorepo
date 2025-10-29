@@ -1,0 +1,31 @@
+@use 'novix-engine/styles/base/mixins' as *;
+@use '../../../../shared-mixins.scss' as *;
+
+.css-variables-table {
+  grid-template-columns: auto 1fr;
+  @include responsive-table;
+}
+
+.default-value {
+  @include fw-semibold;
+  @include text-muted;
+
+  &::before {
+    content: "Default: --novix";
+  }
+}
+
+.toggle-section {
+  @include d(flex);
+  @include m(3, t);
+  @include g(2);
+}
+
+novix-cabinet#specific-cabinet {
+  --novix-cabinet-tray-handle-background-color: var(--novix-accent);
+  --novix-cabinet-tray-handle-color: var(--novix-primary);
+  --novix-cabinet-tray-handle-font-family: Arial;
+  --novix-cabinet-tray-handle-font-size: 20px;
+  --novix-cabinet-tray-content-background-color: var(--novix-neutral-variant);
+  --novix-cabinet-tray-content-border-color: var(--novix-success);
+}
