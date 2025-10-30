@@ -30,24 +30,21 @@
   [colorTokens]="colorTokens" />
 
 <!-- INTER-PAGE NAVIGATION TRAY -->
-<novix-tray
-  [handleText]="'Navigation Links'"
-  [traySize]="'400px'"
+ <novix-cabinet
   [rounded]="true"
-  [style.top]="'20px'"
-  [style.bottom]="'20px'"
+  [edgeMargin]="'20px'"
   [autoCloseOnOutsideClick]="true">
 
-  <tray-header class="text-center">
-    <h1>Color Demo</h1>
-  </tray-header>
+  <ng-template novix-cabinet-tray
+    [handleText]="'Navigation Links'">
 
-  <tray-content>
+    <h1>Color Demo</h1>
     <ul>
-      <li><a [routerLink]="['/colors-demo']" fragment="base-colors">BASE Color Tokens</a></li>
-      <li><a [routerLink]="['/colors-demo']" fragment="color-opacity">Color Opacity Tokens</a></li>
-      <li><a [routerLink]="['/colors-demo']" fragment="interactive-state-colors">Interactive State Color Utilities</a></li>
-      <li><a [routerLink]="['/colors-demo']" fragment="color-contrast">Text vs. Background Contrast Checker</a></li>
+      <li><a [routerLink]="[]" fragment="base-colors">BASE Color Tokens</a></li>
+      <li><a [routerLink]="[]" fragment="color-opacity">Color Opacity Tokens</a></li>
+      <li><a [routerLink]="[]" fragment="interactive-state-colors">Interactive State Color Utilities</a></li>
+      <li><a [routerLink]="[]" fragment="color-contrast">Text vs. Background Contrast Checker</a></li>
     </ul>
-  </tray-content>
-</novix-tray>
+  </ng-template>
+
+ </novix-cabinet>

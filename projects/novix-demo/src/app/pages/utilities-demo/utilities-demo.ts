@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { NovixTrayModule } from 'novix-engine';
+import { NovixCabinetModule } from 'novix-engine';
 
 @Component({
   selector: 'app-utilities-demo',
   imports: [
-    NovixTrayModule,
+    NovixCabinetModule,
     RouterLink
   ],
   templateUrl: './utilities-demo.html',

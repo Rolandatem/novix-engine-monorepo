@@ -279,18 +279,15 @@
   </table>
 </section>
 
-<novix-tray
-  [style.top]="'20px'"
-  [style.bottom]="'20px'"
+<novix-cabinet
+  [edgeMargin]="'20px'"
   [rounded]="true"
-  [handleText]="'Navigation Links'"
   [autoCloseOnOutsideClick]="true">
 
-  <tray-header>
-    <h3>Page Navigation</h3>
-  </tray-header>
+  <ng-template novix-cabinet-tray
+    [handleText]="'Navigation Links'">
 
-  <tray-content>
+    <h3>Page Navigation</h3>
     <ul>
       <li><a [routerLink]="['/utilities-demo']" fragment="introduction">Introduction</a></li>
       <li><a [routerLink]="['/utilities-demo']" fragment="container-utilities">Container Utilities</a></li>
@@ -305,5 +302,5 @@
       <li><a [routerLink]="['/utilities-demo']" fragment="border-style">Border Style Utilities</a></li>
       <li><a [routerLink]="['/utilities-demo']" fragment="border-radius">Border Radius Utilities</a></li>
     </ul>
-  </tray-content>
-</novix-tray>
+  </ng-template>
+</novix-cabinet>

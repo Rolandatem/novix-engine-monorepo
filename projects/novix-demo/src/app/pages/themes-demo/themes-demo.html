@@ -259,19 +259,17 @@
 
 </section>
 
-<novix-tray
-  [handleText]="'Navigation Links'"
+<novix-cabinet
   [rounded]="true"
-  [style.top]="'60px'"
-  [style.bottom]="'60px'"
-  [traySize]="'400px'"
+  [edgeMargin]="'60px'"
   [autoCloseOnOutsideClick]="true">
 
-  <tray-header>
-    <div class="fw-bold fs-3 text-center">Page Navigation</div>
-  </tray-header>
+  <ng-template novix-cabinet-tray
+    [handleText]="'Navigation Links'"
+    [traySize]="'400px'">
 
-  <tray-content>
+    <div class="fw-bold fs-3 text-center">Page Navigation</div>
+
     <ul>
       <li><a [routerLink]="['/themes-demo']" fragment="introduction">Introduction</a></li>
       <li><a [routerLink]="['/themes-demo']" fragment="light-vs-dark">Light & Dark Mode Support</a></li>
@@ -288,24 +286,13 @@
       <li><a [routerLink]="['/themes-demo']" fragment="custom-theme-scss">Custom Theme SCSS Files</a></li>
       <li><a [routerLink]="['/themes-demo']" fragment="novix-engine-theme-service">Novix Engine Theme Service</a></li>
     </ul>
-  </tray-content>
-</novix-tray>
+  </ng-template>
 
-<novix-tray
-  [attachDirection]="'right'"
-  [handleText]="'Options and Info'"
-  [rounded]="true"
-  [traySize]="'400px'"
-  [style.top]="'60px'"
-  [style.bottom]="'60px'"
-  [startOpen]="false"
-  [autoCloseOnOutsideClick]="true">
+  <ng-template novix-cabinet-tray
+    [handleText]="'Options and Info'"
+    [traySize]="'400px'">
 
-  <tray-header>
     <div class="fs-3 fw-bold">Options and Info</div>
-  </tray-header>
-
-  <tray-content>
     <div class="mt-3"><strong>Current Mode:</strong> {{ currentMode() }}</div>
     <div><strong>Current Theme:</strong> {{ currentTheme() }}</div>
     <div>
@@ -338,5 +325,5 @@
     <div class="mt-3">
       <button (click)="toggleMode()">Toggle Light/Dark</button>
     </div>
-  </tray-content>
-</novix-tray>
+  </ng-template>
+</novix-cabinet>

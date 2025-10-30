@@ -13,7 +13,6 @@ export * from './lib/services/theme/novix-eng-theme-service';
 //--Components
 
 //--Modules
-export * from './lib/components/novix-tray';
 export * from './lib/components/novix-cabinet';
 
 //--Tools

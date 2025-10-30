@@ -1,12 +1,12 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
-import { NovixEngThemeService, NovixTrayModule } from 'novix-engine';
+import { NovixEngThemeService, NovixCabinetModule } from 'novix-engine';
 import { CodeBlock } from '../shared/components/code-block/code-block';
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-themes-demo',
   imports: [
-    NovixTrayModule,
+    NovixCabinetModule,
     CodeBlock,
     RouterLink
 ],
