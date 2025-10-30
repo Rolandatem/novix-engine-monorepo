@@ -91,4 +91,13 @@ describe('NovixCabinet', () => {
     expect(component.trays.get(1)?.isOpen()).toBe(true);
     expect(component.trays.get(2)?.isOpen()).toBe(false);
   })
+
+  //===========================================================================================================================
+  it('should use have correct edgeMargin when using vertical attachment (code coverage)', () => {
+    fixture.componentRef.setInput('attachDirection', 'top');
+    fixture.componentRef.setInput('edgeMargin', '40px');
+    fixture.detectChanges();
+
+    expect(component.edgeMargin()).toBe('40px');
+  })
 });

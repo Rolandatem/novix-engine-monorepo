@@ -289,3 +289,32 @@ describe('NovixCabinetTrayDirective', () => {
     expect(component.tray.isOpen()).not.toBe(initialOpenValue);
   })
 })
+
+describe('NovixCabinetTrayDirective - Server', () => {
+  let fixture: ComponentFixture<HostComponent>;
+  let component: HostComponent;
+  let mockNovixCabinet: MockNovixCabinet;
+
+  beforeEach(async() => {
+    await TestBed.configureTestingModule({
+      imports: [
+        NovixCabinetTrayDirective,
+        HostComponent
+      ],
+      providers: [
+        { provide: PLATFORM_ID, useValue: 'server' },
+        { provide: NovixCabinet, useClass: MockNovixCabinet }
+      ]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(HostComponent);
+    component = fixture.componentInstance;
+    mockNovixCabinet = TestBed.inject(NovixCabinet) as unknown as MockNovixCabinet;
+  })
+
+  //===========================================================================================================================
+  it('should be created (code coverage)', () => {
+    fixture.detectChanges();
+    expect(component.tray).toBeTruthy();
+  })
+})
