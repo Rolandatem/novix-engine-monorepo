@@ -1,0 +1,63 @@
+<section class="container mt-5">
+  <h1 id="introduction" class="fs-1 fw-bold">Novix Cabinet Component</h1>
+  <p>
+    The Novix Cabinet is a flexible UI component that can be anchored to any
+    edge of the user's screen — top, bottom, left, or right — with the default
+    position set to the left. It provides a modular system of slide-out trays,
+    each activated by its own handle. These trays can contain independent
+    content, making the Cabinet ideal for organizing tools, panels, or
+    contextual features in a compact, accessible layout.
+  </p>
+
+  <hr />
+  <app-cabinet-basic-usage />
+
+  <hr />
+  <app-cabinet-properties />
+
+  <hr />
+  <app-cabinet-css-override-demo />
+
+  <hr />
+  <section id="live-showcase" class="mt-3">
+    <div class="sectionHeader">🎬 Live Showcase</div>
+      <p class="fst-italic no-top">
+        Note: The tray content shown in these demos is illustrative only
+        and not part of the NovixCabinet itself. It serves to demonstrate
+        possible usage scenarios.
+      </p>
+
+      <hr />
+      <app-cabinet-properties-showcase />
+
+      <hr />
+      <app-cabinet-tray-properties-showcase />
+  </section>
+</section>
+
+<!-- TEMPLATES FOR COMMON USE IN TRAYS -->
+<ng-template #quickSettingsContent>
+  <div class="p-3">
+    <h3 class="fs-4 fw-bold mb-2">Quick Settings</h3>
+    <label class="d-block mb-2">
+      <input type="checkbox" /> Enable animations
+    </label>
+    <label class="d-block mb-2">
+      <input type="checkbox" /> Show debug panel
+    </label>
+    <label class="d-block mb-2">
+      <input type="checkbox" /> Use compact layout
+    </label>
+  </div>
+</ng-template>
+
+<ng-template #liveStatsContent>
+  <div class="p-3">
+    <h3 class="fs-4 fw-bold mb-2">Live Stats</h3>
+    <ul class="m-0 p-0 list-unstyled">
+      <li class="mb-1">🟢 Active sessions: <strong>12</strong></li>
+      <li class="mb-1">📦 Cached components: <strong>37</strong></li>
+      <li class="mb-1">⏱️ Uptime: <strong>3h 42m</strong></li>
+    </ul>
+  </div>
+</ng-template>

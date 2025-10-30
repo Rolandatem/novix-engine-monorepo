@@ -37,7 +37,39 @@ $novix-breakpoints: (
   sm: 576px,
   md: 768px,
   lg: 992px,
-  xl: 1200px
+  xl: 1200px,
+  xxl: 1400px
+);
+
+// ================================================
+// Container Max-Widths
+// ================================================
+$novix-container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1320px
+);
+
+// ================================================
+// Logical Directions
+// ================================================
+$novix-logical-directions: (
+  top: top,
+  bottom: bottom,
+  start: inline-start,
+  end: inline-end
+);
+
+// ================================================
+// Physical Directions
+// ================================================
+$novix-physical-directions: (
+  top,
+  bottom,
+  left,
+  right
 );
 
 // ================================================
@@ -100,7 +132,7 @@ $novix-padding-directions: (
 // ================================================
 // Display Utilities
 // ================================================
-$novix-display-values: (none, inline, inline-block, block, flex, grid);
+$novix-display-values: (none, inline, inline-block, block, flex, grid, contents);
 
 // ================================================
 // Flex Wrap Utilities
@@ -113,6 +145,44 @@ $novix-flex-wrap-values: (wrap, nowrap, wrap-reverse);
 $novix-flex-directions: (row, row-reverse, column, column-reverse);
 
 // ================================================
+// Flex Grow/Shrink Utilities
+// ================================================
+$novix-flex-grow-shrink-levels: (0, 1, 2, 3);
+
+// ================================================
+// Flex Basis
+// ================================================
+$novix-flex-basis-values: (
+  0: 0,
+  auto: auto,
+  25: 25%,
+  50: 50%,
+  75: 75%,
+  100: 100%
+);
+
+// ================================================
+// Flex Utilities
+// ================================================
+$novix-flex-values: (
+  1: 1 1 0%,
+  2: 2 1 0%,
+  3: 3 1 0%,
+  auto: 1 1 auto,
+  initia: 0 1 auto,
+  none: none
+);
+
+// ================================================
+// Gap Utilities
+// ================================================
+$novix-gap-values: (
+  '': gap,
+  x: column-gap,
+  y: row-gap
+);
+
+// ================================================
 // Justify Content
 // ================================================
 $novix-justify-values: (start: flex-start, end: flex-end, center: center, between: space-between, around: space-around, evenly: space-evenly);
@@ -121,6 +191,11 @@ $novix-justify-values: (start: flex-start, end: flex-end, center: center, betwee
 // Align Items
 // ================================================
 $novix-align-values: (start: flex-start, end: flex-end, center: center, baseline: baseline, stretch: stretch);
+
+// ================================================
+// Align Self
+$novix-align-self-values: (auto: auto, start: flex-start, end: flex-end, center: center, baseline: baseline, stretch: stretch);
+// ================================================
 
 // ================================================
 // Border Width
@@ -133,9 +208,19 @@ $novix-border-width-values: (0: 0, 1: 1px, 2: 2px, 3: 3px, 4: 4px, 5: 5px);
 $novix-border-styles: (solid, dashed, dotted, double, groove, ridge, inset, outset, none);
 
 // ================================================
+// Border Radius Corners
+// ================================================
+$novix-border-radius-corners: (top-left, top-right, bottom-left, bottom-right, top-start, top-end, bottom-start, bottom-end);
+
+// ================================================
 // Text Alignment Utilities (with responsive variants)
 // ================================================
 $novix-text-alignments: (start, center, end, justify);
+
+// ================================================
+// Whitespace Utilities
+// ================================================
+$novix-whitespace-values: (normal, nowrap, pre, pre-line, pre-wrap);
 
 // ================================================
 // Line Height Utilities
@@ -170,10 +255,62 @@ $novix-opacity-steps: (0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100);
 // ================================================
 // Position Values
 // ================================================
-$novix-position-values: (
+$novix-directional-position-values: (
   0: 0%,
   25: 25%,
   50: 50%,
   75: 75%,
-  100: 100%
+  100: 100%,
+  auto: auto
+);
+
+// ================================================
+// Position Types
+// ================================================
+$novix-position-types: (relative, absolute, fixed, sticky, static);
+
+// ================================================
+// Cursor
+// ================================================
+$novix-cursor-values: (
+  auto,
+  default,
+  pointer,
+  text,
+  move,
+  grab,
+  grabbing,
+  not-allowed,
+  wait,
+  help,
+  crosshair,
+  all-scroll,
+  cell,
+  col-resize,
+  row-resize,
+  copy,
+  n-resize,
+  s-resize,
+  e-resize,
+  w-resize,
+  ne-resize,
+  nw-resize,
+  se-resize,
+  sw-resize
+);
+
+// ================================================
+// Overflow
+// ================================================
+$novix-overflow-values: (auto, hidden, visible, scroll);
+
+// ================================================
+// Width Utilities
+// ================================================
+$novix-width-values: (
+  25: 25%,
+  50: 50%,
+  75: 75%,
+  100: 100%,
+  auto: auto
 );

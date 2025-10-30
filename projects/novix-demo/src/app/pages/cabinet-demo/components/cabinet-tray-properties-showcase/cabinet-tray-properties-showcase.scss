@@ -1,0 +1,7 @@
+@use 'novix-engine/styles/base/mixins' as *;
+@use '../../../../shared-mixins.scss' as *;
+
+.cabinet-tray-properties-showcase {
+  grid-template-columns: auto auto;
+  @include responsive-table;
+}

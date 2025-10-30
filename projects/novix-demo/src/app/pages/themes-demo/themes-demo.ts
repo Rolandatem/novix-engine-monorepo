@@ -1,7 +1,5 @@
-import { afterNextRender, Component, computed, effect, ElementRef, inject, signal, ViewChild } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { NovixEngThemeService, NovixTrayModule } from 'novix-engine';
-import * as Prism from 'prismjs';
-import 'prismjs/components/prism-typescript';
 import { CodeBlock } from '../shared/components/code-block/code-block';
 import { RouterLink } from '@angular/router';
 
@@ -18,7 +16,6 @@ import { RouterLink } from '@angular/router';
 
 export class ThemesDemo {
   private _themeService = inject(NovixEngThemeService);
-  private _elementRef = inject(ElementRef);
 
   public currentMode = computed(() => this._themeService.getCurrentMode());
   public currentTheme = computed(() => this._themeService.getCurrentThemeId());
@@ -32,10 +29,6 @@ export class ThemesDemo {
         this._themeService.getCurrentThemeId()
       )
     });
-
-    afterNextRender(() => {
-      Prism.highlightAllUnder(this._elementRef.nativeElement);
-    })
   }
 
   public onThemeChange(event: Event): void {

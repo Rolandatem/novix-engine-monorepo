@@ -1,0 +1,116 @@
+@use '../../styles/base/mixins' as *;
+
+:host {
+  //--Novix Cabinet Variables
+  --novix-cabinet-tray-handle-background-color: var(--novix-primary);
+  --novix-cabinet-tray-handle-color: var(--novix-on-primary);
+  --novix-cabinet-tray-handle-font-family: var(--novix-font-family);
+  --novix-cabinet-tray-handle-font-size: var(--novix-font-size-xs);
+  --novix-cabinet-tray-content-background-color: var(--novix-surface-variant);
+  --novix-cabinet-tray-content-border-color: var(--novix-primary);
+
+  @include position(fixed);
+  @include z(1000);
+  @include d(flex);
+
+  &.attach-left {
+    @include top(0);
+    @include bottom(0);
+    @include start(0);
+    @include end(auto);
+    @include flex-direction(row);
+  }
+
+  &.attach-right {
+    @include top(0);
+    @include bottom(0);
+    @include start(auto);
+    @include end(0);
+    @include flex-direction(row-reverse);
+  }
+
+  &.attach-top {
+    @include top(0);
+    @include bottom(auto);
+    @include start(0);
+    @include end(0);
+    @include flex-direction(column);
+  }
+
+  &.attach-bottom {
+    @include top(auto);
+    @include bottom(0);
+    @include start(0);
+    @include end(0);
+    @include flex-direction(column-reverse);
+  }
+}
+
+.novix-cabinet-handle-container {
+  @include d(flex);
+  @include g(1);
+
+  &.attach-left-right {
+    @include flex-direction(column);
+  }
+
+  &.attach-top-bottom {
+    @include flex-direction(row);
+  }
+
+  .novix-cabinet-tray-handle {
+    background-color: var(--novix-cabinet-tray-handle-background-color);
+    color: var(--novix-cabinet-tray-handle-color);
+    font-family: var(--novix-cabinet-tray-handle-font-family);
+    font-size: var(--novix-cabinet-tray-handle-font-size);
+    transition: left 0.3s ease,
+                right 0.3s ease,
+                top 0.3s ease,
+                bottom 0.3s ease;
+
+    @include cursor(pointer);
+    @include position(relative);
+    @include z(1001);
+
+    &.attach-left-right {
+      writing-mode: vertical-lr;
+      @include p(1, x);
+      @include p(2, y);
+    }
+
+    &.attach-top-bottom {
+      writing-mode: horizontal-tb;
+      @include p(2, x);
+      @include p(1, y);
+    }
+  }
+}
+
+.novix-cabinet-trays {
+  @include position(absolute);
+
+  &.attach-left-right {
+    @include top(0);
+    @include bottom(0);
+  }
+
+  &.attach-top-bottom {
+    @include start(0);
+    @include end(0);
+  }
+
+  .novix-cabinet-tray {
+    background-color: var(--novix-cabinet-tray-content-background-color);
+    border-color: var(--novix-cabinet-tray-content-border-color);
+    @include border-style(solid);
+    @include border-width(1);
+    @include z(1002);
+    @include p(3);
+    @include position(absolute);
+
+    transition: left 0.3s ease,
+                right 0.3s ease,
+                top 0.3s ease,
+                bottom 0.3s ease;
+  }
+}

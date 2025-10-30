@@ -1,0 +1,45 @@
+@use 'novix-engine/styles/base/mixins' as *;
+
+@mixin responsive-table {
+  @include d(grid);
+
+  .header {
+    @include bg(neutral-variant);
+    @include text(on-neutral-variant);
+    @include fw-semibold;
+    @include border-width-direction(1, top);
+    @include border-color-direction(neutral, top);
+  }
+
+  .center {
+    @include d(flex);
+    @include justify-content(center);
+    @include align-items(center);
+  }
+
+  .row {
+    @include d(contents);
+
+    > div {
+      @include p(3);
+      @include border-width-direction(1, start);
+      @include border-color-direction(neutral, start);
+      @include border-width-direction(1, bottom);
+      @include border-color-direction(neutral, bottom);
+
+      &:last-child {
+        @include border-width-direction(1, end);
+        @include border-color-direction(neutral, end);
+      }
+    }
+
+    > div:not(.header) {
+      transition: background-color 0.2s ease;
+      @include bg(surface);
+    }
+
+    &:hover > div:not(.header) {
+      @include bg(surface-variant);
+    }
+  }
+}

@@ -1,0 +1,369 @@
+@use '../variables' as *;
+@use '../mixins/utilities-mixins' as *;
+
+// ================================================
+// Margin Utilities
+// ================================================
+@each $abbr, $props in $novix-spacing-directions {
+  @each $size, $value in $novix-spacing-scale {
+    .m#{$abbr}-#{$size} {
+      @include m($size, $abbr);
+    }
+
+    //--Responsive
+    @each $bp, $bp-width in $novix-breakpoints {
+      .m#{$abbr}-#{$bp}-#{$size} {
+        @include m($size, $abbr, $bp);
+      }
+    }
+  }
+}
+
+// ================================================
+// Padding Utilities
+// ================================================
+@each $abbr, $props in $novix-padding-directions {
+  @each $size, $value in $novix-spacing-scale {
+    .p#{$abbr}-#{$size} {
+      @include p($size, $abbr);
+    }
+
+    //--Responsive
+    @each $bp, $bp-width in $novix-breakpoints {
+      .p#{$abbr}-#{$bp}-#{$size} {
+        @include p($size, $abbr, $bp);
+      }
+    }
+  }
+}
+
+// ================================================
+// Display Utilities
+// ================================================
+@each $display in $novix-display-values {
+  .d-#{$display} { @include d($display); }
+
+  //--Responsive
+  @each $bp, $bp-width in $novix-breakpoints {
+    .d-#{$bp}-#{$display} { @include d($display, $bp); }
+  }
+}
+
+// ================================================
+// Flex Wrap Utilities
+// ================================================
+@each $wrap in $novix-flex-wrap-values {
+  .flex-#{$wrap} { @include flex-wrap($wrap); }
+
+  //--Responsive
+  @each $bp, $bp-width in $novix-breakpoints {
+    .flex-#{$bp}-#{$wrap} { @include flex-wrap($wrap, $bp); }
+  }
+}
+
+// ================================================
+// Flex Direction Utilities
+// ================================================
+@each $direction in $novix-flex-directions {
+  .flex-#{$direction} { @include flex-direction($direction); }
+
+  //--Responsive
+  @each $bp, $bp-width in $novix-breakpoints {
+    .flex-#{$bp}-#{$direction} { @include flex-direction($direction, $bp); }
+  }
+}
+
+// ================================================
+// Flex Grow/Shrink Utilities
+// ================================================
+@each $level in $novix-flex-grow-shrink-levels {
+  .flex-grow-#{$level}    { @include flex-grow($level); }
+  .flex-shrink-#{$level}  { @include flex-shrink($level); }
+
+  //--Responsive
+  @each $bp, $bp-width in $novix-breakpoints {
+    .flex-#{$bp}-grow-#{$level}   { @include flex-grow($level, $bp); }
+    .flex-#{$bp}-shrink-#{$level} { @include flex-shrink($level, $bp); }
+  }
+}
+
+// ================================================
+// Flex Basis
+// ================================================
+@each $key, $val in $novix-flex-basis-values {
+  .flex-basis-#{$key} { @include flex-basis($val); }
+
+  //--Responsive
+  @each $bp, $bp-width in $novix-breakpoints {
+    .flex-basis-#{$bp}-#{$key} { @include flex-basis($val, $bp); }
+  }
+}
+
+// ================================================
+// Flex Utilities
+// ================================================
+@each $key, $val in $novix-flex-values {
+  .flex-#{$key} { @include flex($val); }
+
+  //--Responsive
+  @each $bp, $bp-width in $novix-breakpoints {
+    .flex-#{$bp}-#{$key} { @include flex($val, $bp); }
+  }
+}
+
+// ================================================
+// Gap Utilities
+// ================================================
+@each $abbr, $prop in $novix-gap-values {
+  @each $level, $value in $novix-spacing-scale {
+    .g#{$abbr}-#{$level} { @include g($level, $abbr); }
+
+    //--Responsive
+    @each $bp, $bp-width in $novix-breakpoints {
+      .g#{$abbr}-#{$bp}-#{$level} { @include g($level, $abbr, $bp); }
+    }
+  }
+}
+
+// ================================================
+// Order Utilities
+// ================================================
+@each $value in (0, 1, 2, 3, 4, 5, first, last) {
+  .order-#{$value} { @include order($value); }
+
+  //--Responsive
+  @each $bp, $bp-width in $novix-breakpoints {
+    .order-#{$value} { @include order($value, $bp); }
+  }
+}
+
+// ================================================
+// Justify Content
+// ================================================
+@each $key, $value in $novix-justify-values {
+  .justify-content-#{$key} { @include justify-content($key); }
+
+  //--Responsive
+  @each $bp, $bp-width in $novix-breakpoints {
+    .justify-content-#{$bp}-#{$key} { @include justify-content($key, $bp); }
+  }
+}
+
+// ================================================
+// Align Items
+// ================================================
+@each $key, $value in $novix-align-values {
+  .align-items-#{$key} { @include align-items($key); }
+
+  //--Responsive
+  @each $bp, $bp-width in $novix-breakpoints {
+    .align-items-#{$bp}-#{$key} { @include align-items($key, $bp); }
+  }
+}
+
+// ================================================
+// Align Self
+// ================================================
+@each $key, $value in $novix-align-self-values {
+  .align-self-#{$key} { @include align-self($key); }
+
+  //--Responsive
+  @each $bp, $bp-width in $novix-breakpoints {
+    .align-self-#{$bp}-#{$key} { @include align-self($key, $bp); }
+  }
+}
+
+// ================================================
+// Container Utilities
+// ================================================
+.container { @include container; }
+.container-fluid { @include container(true); }
+
+// ================================================
+// Border Width
+// ================================================
+@each $b-key, $b-value in $novix-border-width-values {
+  .border-#{$b-key} { @include border-width($b-key); }
+
+  //--Responsive
+  @each $bp, $bp-width in $novix-breakpoints {
+    .border-#{$bp}-#{$b-key} { @include border-width($b-key, $bp); }
+  }
+}
+@each $dir-key, $dir-value in $novix-logical-directions {
+  @each $b-key, $b-value in $novix-border-width-values {
+    .border-#{$dir-key}-#{$b-key} { @include border-width-direction($b-key, $dir-key); }
+
+    //--Responsive
+    @each $bp, $bp-width in $novix-breakpoints {
+      .border-#{$bp}-#{$dir-key}-#{$b-key} { @include border-width-direction($b-key, $dir-key, $bp); }
+    }
+  }
+}
+
+// ================================================
+// Border Style
+// ================================================
+@each $b-key in $novix-border-styles {
+  .border-#{$b-key} { @include border-style($b-key); }
+
+  //--Responsive
+  @each $bp, $bp-width in $novix-breakpoints {
+    .border-#{$bp}-#{$b-key} { @include border-style($b-key, $bp); }
+  }
+}
+@each $dir-key, $dir-value in $novix-logical-directions {
+  @each $b-key in $novix-border-styles {
+    .border-#{$dir-key}-#{$b-key} { @include border-style-direction($b-key, $dir-key); }
+
+    //--Responsive
+    @each $bp, $bp-width in $novix-breakpoints {
+      .border-#{$bp}-#{$dir-key}-#{$b-key} { @include border-style-direction($b-key, $dir-key, $bp); }
+    }
+  }
+}
+
+// ================================================
+// Border Radius
+// ================================================
+//--All sides
+@each $r-key, $r-value in $novix-radius-scale {
+  .rounded-#{$r-key} { @include rounded($r-key); }
+
+  //--Responsive
+  @each $bp, $bp-width in $novix-breakpoints {
+    .rounded-#{$bp}-#{$r-key} { @include rounded($r-key, $bp); }
+  }
+}
+
+//--Directional
+@each $dir-key, $dir-value in $novix-logical-directions {
+  @each $r-key, $r-value in $novix-radius-scale {
+    .rounded-#{$dir-key}-#{$r-key} { @include rounded-direction($r-key, $dir-key); }
+
+    //--Responsive
+    @each $bp, $bp-width in $novix-breakpoints {
+      .rounded-#{$bp}-#{$dir-key}-#{$r-key} { @include rounded-direction($r-key, $dir-key, $bp); }
+    }
+  }
+}
+
+//--Individual Corners
+@each $corner-key in $novix-border-radius-corners {
+  @each $r-key, $r-value in $novix-radius-scale {
+    .rounded-#{$corner-key}-#{$r-key} { @include rounded-corner($r-key, $corner-key); }
+
+    //--Responsive
+    @each $bp, $bp-width in $novix-breakpoints {
+      .rounded-#{$bp}-#{$corner-key}-#{$r-key} { @include rounded-corner($r-key, $corner-key, $bp); }
+    }
+  }
+}
+
+// ================================================
+// Positioning (top, bottom, left, right)
+// ================================================
+@each $key, $val in $novix-directional-position-values {
+  .start-#{$key}    { @include start($val); }
+  .end-#{$key}      { @include end($val); }
+  .top-#{$key}      { @include top($val); }
+  .bottom-#{$key}   {@include bottom($val); }
+
+  //--Responsive
+  @each $bp, $bp-width in $novix-breakpoints {
+    .start-#{$bp}-#{$key}   { @include start($val, $bp); }
+    .end-#{$bp}-#{$key}     { @include end($val, $bp); }
+    .top-#{$bp}-#{$key}     { @include top($val, $bp); }
+    .bottom-#{$bp}-#{$key}  { @include bottom($val, $bp); }
+  }
+}
+
+// ================================================
+// POSITIONING (translate)
+// ================================================
+.translate-middle { @include translate-middle; }
+.translate-middle-x { @include translate-middle-x; }
+.translate-middle-y { @include translate-middle-y; }
+.v-center { @include v-center; }
+.h-center { @include h-center; }
+
+// ================================================
+// POSITIONING (position type)
+// ================================================
+.position-relative  { @include position(relative); }
+.position-absolute  { @include position(absolute); }
+.position-fixed     { @include position(fixed); }
+.position-sticky    { @include position(sticky); }
+.position-static    { @include position(static); }
+
+// ================================================
+// Z-INDEX
+// ================================================
+//--Negative
+.z-n1 { @include z(-1); }
+@each $bp, $bp-width in $novix-breakpoints {
+  .z-#{$bp}-n1 { @include z(-1, $bp); }
+}
+
+//--Auto
+.z-auto { @include z(auto); }
+@each $bp, $bp-width in $novix-breakpoints {
+  .z-#{$bp}-auto { @include z(auto, $bp); }
+}
+
+//--Base 0-5
+@each $val in (0, 1, 2, 3, 4, 5) {
+  .z-#{$val} { @include z($val); }
+
+  @each $bp, $bp-width in $novix-breakpoints {
+    .z-#{$bp}-#{$val} { @include z($val, $bp); }
+  }
+}
+
+//--Thousand tiers (1000-5000)
+@each $tier in (1000, 2000, 3000, 4000, 5000) {
+  @each $val in (0, 1, 2, 3, 4, 5) {
+    $z: $tier + $val;
+
+    .z-#{$z} { @include z($z); }
+
+    @each $bp, $bp-width in $novix-breakpoints {
+      .z-#{$bp}-#{$z} { @include z($z, $bp); }
+    }
+  }
+}
+
+// ================================================
+// Cursor
+// ================================================
+@each $cursor in $novix-cursor-values {
+  .cursor-#{$cursor} { @include cursor($cursor); }
+}
+
+// ================================================
+// Overflow
+// ================================================
+@each $val in $novix-overflow-values {
+  .overflow-#{$val}   { @include overflow($val); }
+  .overflow-x-#{$val} { @include overflow($val, x); }
+  .overflow-y-#{$val} { @include overflow($val, y); }
+
+  //--Responsive
+  @each $bp, $bp-width in $novix-breakpoints {
+    .overflow-#{$bp}-#{$val}    { @include overflow($val, $bp: $bp); }
+    .overflow-#{$bp}-x-#{$val}  { @include overflow($val, x, $bp); }
+    .overflow-#{$bp}-y-#{$val}  { @include overflow($val, y, $bp); }
+  }
+}
+
+// ================================================
+// Width Utilities
+// ================================================
+@each $key, $val in $novix-width-values {
+  .w-#{$key} { @include width($key); }
+
+  //--Responsive
+  @each $bp, $bp-width in $novix-breakpoints {
+    .w-#{$bp}-#{$key} { @include width($key, $bp); }
+  }
+}

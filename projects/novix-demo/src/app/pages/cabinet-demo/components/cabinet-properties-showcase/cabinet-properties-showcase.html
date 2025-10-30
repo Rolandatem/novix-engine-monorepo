@@ -1,0 +1,83 @@
+<section id="cabinet-properties-showcase">
+  <div class="sectionHeader">Cabinet Properties Showcase</div>
+  <p class="no-top">
+    Modify the properties below to view how each change the appearance or
+    functionality of the Novix Cabinet.
+  </p>
+  <div><button (click)="cabinetDemoPage.toggleCabinet('cabinetPropertiesShowcase')">Toggle</button></div>
+
+  <div class="d-flex g-4 mt-3">
+    <div class="cabinet-property-showcase">
+      <div class="row">
+        <div class="header">Property</div>
+        <div class="header">Setting</div>
+      </div>
+      <div class="row">
+        <div>attachDirection</div>
+        <div>
+          <select [value]="attachDirection()"
+                  (change)="onAttachDirectionChange($event)">
+                  @for (dir of attachDirectionOptions; track dir) {
+                    <option [value]="dir">{{ dir }}</option>
+                  }
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div>rounded</div>
+        <div>
+          <input type="checkbox"
+                 [value]="rounded()"
+                 (change)="rounded.set($any($event.target).checked)" />
+        </div>
+      </div>
+      <div class="row">
+        <div>autoCloseOnOutsideClick</div>
+        <div>
+          <input type="checkbox"
+                 [value]="autoCloseOnOutsideClick()"
+                 (change)="autoCloseOnOutsideClick.set($any($event.target).checked)" />
+        </div>
+      </div>
+      <div class="row">
+        <div>edgeMargin</div>
+        <div>
+          <input type="number"
+                 [value]="edgeMargin()"
+                 (input)="edgeMargin.set(($event.target).value)" />
+                 px
+        </div>
+      </div>
+      <div class="row">
+        <div>justifyHandles</div>
+        <div>
+          <select [value]="justifyHandles()"
+                  (change)="onJustifyHandlesChange($event)">
+                  @for (justify of justifyHandlesOptions; track justify) {
+                    <option [value]="justify">{{ justify }}</option>
+                  }
+          </select>
+        </div>
+      </div>
+    </div>
+    <div>
+      <app-code-block [language]="'markdown'" [code]="cabinetCode()" [noTopMargin]="true" />
+    </div>
+  </div>
+</section>
+
+@if (cabinetDemoPage.demoVisibility.cabinetPropertiesShowcase()) {
+  <novix-cabinet
+    [attachDirection]="attachDirection()"
+    [rounded]="rounded()"
+    [autoCloseOnOutsideClick]="autoCloseOnOutsideClick()"
+    [edgeMargin]="edgeMargin().trim() !== '' ? edgeMargin() + 'px' : '0px'"
+    [justifyHandles]="justifyHandles()">
+    <ng-template novix-cabinet-tray [handleText]="'Quick Settings'">
+      <ng-container *ngTemplateOutlet="cabinetDemoPage.quickSettingsContent" />
+    </ng-template>
+    <ng-template novix-cabinet-tray [handleText]="'Live Stats'">
+      <ng-container *ngTemplateOutlet="cabinetDemoPage.liveStatsContent" />
+    </ng-template>
+  </novix-cabinet>
+}

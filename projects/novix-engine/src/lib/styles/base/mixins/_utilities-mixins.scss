@@ -1,0 +1,478 @@
+@use 'sass:map';
+@use '../variables' as *;
+@use 'functional-mixins' as *;
+
+// ================================================
+// Margin Utilities
+// ================================================
+@mixin m($size, $abbr: "", $bp: null) {
+  $value: map.get($novix-spacing-scale, $size);
+  $props: map.get($novix-spacing-directions, $abbr);
+
+  @if $bp == null {
+    @each $prop in $props {
+      #{$prop}: $value !important;
+    }
+  } @else {
+    @include novix-responsive($bp) {
+      @each $prop in $props {
+        #{$prop}: $value !important;
+      }
+    }
+  }
+}
+
+// ================================================
+// Padding Utilities
+// ================================================
+@mixin p($size, $abbr: "", $bp: null) {
+  $value: map.get($novix-spacing-scale, $size);
+  $props: map.get($novix-padding-directions, $abbr);
+
+  @if $bp == null {
+    @each $prop in $props {
+      #{$prop}: $value !important;
+    }
+  } @else {
+    @include novix-responsive($bp) {
+      @each $prop in $props {
+        #{$prop}: $value !important;
+      }
+    }
+  }
+}
+
+// ================================================
+// Display Utilities
+// ================================================
+@mixin d($display, $bp: null) {
+  @if $bp == null {
+    display: $display !important;
+  } @else {
+    @include novix-responsive($bp) {
+      display: $display !important;
+    }
+  }
+}
+
+// ================================================
+// Flex Wrap Utilities
+// ================================================
+@mixin flex-wrap($wrap, $bp: null) {
+  @if $bp == null {
+    flex-wrap: $wrap !important;
+  } @else {
+    @include novix-responsive($bp) {
+      flex-wrap: $wrap !important;
+    }
+  }
+}
+
+// ================================================
+// Flex Direction Utilities
+// ================================================
+@mixin flex-direction($direction, $bp: null) {
+  @if $bp == null {
+    flex-direction: $direction !important;
+  } @else {
+    @include novix-responsive($bp) {
+      flex-direction: $direction !important;
+    }
+  }
+}
+
+// ================================================
+// Flex Grow/Shrink Utilities
+// ================================================
+@mixin flex-grow($level, $bp: null) {
+  @if $bp == null {
+    flex-grow: $level !important;
+  } @else {
+    @include novix-responsive($bp) {
+      flex-grow: $level !important;
+    }
+  }
+}
+@mixin flex-shrink($level, $bp: null) {
+  @if $bp == null {
+    flex-shrink: $level !important;
+  } @else {
+    @include novix-responsive($bp) {
+      flex-shrink: $level !important;
+    }
+  }
+}
+
+// ================================================
+// Flex Basis
+// ================================================
+@mixin flex-basis($value, $bp: null) {
+  @if $bp == null {
+    flex-basis: $value !important;
+  } @else {
+    @include novix-responsive($bp) {
+      flex-basis: $value !important;
+    }
+  }
+}
+
+// ================================================
+// Flex Utilities
+// ================================================
+@mixin flex($value, $bp: null) {
+  @if $bp == null {
+    flex: $value !important;
+  } @else {
+    @include novix-responsive($bp) {
+      flex: $value !important;
+    }
+  }
+}
+
+// ================================================
+// Gap Utilities
+// ================================================
+@mixin g($level, $abbr: "", $bp: null) {
+  $value: map.get($novix-spacing-scale, $level);
+  $prop: map.get($novix-gap-values, $abbr);
+
+  @if $bp == null {
+    #{$prop}: $value !important;
+  } @else {
+    @include novix-responsive($bp) {
+      #{$prop}: $value !important;
+    }
+  }
+}
+
+// ================================================
+// Order Utilities
+// ================================================
+@mixin order($value, $bp: null) {
+  @if $value == first { $value: -1 }
+  @if $value == last { $value: 999; }
+
+  @if $bp == null {
+    order: $value !important;
+  } @else {
+    @include novix-responsive($bp) {
+      order: $value !important;
+    }
+  }
+}
+
+// ================================================
+// Justify Content
+// ================================================
+@mixin justify-content($key, $bp: null) {
+  $value: map.get($novix-justify-values, $key);
+
+  @if $bp == null {
+    justify-content: $value !important;
+  } @else {
+    @include novix-responsive($bp) {
+      justify-content: $value !important;
+    }
+  }
+}
+
+// ================================================
+// Align Items
+// ================================================
+@mixin align-items($key, $bp: null) {
+  $value: map.get($novix-align-values, $key);
+
+  @if $bp == null {
+    align-items: $value !important;
+  } @else {
+    @include novix-responsive($bp) {
+      align-items: $value !important;
+    }
+  }
+}
+
+// ================================================
+// Align Self
+// ================================================
+@mixin align-self($key, $bp: null) {
+  $value: map.get($novix-align-self-values, $key);
+
+  @if $bp == null {
+    align-self: $value !important;
+  } @else {
+    @include novix-responsive($bp) {
+      align-self: $value !important;
+    }
+  }
+}
+
+// ================================================
+// Container Utilities
+// ================================================
+@mixin container($fluid: false) {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+
+  @if $fluid == false {
+    @each $bp, $max in $novix-container-max-widths {
+      @include novix-responsive($bp) {
+        max-width: $max;
+      }
+    }
+  } @else {
+    max-width: 100%;
+  }
+}
+
+// ================================================
+// Border Width
+// ================================================
+@mixin border-width($b-key, $bp: null) {
+  $b-value: map.get($novix-border-width-values, $b-key);
+
+  @if $bp == null {
+    border-width: $b-value !important;
+    @if $b-key != 0 {
+      border-style: solid;
+    }
+  } @else {
+    @include novix-responsive($bp) {
+      border-width: $b-value !important;
+      @if $b-key != 0 {
+        border-style: solid;
+      }
+    }
+  }
+}
+@mixin border-width-direction($b-key, $dir-key, $bp: null) {
+  $dir-value: map.get($novix-logical-directions, $dir-key);
+  $b-value: map.get($novix-border-width-values, $b-key);
+
+  @if $bp == null {
+    border-#{$dir-value}-width: $b-value !important;
+    @if $b-key != 0 {
+      border-#{$dir-value}-style: solid;
+    }
+  } @else {
+    @include novix-responsive($bp) {
+      border-#{$dir-value}-width: $b-value !important;
+      @if $b-key != 0 {
+        border-#{$dir-value}-style: solid;
+      }
+    }
+  }
+}
+
+// ================================================
+// Border Style
+// ================================================
+@mixin border-style($b-key, $bp: null) {
+  @if $bp == null {
+    border-style: $b-key !important;
+  } @else {
+    @include novix-responsive($bp) {
+      border-style: $b-key !important;
+    }
+  }
+}
+@mixin border-style-direction($b-key, $dir-key, $bp: null) {
+  $dir-value: map.get($novix-logical-directions, $dir-key);
+
+  @if $bp == null {
+    border-#{$dir-value}-style: $b-key !important;
+  } @else {
+    @include novix-responsive($bp) {
+      border-#{$dir-value}-style: $b-key !important;
+    }
+  }
+}
+
+// ================================================
+// Border Radius
+// ================================================
+@mixin rounded($r-key, $bp: null) {
+  $r-value: map.get($novix-radius-scale, $r-key);
+
+  @if $bp == null {
+    border-radius: $r-value !important;
+  } @else {
+    @include novix-responsive($bp) {
+      border-radius: $r-value !important;
+    }
+  }
+}
+@mixin rounded-direction($r-key, $dir-key, $bp: null) {
+  $r-value: map.get($novix-radius-scale, $r-key);
+
+  @if $bp == null {
+    @if $dir-key == top {
+      border-top-left-radius: $r-value !important;
+      border-top-right-radius: $r-value !important;
+    } @else if $dir-key == end {
+      border-top-right-radius: $r-value !important;
+      border-bottom-right-radius: $r-value !important;
+    } @else if $dir-key == bottom {
+      border-bottom-left-radius: $r-value !important;
+      border-bottom-right-radius: $r-value !important;
+    } @else if $dir-key == start {
+      border-top-left-radius: $r-value !important;
+      border-bottom-left-radius: $r-value !important;
+    }
+  } @else {
+    @include novix-responsive($bp) {
+      @if $dir-key == top {
+        border-top-left-radius: $r-value !important;
+        border-top-right-radius: $r-value !important;
+      } @else if $dir-key == end {
+        border-top-right-radius: $r-value !important;
+        border-bottom-right-radius: $r-value !important;
+      } @else if $dir-key == bottom {
+        border-bottom-left-radius: $r-value !important;
+        border-bottom-right-radius: $r-value !important;
+      } @else if $dir-key == start {
+        border-top-left-radius: $r-value !important;
+        border-bottom-left-radius: $r-value !important;
+      }
+    }
+  }
+}
+@mixin rounded-corner($r-key, $corner-key, $bp: null) {
+  $r-value: map.get($novix-radius-scale, $r-key);
+
+  @if $bp == null {
+    border-#{$corner-key}-radius: $r-value !important;
+  } @else {
+    @include novix-responsive($bp) {
+      border-#{$corner-key}-radius: $r-value !important;
+    }
+  }
+}
+
+// ================================================
+// Positioning (top, bottom, left, right)
+// ================================================
+@mixin start($val, $bp: null) {
+  @if $bp == null {
+    inset-inline-start: $val !important;
+  } @else {
+    @include novix-responsive($bp) {
+      inset-inline-start: $val !important;
+    }
+  }
+}
+@mixin end($val, $bp: null) {
+  @if $bp == null {
+    inset-inline-end: $val !important;
+  } @else {
+    @include novix-responsive($bp) {
+      inset-inline-end: $val !important;
+    }
+  }
+}
+@mixin top($val, $bp: null) {
+  @if $bp == null {
+    inset-block-start: $val !important;
+  } @else {
+    @include novix-responsive($bp) {
+      top: $val !important;
+    }
+  }
+}
+@mixin bottom($val, $bp: null) {
+  @if $bp == null {
+    inset-block-end: $val !important;
+  } @else {
+    @include novix-responsive($bp) {
+      bottom: $val !important;
+    }
+  }
+}
+
+// ================================================
+// POSITIONING (translate)
+// ================================================
+@mixin translate-middle {
+  transform: translate(-50%, -50%) !important;
+}
+@mixin translate-middle-x {
+  transform: translateX(-50%) !important;
+}
+@mixin translate-middle-y {
+  transform: translateY(-50%) !important;
+}
+@mixin v-center {
+  @include top(50);
+  @include translate-middle-y;
+}
+@mixin h-center {
+  @include start(50);
+  @include translate-middle-x;
+}
+
+// ================================================
+// POSITIONING (position type)
+// ================================================
+@mixin position($type) {
+  position: $type !important;
+}
+
+// ================================================
+// Z-INDEX
+// ================================================
+@mixin z($val, $bp: null) {
+  @if $bp == null {
+    z-index: $val !important;
+  } @else {
+    @include novix-responsive($bp) {
+      z-index: $val !important;
+    }
+  }
+}
+
+// ================================================
+// Cursor
+// ================================================
+@mixin cursor($cursor) {
+  cursor: $cursor !important;
+}
+
+// ================================================
+// Overflow
+// ================================================
+@mixin overflow($value, $axis: null, $bp: null) {
+  @if $bp == null {
+    @if $axis == null {
+      overflow: $value !important;
+    } @else if $axis == x {
+      overflow-x: $value !important;
+    } @else if $axis == y {
+      overflow-y: $value !important;
+    }
+  } @else {
+    @include novix-responsive($bp) {
+      @if $axis == null {
+        overflow: $value !important;
+      } @else if $axis == x {
+        overflow-x: $value !important;
+      } @else if $axis == y {
+        overflow-y: $value !important;
+      }
+    }
+  }
+}
+
+// ================================================
+// Width Utilities
+// ================================================
+@mixin width($key, $bp: null) {
+  $value: map.get($novix-width-values, $key);
+
+  @if $bp == null {
+    width: $value !important;
+  } @else {
+    @include novix-responsive($bp) {
+      width: $value !important;
+    }
+  }
+}

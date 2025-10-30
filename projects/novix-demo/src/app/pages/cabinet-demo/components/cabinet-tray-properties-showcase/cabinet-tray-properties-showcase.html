@@ -1,0 +1,125 @@
+<section id="cabinet-tray-properties-showcase">
+  <div class="sectionHeader">Cabinet Tray Directive Properties Showcase</div>
+  <p class="no-top">
+    Modify the properties below to view how each change the appearance or
+    functionality of a tray inside of the Novix Cabinet.
+  </p>
+  <div><button (click)="cabinetDemoPage.toggleCabinet('cabinetTrayPropertiesShowcase')">Toggle</button></div>
+
+  <div class="d-flex g-4 mt-3">
+    <div class="cabinet-tray-properties-showcase">
+      <div class="row">
+        <div class="header">Property</div>
+        <div class="header">Setting</div>
+      </div>
+      <div class="row">
+        <div>handleText</div>
+        <div>
+          <input type="text" #handleTextInput
+                 [value]="handleText()"
+                 (input)="handleText.set(handleTextInput.value)" />
+        </div>
+      </div>
+      <div class="row">
+        <div>traySize</div>
+        <div>
+          <input type="number" #traySizeInput
+                 [value]="traySize()"
+                 (input)="traySize.set(traySizeInput.value)" />
+                 px
+        </div>
+      </div>
+      <div class="row">
+        <div>handleBackgroundColor</div>
+        <div>
+          <select #handleBackgroundColorSelect
+                  [value]="handleBackgroundColor()"
+                  (change)="handleBackgroundColor.set(handleBackgroundColorSelect.value)">
+                  @for (color of colorOptions; track color) {
+                    <option [value]="color">{{ color }}</option>
+                  }
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div>handleColor</div>
+        <div>
+          <select #handleColorSelect
+                  [value]="handleColor()"
+                  (change)="handleColor.set(handleColorSelect.value)">
+                  @for (color of colorOptions; track color) {
+                    <option [value]="color">{{ color }}</option>
+                  }
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div>handleFontFamily</div>
+        <div>
+          <select #handleFontFamilySelect
+                  [value]="handleFontFamily()"
+                  (change)="handleFontFamily.set(handleFontFamilySelect.value)">
+                  @for (fontFamily of fontFamilyOptions; track fontFamily) {
+                    <option [value]="fontFamily">{{ fontFamily }}</option>
+                  }
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div>handleFontSize</div>
+        <div>
+          <select #fontSizeSelect
+                  [value]="handleFontSize()"
+                  (change)="handleFontSize.set(fontSizeSelect.value)">
+                  @for (fontSize of fontSizeOptions; track fontSize) {
+                    <option [value]="fontSize">{{ fontSize }}</option>
+                  }
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div>contentBackgroundColor</div>
+        <div>
+          <select #contentBackgroundColorSelect
+                  [value]="contentBackgroundColor()"
+                  (change)="contentBackgroundColor.set(contentBackgroundColorSelect.value)">
+                  @for (color of colorOptions; track color) {
+                    <option [value]="color">{{ color }}</option>
+                  }
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div>contentBorderColor</div>
+        <div>
+          <select #contentBorderColorSelect
+                  [value]="contentBorderColor()"
+                  (change)="contentBorderColor.set(contentBorderColorSelect.value)">
+                  @for (color of colorOptions; track color) {
+                    <option [value]="color">{{ color }}</option>
+                  }
+          </select>
+        </div>
+      </div>
+    </div>
+    <div>
+      <app-code-block [language]="'markdown'" [code]="cabinetTrayCode()" [noTopMargin]="true" />
+    </div>
+  </div>
+</section>
+
+@if (cabinetDemoPage.demoVisibility.cabinetTrayPropertiesShowcase()) {
+  <novix-cabinet>
+    <ng-template novix-cabinet-tray
+      [handleText]="handleText()"
+      [traySize]="traySize().trim() === '' ? '' : traySize() + 'px'"
+      [handleBackgroundColor]="handleBackgroundColor() === 'default' ? '' : handleBackgroundColor()"
+      [handleColor]="handleColor() === 'default' ? '' : handleColor()"
+      [handleFontFamily]="handleFontFamily() === 'default' ? '' : handleFontFamily()"
+      [handleFontSize]="handleFontSize() === 'default' ? '' : handleFontSize()"
+      [contentBackgroundColor]="contentBackgroundColor() === 'default' ? '' : contentBackgroundColor()"
+      [contentBorderColor]="contentBorderColor() === 'default' ? '' : contentBorderColor()">
+      <ng-container *ngTemplateOutlet="cabinetDemoPage.quickSettingsContent" />
+    </ng-template>
+  </novix-cabinet>
+}

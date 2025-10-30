@@ -1,0 +1,47 @@
+<section id="basic-usage" class="mt-3">
+  <div class="sectionHeader">📖 Basic Usage</div>
+  <p>
+    To get started with the <strong>Novix Cabinet</strong>, first import the
+    <span class="code-line">NovixCabinetModule</span> into your Angular
+    component.
+  </p>
+  <p>
+    Once available, add the <span class="code-line">&lt;novix-cabinet&gt;</span>
+    element to your template. Inside the cabinet, define one or more trays by
+    using the <span class="code-line">&lt;ng-template novix-cabinet-tray&gt;</span>
+    template and directive for each tray you want to include.
+  </p>
+  <p>
+    Each tray should provide a <strong>handle label</strong> so users can
+    identify and interact with it.
+  </p>
+  <p>
+    This setup gives you a fully functional cabinet with customizable trays --
+    the simplest way to start using Novix Cabinet in your application.
+  </p>
+  <p>
+    <span class="text-warn fw-bold">IMPORTANT NOTE:</span> When using a vertical and
+    a horizontal cabinet there will be overlapping at the corner that they meet. Make
+    sure to either using <span class="code-line">edgMargin</span> or
+    <span class="code-line">justifyHandles</span> so that all handles are clickable.
+  </p>
+  <div>
+    <span class="linkButton" (click)="cabinetDemoPage.hideAllCabinets()">Close all cabinets</span>
+    <button class="ms-3" (click)="cabinetDemoPage.toggleCabinet('basicDemo')">Toggle</button>
+  </div>
+  <app-code-block [language]="'markdown'" [code]="basicCabinetUsage" />
+
+  @if (cabinetDemoPage.demoVisibility.basicDemo()) {
+    <novix-cabinet>
+      <ng-template novix-cabinet-tray
+        [handleText]="'First Tray'">
+        <ng-container *ngTemplateOutlet="cabinetDemoPage.quickSettingsContent"></ng-container>
+      </ng-template>
+
+      <ng-template novix-cabinet-tray
+        [handleText]="'Second Tray'">
+        <ng-container *ngTemplateOutlet="cabinetDemoPage.liveStatsContent"></ng-container>
+      </ng-template>
+    </novix-cabinet>
+  }
+</section>

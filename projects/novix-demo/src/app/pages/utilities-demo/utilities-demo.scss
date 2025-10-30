@@ -1,21 +1,16 @@
-@use 'novix-engine/styles/placeholders';
-@use '../../styles/styles-placeholders.scss';
+@use 'novix-engine/styles/base/mixins' as *;
+@use '../../shared-mixins.scss' as *;
 
 hr {
-  @extend %container;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  @include container;
+  @include m(3, t);
+  @include m(3, b);
 }
 
 section {
-  @extend %container;
-}
-
-.sectionHeader {
-  @extend %fs-2;
-  @extend %fw-bold;
+  @include container;
 }
 
 table {
-  @extend %common-table;
+  //@include common-table;
 }

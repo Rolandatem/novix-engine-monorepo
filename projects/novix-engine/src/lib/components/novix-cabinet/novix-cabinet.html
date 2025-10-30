@@ -1,0 +1,46 @@
+<!-- HANDLES -->
+<div class="novix-cabinet-handle-container"
+     [class.attach-left-right]="!isVertical()"
+     [class.attach-top-bottom]="isVertical()"
+     [style.justify-content]="justifyHandles()">
+  @for (tray of trays.toArray(); let i = $index; track i) {
+    <div class="novix-cabinet-tray-handle" #handleElement
+         [class.rounded-end-lg]="rounded() && attachDirection() === 'left'"
+         [class.rounded-start-lg]="rounded() && attachDirection() === 'right'"
+         [class.rounded-bottom-lg]="rounded() && attachDirection() === 'top'"
+         [class.rounded-top-lg]="rounded() && attachDirection() === 'bottom'"
+         [class.attach-left-right]="!isVertical()"
+         [class.attach-top-bottom]="isVertical()"
+         [style.left]="tray.calculatedHandleLeftPosition()"
+         [style.right]="tray.calculatedHandleRightPosition()"
+         [style.top]="tray.calculatedHandleTopPosition()"
+         [style.bottom]="tray.calculatedHandleBottomPosition()"
+         [style.background-color]="tray.handleBackgroundColor()"
+         [style.color]="tray.handleColor()"
+         [style.font-family]="tray.handleFontFamily()"
+         [style.font-size]="tray.handleFontSize()"
+         (click)="toggleTray(i)">
+
+      {{ tray.handleText() }}
+    </div>
+  }
+</div>
+
+<!-- TRAYS -->
+<div class="novix-cabinet-trays"
+  [class.attach-left-right]="!isVertical()"
+  [class.attach-top-bottom]="isVertical()">
+  @for (tray of trays.toArray(); let i = $index; track i) {
+    <div class="novix-cabinet-tray" #trayElement
+      [style.left]="tray.calculatedLeftPosition()"
+      [style.right]="tray.calculatedRightPosition()"
+      [style.top]="tray.calculatedTopPosition()"
+      [style.bottom]="tray.calculatedBottomPosition()"
+      [style.width]="tray.calculatedWidth()"
+      [style.height]="tray.calculatedHeight()"
+      [style.background-color]="tray.contentBackgroundColor()"
+      [style.border-color]="tray.contentBorderColor()">
+      <ng-container *ngTemplateOutlet="tray.templateRef"></ng-container>
+    </div>
+  }
+</div>
