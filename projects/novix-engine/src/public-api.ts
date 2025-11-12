@@ -14,6 +14,7 @@ export * from './lib/services/theme/novix-eng-theme-service';
 
 //--Modules
 export * from './lib/components/novix-cabinet';
+export * from './lib/components/novix-switch';
 
 //--Tools
 export * from './lib/tools/server/novix-server-tools';
@@ -22,4 +23,6 @@ export * from './lib/tools/server/novix-server-tools-express';
 // export * from './lib/tools/server/novix-server-tools-fastify';
 // export * from './lib/tools/server/novix-server-tools-hapi';
 // export * from './lib/tools/server/novix-server-tools-koa';
+
+//--Interfaces / Types
 export * from './lib/types/NovixCardinalDirections';

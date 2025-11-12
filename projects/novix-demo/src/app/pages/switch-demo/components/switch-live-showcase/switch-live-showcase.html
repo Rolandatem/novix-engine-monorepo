@@ -1,0 +1,105 @@
+<section id="live-showcase" class="mt-3">
+  <div class="sectionHeader">🎬 Live Showcase</div>
+  <div class="d-flex mt-5 g-5">
+    <div>
+      <div>
+        <novix-switch
+          [(checked)]="checkedState"
+          [uiMode]="uiModeCasted()"
+          [rounded]="rounded()"
+          [trueBackgroundColor]="trueBackgroundColor() === 'default' ? null : trueBackgroundColor()"
+          [falseBackgroundColor]="falseBackgroundColor() === 'default' ? null : falseBackgroundColor()"
+          [trackBorderColor]="trackBorderColor() === 'default' ? null : trackBorderColor()"
+          [thumbColor]="thumbColor() === 'default' ? null : thumbColor()" />
+      </div>
+      <div>[{{checkedState()}}]</div>
+    </div>
+    <div>
+      <div class="showcase-property-table">
+        <div class="row">
+          <div class="header">Property</div>
+          <div class="header">Setting</div>
+        </div>
+
+        <div class="row">
+          <div>uiMode</div>
+          <div>
+            <select #uiModeSelect
+                    [value]="uiMode()"
+                    (change)="uiMode.set(uiModeSelect.value)">
+                @for (val of uiModeOptions; track val) {
+                  <option [value]="val">{{ val }}</option>
+                }
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div>rounded</div>
+          <div>
+            <input type="checkbox"
+                   #roundedCheckbox
+                   [checked]="rounded()"
+                   (change)="rounded.set(roundedCheckbox.checked)" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div>trueBackgroundColor</div>
+          <div>
+            <select #trueBackgroundColorSelect
+                    [value]="trueBackgroundColor()"
+                    (change)="trueBackgroundColor.set(trueBackgroundColorSelect.value)">
+                @for (color of colorOptions; track color) {
+                  <option [value]="color">{{ color }}</option>
+                }
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div>falseBackgroundColor</div>
+          <div>
+            <select #falseBackgroundColorSelect
+                    [value]="falseBackgroundColor()"
+                    (change)="falseBackgroundColor.set(falseBackgroundColorSelect.value)">
+                @for (color of colorOptions; track color) {
+                  <option [value]="color">{{ color }}</option>
+                }
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div>trackBorderColor</div>
+          <div>
+            <select #trackBorderColorSelect
+                    [value]="trackBorderColor()"
+                    (change)="trackBorderColor.set(trackBorderColorSelect.value)">
+                @for (color of colorOptions; track color) {
+                  <option [value]="color">{{ color }}</option>
+                }
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div>thumbColor</div>
+          <div>
+            <select #thumbColorSelect
+                    [value]="thumbColor()"
+                    (change)="thumbColor.set(thumbColorSelect.value)">
+                @for (color of colorOptions; track color) {
+                  <option [value]="color">{{ color }}</option>
+                }
+            </select>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div>
+      <app-code-block [language]="'markdown'" [code]="codeComputed()" [noTopMargin]="true" />
+    </div>
+  </div>
+</section>

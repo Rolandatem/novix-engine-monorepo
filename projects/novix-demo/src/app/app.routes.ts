@@ -4,11 +4,13 @@ import { ColorsDemo } from './pages/colors-demo/colors-demo';
 import { UtilitiesDemo } from './pages/utilities-demo/utilities-demo';
 import { ThemesDemo } from './pages/themes-demo/themes-demo';
 import { CabinetDemo } from './pages/cabinet-demo/cabinet-demo';
+import { SwitchDemo } from './pages/switch-demo/switch-demo';
 
 export const routes: Routes = [
   { path: '', component: Home },
   { path: 'colors-demo', component: ColorsDemo },
   { path: 'utilities-demo', component: UtilitiesDemo },
   { path: 'themes-demo', component: ThemesDemo },
-  { path: 'cabinet-demo', component: CabinetDemo}
+  { path: 'cabinet-demo', component: CabinetDemo},
+  { path: 'switch-demo', component: SwitchDemo }
 ];

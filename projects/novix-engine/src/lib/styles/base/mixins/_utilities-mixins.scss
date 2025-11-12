@@ -15,8 +15,10 @@
     }
   } @else {
     @include novix-responsive($bp) {
-      @each $prop in $props {
-        #{$prop}: $value !important;
+      & {
+        @each $prop in $props {
+          #{$prop}: $value !important;
+        }
       }
     }
   }
@@ -31,12 +33,16 @@
 
   @if $bp == null {
     @each $prop in $props {
-      #{$prop}: $value !important;
+      & {
+        #{$prop}: $value !important;
+      }
     }
   } @else {
     @include novix-responsive($bp) {
       @each $prop in $props {
-        #{$prop}: $value !important;
+        & {
+          #{$prop}: $value !important;
+        }
       }
     }
   }
@@ -47,10 +53,14 @@
 // ================================================
 @mixin d($display, $bp: null) {
   @if $bp == null {
-    display: $display !important;
+    & {
+      display: $display !important;
+    }
   } @else {
     @include novix-responsive($bp) {
-      display: $display !important;
+      & {
+        display: $display !important;
+      }
     }
   }
 }
@@ -63,7 +73,9 @@
     flex-wrap: $wrap !important;
   } @else {
     @include novix-responsive($bp) {
-      flex-wrap: $wrap !important;
+      & {
+        flex-wrap: $wrap !important;
+      }
     }
   }
 }
@@ -76,7 +88,9 @@
     flex-direction: $direction !important;
   } @else {
     @include novix-responsive($bp) {
-      flex-direction: $direction !important;
+      & {
+        flex-direction: $direction !important;
+      }
     }
   }
 }
@@ -89,7 +103,9 @@
     flex-grow: $level !important;
   } @else {
     @include novix-responsive($bp) {
-      flex-grow: $level !important;
+      & {
+        flex-grow: $level !important;
+      }
     }
   }
 }
@@ -98,7 +114,9 @@
     flex-shrink: $level !important;
   } @else {
     @include novix-responsive($bp) {
-      flex-shrink: $level !important;
+      & {
+        flex-shrink: $level !important;
+      }
     }
   }
 }
@@ -111,7 +129,9 @@
     flex-basis: $value !important;
   } @else {
     @include novix-responsive($bp) {
-      flex-basis: $value !important;
+      & {
+        flex-basis: $value !important;
+      }
     }
   }
 }
@@ -124,7 +144,9 @@
     flex: $value !important;
   } @else {
     @include novix-responsive($bp) {
-      flex: $value !important;
+      & {
+        flex: $value !important;
+      }
     }
   }
 }
@@ -137,10 +159,14 @@
   $prop: map.get($novix-gap-values, $abbr);
 
   @if $bp == null {
-    #{$prop}: $value !important;
+    & {
+      #{$prop}: $value !important;
+    }
   } @else {
     @include novix-responsive($bp) {
-      #{$prop}: $value !important;
+      & {
+        #{$prop}: $value !important;
+      }
     }
   }
 }
@@ -149,14 +175,16 @@
 // Order Utilities
 // ================================================
 @mixin order($value, $bp: null) {
-  @if $value == first { $value: -1 }
+  @if $value == first { $value: -1; }
   @if $value == last { $value: 999; }
 
   @if $bp == null {
     order: $value !important;
   } @else {
     @include novix-responsive($bp) {
-      order: $value !important;
+      & {
+        order: $value !important;
+      }
     }
   }
 }
@@ -168,10 +196,14 @@
   $value: map.get($novix-justify-values, $key);
 
   @if $bp == null {
-    justify-content: $value !important;
+    & {
+      justify-content: $value !important;
+    }
   } @else {
     @include novix-responsive($bp) {
-      justify-content: $value !important;
+      & {
+        justify-content: $value !important;
+      }
     }
   }
 }
@@ -183,10 +215,14 @@
   $value: map.get($novix-align-values, $key);
 
   @if $bp == null {
-    align-items: $value !important;
+    & {
+      align-items: $value !important;
+    }
   } @else {
     @include novix-responsive($bp) {
-      align-items: $value !important;
+      & {
+        align-items: $value !important;
+      }
     }
   }
 }
@@ -201,7 +237,9 @@
     align-self: $value !important;
   } @else {
     @include novix-responsive($bp) {
-      align-self: $value !important;
+      & {
+        align-self: $value !important;
+      }
     }
   }
 }
@@ -217,7 +255,9 @@
   @if $fluid == false {
     @each $bp, $max in $novix-container-max-widths {
       @include novix-responsive($bp) {
-        max-width: $max;
+        & {
+          max-width: $max;
+        }
       }
     }
   } @else {
@@ -232,15 +272,21 @@
   $b-value: map.get($novix-border-width-values, $b-key);
 
   @if $bp == null {
-    border-width: $b-value !important;
+    & {
+      border-width: $b-value !important;
+    }
     @if $b-key != 0 {
-      border-style: solid;
+      & {
+        border-style: solid;
+      }
     }
   } @else {
     @include novix-responsive($bp) {
-      border-width: $b-value !important;
-      @if $b-key != 0 {
-        border-style: solid;
+      & {
+        border-width: $b-value !important;
+        @if $b-key != 0 {
+          border-style: solid;
+        }
       }
     }
   }
@@ -256,9 +302,11 @@
     }
   } @else {
     @include novix-responsive($bp) {
-      border-#{$dir-value}-width: $b-value !important;
-      @if $b-key != 0 {
-        border-#{$dir-value}-style: solid;
+      & {
+        border-#{$dir-value}-width: $b-value !important;
+        @if $b-key != 0 {
+          border-#{$dir-value}-style: solid;
+        }
       }
     }
   }
@@ -272,7 +320,9 @@
     border-style: $b-key !important;
   } @else {
     @include novix-responsive($bp) {
-      border-style: $b-key !important;
+      & {
+        border-style: $b-key !important;
+      }
     }
   }
 }
@@ -283,7 +333,9 @@
     border-#{$dir-value}-style: $b-key !important;
   } @else {
     @include novix-responsive($bp) {
-      border-#{$dir-value}-style: $b-key !important;
+      & {
+        border-#{$dir-value}-style: $b-key !important;
+      }
     }
   }
 }
@@ -295,10 +347,14 @@
   $r-value: map.get($novix-radius-scale, $r-key);
 
   @if $bp == null {
-    border-radius: $r-value !important;
+    & {
+      border-radius: $r-value !important;
+    }
   } @else {
     @include novix-responsive($bp) {
-      border-radius: $r-value !important;
+      & {
+        border-radius: $r-value !important;
+      }
     }
   }
 }
@@ -321,18 +377,20 @@
     }
   } @else {
     @include novix-responsive($bp) {
-      @if $dir-key == top {
-        border-top-left-radius: $r-value !important;
-        border-top-right-radius: $r-value !important;
-      } @else if $dir-key == end {
-        border-top-right-radius: $r-value !important;
-        border-bottom-right-radius: $r-value !important;
-      } @else if $dir-key == bottom {
-        border-bottom-left-radius: $r-value !important;
-        border-bottom-right-radius: $r-value !important;
-      } @else if $dir-key == start {
-        border-top-left-radius: $r-value !important;
-        border-bottom-left-radius: $r-value !important;
+      & {
+        @if $dir-key == top {
+          border-top-left-radius: $r-value !important;
+          border-top-right-radius: $r-value !important;
+        } @else if $dir-key == end {
+          border-top-right-radius: $r-value !important;
+          border-bottom-right-radius: $r-value !important;
+        } @else if $dir-key == bottom {
+          border-bottom-left-radius: $r-value !important;
+          border-bottom-right-radius: $r-value !important;
+        } @else if $dir-key == start {
+          border-top-left-radius: $r-value !important;
+          border-bottom-left-radius: $r-value !important;
+        }
       }
     }
   }
@@ -344,7 +402,9 @@
     border-#{$corner-key}-radius: $r-value !important;
   } @else {
     @include novix-responsive($bp) {
-      border-#{$corner-key}-radius: $r-value !important;
+      & {
+        border-#{$corner-key}-radius: $r-value !important;
+      }
     }
   }
 }
@@ -357,7 +417,9 @@
     inset-inline-start: $val !important;
   } @else {
     @include novix-responsive($bp) {
-      inset-inline-start: $val !important;
+      & {
+        inset-inline-start: $val !important;
+      }
     }
   }
 }
@@ -366,7 +428,9 @@
     inset-inline-end: $val !important;
   } @else {
     @include novix-responsive($bp) {
-      inset-inline-end: $val !important;
+      & {
+        inset-inline-end: $val !important;
+      }
     }
   }
 }
@@ -375,7 +439,9 @@
     inset-block-start: $val !important;
   } @else {
     @include novix-responsive($bp) {
-      top: $val !important;
+      & {
+        top: $val !important;
+      }
     }
   }
 }
@@ -384,7 +450,9 @@
     inset-block-end: $val !important;
   } @else {
     @include novix-responsive($bp) {
-      bottom: $val !important;
+      & {
+        bottom: $val !important;
+      }
     }
   }
 }
@@ -414,7 +482,9 @@
 // POSITIONING (position type)
 // ================================================
 @mixin position($type) {
-  position: $type !important;
+  & {
+    position: $type !important;
+  }
 }
 
 // ================================================
@@ -422,10 +492,14 @@
 // ================================================
 @mixin z($val, $bp: null) {
   @if $bp == null {
-    z-index: $val !important;
+    & {
+      z-index: $val !important;
+    }
   } @else {
     @include novix-responsive($bp) {
-      z-index: $val !important;
+      & {
+        z-index: $val !important;
+      }
     }
   }
 }
@@ -434,7 +508,9 @@
 // Cursor
 // ================================================
 @mixin cursor($cursor) {
-  cursor: $cursor !important;
+  & {
+    cursor: $cursor !important;
+  }
 }
 
 // ================================================
@@ -451,12 +527,14 @@
     }
   } @else {
     @include novix-responsive($bp) {
-      @if $axis == null {
-        overflow: $value !important;
-      } @else if $axis == x {
-        overflow-x: $value !important;
-      } @else if $axis == y {
-        overflow-y: $value !important;
+      & {
+        @if $axis == null {
+          overflow: $value !important;
+        } @else if $axis == x {
+          overflow-x: $value !important;
+        } @else if $axis == y {
+          overflow-y: $value !important;
+        }
       }
     }
   }
@@ -472,7 +550,9 @@
     width: $value !important;
   } @else {
     @include novix-responsive($bp) {
-      width: $value !important;
+      & {
+        width: $value !important;
+      }
     }
   }
 }

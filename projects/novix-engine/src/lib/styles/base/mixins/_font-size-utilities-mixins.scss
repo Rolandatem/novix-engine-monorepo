@@ -10,7 +10,9 @@
     font-size: map.get($novix-font-sizes, $level) !important;
   } @else {
     @include novix-responsive($bp) {
-      font-size: map.get($novix-font-sizes, $level) !important;
+      & {
+        font-size: map.get($novix-font-sizes, $level) !important;
+      }
     }
   }
 }

@@ -17,8 +17,10 @@
     }
   } @else {
     @include novix-responsive($bp) {
-      #{if($state, "&:#{$state}", "&")} {
-        color: $color !important;
+      & {
+        #{if($state, "&:#{$state}", "&")} {
+          color: $color !important;
+        }
       }
     }
   }
@@ -36,8 +38,10 @@
     }
   } @else {
     @include novix-responsive($bp) {
-      #{if($state, "&:#{$state}", "&")} {
-        background-color: $color !important;
+      & {
+        #{if($state, "&:#{$state}", "&")} {
+          background-color: $color !important;
+        }
       }
     }
   }
@@ -55,8 +59,10 @@
     }
   } @else {
     @include novix-responsive($bp) {
-      #{if($state, "&:#{$state}", "&")} {
-        border-color: $color !important;
+      & {
+        #{if($state, "&:#{$state}", "&")} {
+          border-color: $color !important;
+        }
       }
     }
   }
@@ -79,8 +85,10 @@
     }
   } @else {
     @include novix-responsive($bp) {
-      #{if($state, "&:#{$state}", "&")} {
-        border-#{$css-dir}-color: $color !important;
+      & {
+        #{if($state, "&:#{$state}", "&")} {
+          border-#{$css-dir}-color: $color !important;
+        }
       }
     }
   }

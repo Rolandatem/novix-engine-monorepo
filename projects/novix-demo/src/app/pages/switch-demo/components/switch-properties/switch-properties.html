@@ -1,0 +1,70 @@
+<section id="switch-properties" class="mt-3">
+  <div class="sectionHeader">Properties</div>
+  <p>
+    The following properties let you customize the Novix Switch. Bolded
+    options are the default values.
+  </p>
+  <div class="properties-table">
+    <div class="row">
+      <div class="header">Property</div>
+      <div class="header">Type</div>
+      <div class="header">Options</div>
+      <div class="header">Description</div>
+    </div>
+    <div class="row">
+      <div class="text-primary">checked</div>
+      <div>boolean</div>
+      <div></div>
+      <div>
+        Reactive boolean state of the switch. Bind it to a plain boolean or an
+        Angular signal for two-way updates. <strong>NOTE:</strong> Make sure to
+        bind with "banana-in-basket" format, i.e. <span class="code-line">[(checked)]</span>.
+      </div>
+    </div>
+    <div class="row">
+      <div class="text-primary">config</div>
+      <div>INovixSwitchConfiguration</div>
+      <div></div>
+      <div>
+        Optional configuration object that predefines the values below. Useful for re-using
+        common settings across multiple switches without repeating them each time.
+      </div>
+    </div>
+    <div class="row">
+      <div class="text-primary">uiMode</div>
+      <div>string</div>
+      <div><strong>horizontal</strong> | vertical</div>
+      <div>UI Mode to use, horizontal for a pill switch, and vertical for a mechanical toggle.</div>
+    </div>
+    <div class="row">
+      <div class="text-primary">rounded</div>
+      <div>boolean</div>
+      <div><strong>true</strong> | false</div>
+      <div>Whether to display the switch with rounded borders, otherwise squared.</div>
+    </div>
+    <div class="row">
+      <div class="text-primary">trueBackgroundColor</div>
+      <div>string</div>
+      <div><strong>--novix-primary</strong></div>
+      <div>Background color of the switch when set to 'true'.</div>
+    </div>
+    <div class="row">
+      <div class="text-primary">falseBackgroundColor</div>
+      <div>string</div>
+      <div><strong>--novix-neutral-variant</strong></div>
+      <div>Background color of the switch when set to 'false'.</div>
+    </div>
+    <div class="row">
+      <div class="text-primary">trackBorderColor</div>
+      <div>string</div>
+      <div><strong>--novix-neutral</strong></div>
+      <div>Border color for the switch track.</div>
+    </div>
+    <div class="row">
+      <div class="text-primary">thumbColor</div>
+      <div>string</div>
+      <div><strong>--novix-surface-variant</strong></div>
+      <div>Color of the thumb of the switch that moves.</div>
+    </div>
+  </div>
+</section>

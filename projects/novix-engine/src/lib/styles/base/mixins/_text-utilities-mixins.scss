@@ -41,7 +41,9 @@
     text-align: $alignment !important;
   } @else {
     @include novix-responsive($bp) {
-      text-align: $alignment !important;
+      & {
+        text-align: $alignment !important;
+      }
     }
   }
 }
@@ -54,7 +56,9 @@
     white-space: $wrap !important;
   } @else {
     @include novix-responsive($bp) {
-      white-space: $wrap !important;
+      & {
+        white-space: $wrap !important;
+      }
     }
   }
 }
@@ -76,7 +80,9 @@
     line-height: map.get($novix-line-heights, $level) !important;
   } @else {
     @include novix-responsive($bp) {
-      line-height: map.get($novix-line-heights, $level) !important;
+      & {
+        line-height: map.get($novix-line-heights, $level) !important;
+      }
     }
   }
 }

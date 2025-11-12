@@ -1,0 +1,34 @@
+<section id="css-overrides" class="mt-3">
+  <div class="sectionHeader">CSS Overrides</div>
+  <p>
+    Some visual aspects of the Novix Switch can be customized with plain CSS. The following
+    CSS variables are available for override.
+  </p>
+  <div class="css-overrides-table">
+    <div class="row">
+      <div class="header">Variable</div>
+      <div class="header">Description</div>
+    </div>
+    <div class="row">
+      <div class="text-primary">--novix-switch-true-background-color</div>
+      <div>Defines the background color of the switch in 'true' state.</div>
+    </div>
+    <div class="row">
+      <div class="text-primary">--novix-switch-false-background-color</div>
+      <div>Defines the background color of the switch in the 'false' state.</div>
+    </div>
+    <div class="row">
+      <div class="text-primary">--novix-switch-track-border-color</div>
+      <div>Sets the border color that is used surrounding the switch.</div>
+    </div>
+    <div class="row">
+      <div class="text-primary">--novix-switch-thumb-color</div>
+      <div>Sets the color of the thumb (moving part) of the switch.</div>
+    </div>
+  </div>
+  <hr />
+  <div>All Switches on a page</div>
+  <div><app-code-block [language]="'css'" [code]="computedCodeExample()" /></div>
+  <div>Specific switch on a page</div>
+  <div><app-code-block [language]="'css'" [code]="computedCodeExample('#my-specific-switch')" /></div>
+</section>

@@ -1,0 +1,16 @@
+<div class="fs-4 fw-bold">INovixSwitchConfiguration</div>
+<p>
+  The <strong>INovixSwitchConfiguration</strong> interface defines all the
+  available properties for the Novix Switch. You can use it to create a single
+  shared configuration that can be applied to every switch on a page, or
+  define multiple configurations and assign them to different switches as needed.
+</p>
+<div class="d-flex g-3">
+  <novix-switch [config]="switchConfig" />
+  <novix-switch [config]="switchConfig" />
+</div>
+<div class="d-flex g-3">
+  <app-code-block [language]="'typescript'" [code]="interfaceCode()" />
+  <app-code-block [language]="'typescript'" [code]="exampleSwitchConfig()" />
+  <app-code-block [language]="'markdown'" [code]="exampleSwitchCode()" />
+</div>

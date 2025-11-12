@@ -1,0 +1,101 @@
+@use '../../styles/base/mixins' as *;
+
+:host {
+  --novix-switch-true-background-color: var(--novix-primary);
+  --novix-switch-false-background-color: var(--novix-neutral-variant);
+  --novix-switch-track-border-color: var(--novix-neutral);
+  --novix-switch-thumb-color: var(--novix-surface-variant);
+}
+
+/* =========================================
+   Base (only the truly shared bits)
+   ========================================= */
+.novix-switch {
+  & {
+    @include position(relative);
+    @include d(inline-flex);
+    @include cursor(pointer);
+  }
+
+  input {
+    opacity: 0;
+    pointer-events: none;
+    @include position(absolute);
+  }
+
+  input:checked + .novix-switch-track {
+    background-color: var(--novix-switch-true-background-color);
+  }
+}
+
+/* =========================================
+   Horizontal (pill style)
+   ========================================= */
+.novix-switch--horizontal {
+  @include align-items(center);
+
+  .novix-switch-track {
+      width: 45px;
+      height: 22px;
+      transition: background-color 0.2s ease;
+      background-color: var(--novix-switch-false-background-color);
+      border-color: var(--novix-switch-track-border-color);
+      @include p(1);
+      @include d(flex);
+      @include align-items(center);
+      @include justify-content(start);
+      @include border-width(2);
+
+    &.rounded {
+      @include rounded(pill);
+    }
+  }
+
+  .novix-switch-thumb {
+    width: 14px;
+    height: 14px;
+    transform: translateX(0);
+    transition: transform 0.25s cubic-bezier(0.4, 1.4, 0.4, 1);
+    background-color: var(--novix-switch-thumb-color);
+    @include rounded(lg);
+  }
+
+  input:checked + .novix-switch-track .novix-switch-thumb {
+    transform: translateX(22px);
+  }
+}
+
+/* =========================================
+   Vertical (mechanical lever style)
+   ========================================= */
+.novix-switch--vertical {
+  flex-direction: column;
+
+  .novix-switch-track {
+    width: 30px;
+    height: 32px;
+    transition: background-color 0.2s ease;
+    background-color: var(--novix-switch-false-background-color);
+    border-color: var(--novix-switch-track-border-color);
+    @include d(flex);
+    @include align-items(center);
+    @include justify-content(center);
+    @include rounded(pill);  //--Optional
+    @include border-width(2);
+  }
+
+  .novix-switch-thumb {
+    width: 6px;
+    height: 20px;
+    background-color: var(--novix-switch-thumb-color);
+    transform-origin: bottom center;
+    transform: rotate(-25deg);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.6);
+    transition: transform 0.25s cubic-bezier(0.4, 1.4, 0.4, 1);
+    @include rounded(md);
+  }
+
+  input:checked + .novix-switch-track .novix-switch-thumb {
+    transform: rotate(25deg);
+  }
+}

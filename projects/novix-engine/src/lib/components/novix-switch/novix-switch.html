@@ -1,0 +1,20 @@
+<label
+  class="novix-switch"
+  [class.novix-switch--horizontal]="settingsComputed().uiMode === 'horizontal'"
+  [class.novix-switch--vertical]="settingsComputed().uiMode === 'vertical'">
+
+  <input type="checkbox"
+         [checked]="checked()"
+         (change)="checked.set($event.target.checked)" />
+
+  <!-- Track/Base -->
+  <span class="novix-switch-track"
+    [class.rounded]="settingsComputed().rounded"
+    [style.--novix-switch-true-background-color]="settingsComputed().trueBackgroundColor"
+    [style.--novix-switch-false-background-color]="settingsComputed().falseBackgroundColor"
+    [style.--novix-switch-track-border-color]="settingsComputed().trackBorderColor">
+    <!-- Thumb for horizontal, Lever for vertical -->
+    <span class="novix-switch-thumb"
+      [style.--novix-switch-thumb-color]="settingsComputed().thumbColor"></span>
+  </span>
+</label>

@@ -102,15 +102,14 @@
   .novix-cabinet-tray {
     background-color: var(--novix-cabinet-tray-content-background-color);
     border-color: var(--novix-cabinet-tray-content-border-color);
+    transition: left 0.3s ease,
+                right 0.3s ease,
+                top 0.3s ease,
+                bottom 0.3s ease;
     @include border-style(solid);
     @include border-width(1);
     @include z(1002);
     @include p(3);
     @include position(absolute);
-
-    transition: left 0.3s ease,
-                right 0.3s ease,
-                top 0.3s ease,
-                bottom 0.3s ease;
   }
 }

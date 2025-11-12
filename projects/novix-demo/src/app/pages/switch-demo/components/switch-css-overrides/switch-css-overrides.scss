@@ -1,0 +1,6 @@
+@use '../../../../shared-mixins.scss' as *;
+
+.css-overrides-table {
+  grid-template-columns: auto 1fr;
+  @include responsive-table;
+}
